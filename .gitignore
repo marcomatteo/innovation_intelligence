@@ -1,0 +1,23 @@
+# Ignore everything
+*
+
+# all files that starts with . and _
+.*
+_*
+
+# Don't ignore directories, so we can recurse into them
+!*/
+
+# Don't ignore .gitignore
+!.gitignore
+
+# Now exclude our type
+!*.py
+
+# Exclude __init__ and __main__
+!__init__.py
+!__main__.py
+
+/Scripts
+/i2fvg_test
+
