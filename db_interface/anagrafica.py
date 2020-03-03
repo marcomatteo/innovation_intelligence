@@ -5,17 +5,9 @@ Classe per la tabella DATA_Imprese di Innovation Intelligence.
 
 Innovation Intelligence in Python
 Marco Matteo Buzzulini
-"""
-import os
+"""  
 
-path = f"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts"
-try:
-    os.chdir(path)
-    #print(f"Current dir: {os.getcwd()}")
-except:
-    print("Can't load the right dir")   
-
-from innovation_intelligence.db_interface.i2fvg import I2FVG
+from .i2fvg import I2FVG
 import pandas as pd
 
 class Anagrafica(I2FVG):

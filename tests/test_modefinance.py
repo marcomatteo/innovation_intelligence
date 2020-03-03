@@ -52,7 +52,7 @@ class Test_Modefinance(test.TestCase):
     # -----------
     @classmethod
     def setUpClass(cls):
-        cls.modefinance = Modefinance("MFSourceSample_test.csv")
+        cls.modefinance = Modefinance("MFSourceSample.csv")
 
     def test_acceptance_fileExtension(self):
         default_type = self.source_default_type
@@ -89,6 +89,7 @@ class Test_Modefinance(test.TestCase):
             columns_types,
             "Data Provider wrong columns types. Expected {}".format(default_columns_type)
         )
+    
     def test_acceptance_columnsMaxLenght(self):
         default_columns_max_lenght = self.columns_max_lenght
         columns_max_lenght = getColumnsMaxLenght(self.modefinance.df)
@@ -143,7 +144,7 @@ class Test_Modefinance(test.TestCase):
         Test che la colonna 'final_rank' contenga valori compresi tra 1 e 10
         """
         # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        default_values_list = list(range(1,11))
+        default_values_list = list(range(0,11))
 
         for index, value in self.modefinance.df['final_rank'].items():
             cond = value in default_values_list
@@ -155,8 +156,6 @@ class Test_Modefinance(test.TestCase):
                     )
                 )
             
-
-
     def test_acceptance_columnsDateFormat(self):
 
         def dateTextIsValid(text: str, date_format: str) -> bool:

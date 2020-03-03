@@ -9,8 +9,8 @@ class DataProvider:
     """
     
     # Path of the source files
-    file_path = "C:/Users/buzzulini/OneDrive - Area Science Park"\
-                + "/Attività/Innovation Intelligence/Fonti/"
+    file_path = r"C:/Users/buzzulini/OneDrive - Area Science Park"\
+                + r"/Attività/Innovation Intelligence/Fonti/"
 
     def __init__(self, file_name, sep=None, sheet_name=None):
         # File name
@@ -40,7 +40,7 @@ class DataProvider:
             else:
                 self.df = pd.read_csv(self.file_name)
         # If EXCEL
-        elif self.file_ext == 'xls' | self.file_ext == 'xlsx':
+        elif (self.file_ext == 'xls') | (self.file_ext == 'xlsx'):
             if self.sheet_name is not None:
                 self.df = pd.read_excel(self.file_name, sheet_name=self.sheet_name)
             else:

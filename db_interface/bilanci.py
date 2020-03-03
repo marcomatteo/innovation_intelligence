@@ -8,7 +8,7 @@ Marco Matteo Buzzulini
 """
 import os
 
-path = f"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts"
+path = r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts"
 try:
     os.chdir(path)
     #print(f"Current dir: {os.getcwd()}")

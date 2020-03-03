@@ -21,10 +21,12 @@ class Finanziamenti(I2FVG):
         super().__init__(inTest = inTest)
         df_names = dict()
         for key, tbl in self._names.items():
-            df_names[key] = pd.read_sql_table(tbl, con=self.engine,
-                                                    index_col=('ID_' + tbl))
+            df_names[key] = pd.read_sql_table(
+                tbl, con=self.engine,
+                index_col=('ID_' + tbl)
+            )
         self.df = df_names['impresa']
-        print(f"Aperta tabella Finanziamenti in {self.mod}")
+        print("Aperta tabella Finanziamenti in {}".format(self.mod))
 
 if __name__ == '__main__':
     print("Prova della classe Finanziamenti:")

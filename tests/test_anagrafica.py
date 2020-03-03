@@ -3,11 +3,13 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-from data_providers.modefinance import Modefinance
-from data_providers.dataProviderUtil import \
-    formatFiscalcodeColumn, formatFiscalcode, \
-    getColumnNames, getColumnsTypes, \
-    getColumnsMaxLenght, getColumnsNullPresence
+from data_providers import AnagraficaInfocamere
+from data_providers import (
+        formatFiscalcodeColumn, formatFiscalcode, 
+        getColumnNames, getColumnsTypes, 
+        getColumnsMaxLenght, getColumnsNullPresence 
+    )
+from db_interface import I2FVG
 
 class Test_AnagraficaInfocamere(test.TestCase):
     # PARAMETRI:
@@ -15,7 +17,8 @@ class Test_AnagraficaInfocamere(test.TestCase):
     # Formato del file fonte
     source_default_type = "xlsx"
     source_sheet_name = 'FRIULI anagrafica'
-
+    db_table_name = "TMP_IC_Anagrafica"
+    
     table_columns = [
         'codice_fiscale',     
         'provincia',
@@ -65,12 +68,17 @@ class Test_AnagraficaInfocamere(test.TestCase):
         'impresagiovane',
         'impresastraniera',
         'pec']
-
     # Definizione tipi delle colonne
     columns_types = [
-        str,
-        str,
-        #TODO: da continuare
+        object,
+        object,
+        object,
+        object,
+        object,
+        object,
+        object,
+        object,
+        object,
     ]
 
     # Lunghezza max dei campi
@@ -131,17 +139,24 @@ class Test_AnagraficaInfocamere(test.TestCase):
     columns_is_date = list()
     
     # Formato data
-    modefinance_date_format = "%d/%m/%Y" #TODO: da controllare
+    anagrafica_date_format = "%d/%m/%Y" #TODO: da controllare
     
     # METODI:
     # -----------
     @classmethod
     def setUpClass(cls):
-        cls.modefinance = Modefinance("MFSourceSample_test.csv")
+        cls.anagrafica = AnagraficaInfocamere("Infocamere_06feb2019bis.xlsx")
+        cls.i2fvg = I2FVG()
+        cls.db_info = cls.i2fvg.get_stats(cls.db_table_name)
+        cls.db_column_names = cls.i2fvg.get_column_names(cls.db_info)[:-1]
+        cls.db_column_types = cls.i2fvg.get_column_types(cls.db_info)[:-1]
+        cls.db_column_lenght = cls.i2fvg.get_column_length(cls.db_info)[:-1]
+        cls.db_column_nullable = cls.i2fvg.get_column_nullable(cls.db_info)[:-1]
+        cls.db_column_dates = [idx for idx, typ in enumerate(cls.db_column_types) if typ is datetime.date]
 
     def test_acceptance_fileExtension(self):
         default_type = self.source_default_type
-        fileExtension_type = self.modefinance.file_ext
+        fileExtension_type = self.anagrafica.file_ext
         self.assertEqual(
             default_type, 
             fileExtension_type,
@@ -149,8 +164,8 @@ class Test_AnagraficaInfocamere(test.TestCase):
         )
 
     def test_acceptance_columnsNumber(self):
-        default_columns_number = len(self.table_columns)
-        columns_names_number = len(getColumnNames(self.modefinance.df))
+        default_columns_number = len(self.db_column_names)
+        columns_names_number = len(getColumnNames(self.anagrafica.df))
         self.assertEqual(
             default_columns_number,
             columns_names_number,
@@ -159,7 +174,7 @@ class Test_AnagraficaInfocamere(test.TestCase):
 
     def test_acceptance_columnsTypes(self):
         default_columns_type = self.columns_types
-        columns_types = getColumnsTypes(self.modefinance.df)
+        columns_types = getColumnsTypes(self.anagrafica.df)
         self.assertEqual(
             default_columns_type,
             columns_types,
@@ -167,14 +182,14 @@ class Test_AnagraficaInfocamere(test.TestCase):
         )
 
     def test_acceptance_columnsMaxLenght(self):
-        default_columns_max_lenght = self.columns_max_lenght
-        columns_max_lenght = getColumnsMaxLenght(self.modefinance.df)
+        default_columns_max_lenght = self.db_column_lenght
+        columns_max_lenght = getColumnsMaxLenght(self.anagrafica.df)
 
         # Test through all the columns
         for column_number, max_lenght in enumerate(default_columns_max_lenght):
             # Conditional assertion test
             if columns_max_lenght[column_number] > max_lenght:
-                column = self.modefinance.df.iloc[:, column_number]
+                column = self.anagrafica.df.iloc[:, column_number]
                 condition = column > max_lenght
                 rows_to_check = column.loc[condition]
                 for index, value in rows_to_check.iteritems():
@@ -189,20 +204,20 @@ class Test_AnagraficaInfocamere(test.TestCase):
                             )
                         )
     
-    def test_acceptance_columnsNotNull(self):
-        default_columns_not_null = self.columns_not_null
+    def test_acceptance_columnsNullable(self):
+        default_columns_not_null = self.db_column_nullable
         default_columns_must_be_not_null = [
             boolean 
             for boolean in default_columns_not_null
             if boolean
         ]
-        columns_has_null = getColumnsNullPresence(self.modefinance.df)
+        columns_has_null = getColumnsNullPresence(self.anagrafica.df)
 
         # Test through all the columns
         for column_number, _ in enumerate(default_columns_must_be_not_null):
             # Conditional assertion test
             if columns_has_null[column_number] == True:
-                column = self.modefinance.df.iloc[:, column_number]
+                column = self.anagrafica.df.iloc[:, column_number]
                 rows_to_check = column.isna()
                 for index, value in rows_to_check.iteritems():
                     # subTest allows no interruption if test fails
@@ -211,7 +226,7 @@ class Test_AnagraficaInfocamere(test.TestCase):
                             value,
                             "Column {} has missing value ".format(column_number) + \
                             "in row {} :\n{}".format(
-                                index, self.modefinance.df.loc[index]
+                                index, self.anagrafica.df.loc[index]
                             )
                         )
                         
@@ -226,10 +241,10 @@ class Test_AnagraficaInfocamere(test.TestCase):
             return True
 
         for column in self.columns_is_date:
-            column_series = self.modefinance.df.iloc[:,column]
+            column_series = self.anagrafica.df.iloc[:,column]
             # Test each row
             for index, value in column_series.iteritems():
-                true_value = dateTextIsValid(value, self.modefinance_date_format)
+                true_value = dateTextIsValid(value, self.anagrafica_date_format)
                 # subTest allows no interruption if test fails
                 with self.subTest():
                     self.assertTrue(

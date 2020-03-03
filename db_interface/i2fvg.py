@@ -8,7 +8,6 @@ Marco Matteo Buzzulini
 """
 from sqlalchemy import create_engine, inspect
 from collections import namedtuple
-
 import pandas as pd
 
 class I2FVG(object):
@@ -35,8 +34,17 @@ class I2FVG(object):
     -------
     
     """
-    Info = namedtuple("Info", 
-            ['name', 'unique', 'keys', 'foreign', 'columns'])
+    # Colleziona tutte le info per la tabella
+    Info = namedtuple(
+        "Info", 
+            ['name', 'unique', 'keys', 'foreign', 'columns']
+        )
+    # info per unit testing 
+    InfoCols = namedtuple(
+        "InfoCols",
+            ['names', 'types', 'lengths', 'nullables']
+        )
+    # codifica dei dataframes -> tbl_df
     _names = dict()
 
     def __init__(self, inTest = True):
@@ -94,55 +102,6 @@ class I2FVG(object):
         else:
             return "mssql+pyodbc://I2FVGDataReader:I2FVGDataReader@I2FVG_DATA"
              
-    @classmethod
-    def s_cfAdj(cls, x):
-        """
-        Method for fiscal code adjustment of a column 
-        that is formatted in integers to be converted into strings
-        
-        Attributes
-        ----------
-        x: pandas.Series
-            column of fiscal code of a pandas.DataFrame 
-            
-        Return
-        ------
-        y: pandas.Series
-            fiscal code adjusted
-        """
-        y = str(x)
-        while len(y) < 11:
-            y = '0' + y
-        return y
-
-    @classmethod
-    def df_cfAdj(cls, df, col_name):
-        """
-        Method for fiscal code adjustment of a table
-        that is formatted in integers to be converted into strings
-        
-        Attributes
-        ----------
-        df: pandas.DataFrame
-            DataFrame of a table 
-        col_name: string
-            column name of the df
-    
-        Return
-        ------
-        y: pandas.DataFrame
-            with the fiscal code column adjusted
-        Raise
-        -----
-        ValueError: if the column name is not in the df.
-        """
-        if col_name not in df.columns:
-            raise ValueError("Missing CF column in input data.")
-        nuovi_cf = df[col_name].map(lambda x: cls.s_cfAdj(x))
-        del df[col_name]
-        df.insert(0, col_name, nuovi_cf)
-        return df
-    
     @classmethod
     def set_primary_keys(cls, info, df):
         """
@@ -226,7 +185,7 @@ class I2FVG(object):
         )
         return tbl_info
     
-    def open_tables(self, name=None):
+    def open_tables(self, name=None, nrows=None):
         tbl_to_open = self._names
         
         # Opening mode selection
@@ -243,13 +202,61 @@ class I2FVG(object):
                 self.tbl_info[key] = self.get_stats(tbl)
                 # Load DF
                 self.tbl_df[key] = pd.read_sql_table(
-                    tbl, con = self.engine)
+                    tbl, con = self.engine, )
                 print("Aperta tabella in tbl_df['{}'] = '{}' in {}".format(
                     key, tbl, self.mod
                 ))
             else:
                 raise AttributeError('Wrong table in _names to open')
     
+    def get_column_names(self, info) -> list:
+        """
+        Metodo che dato un oggetto info ritorna la \
+        lista dei nomi delle colonne presenti nella tabella.
+        """
+        cols = list()
+        for col in info.columns:
+            cols.append(col['name'])
+        return cols
+    
+    def get_column_types(self, info) -> list:
+        """
+        Metodo che dato un oggetto info ritorna la \
+        lista delle tipologie delle colonne presenti nella tabella.
+        """
+        cols = list()
+        for col in info.columns:
+            try:
+                cols.append(col['type'].python_type)
+            except NotImplementedError:
+                cols.append(object)
+        return cols
+
+    def get_column_length(self, info) -> list:
+        """
+        Metodo che dato un oggetto info ritorna la \
+        lista delle tipologie delle colonne presenti nella tabella.
+        """
+        cols = list()
+        for col in info.columns:
+            try:
+                cols.append(col['type'].length)
+            except NotImplementedError:
+                cols.append(object)
+        return cols
+
+    def get_column_nullable(self, info) -> list:
+        """
+        Metodo che dato un oggetto info ritorna la \
+        lista delle tipologie delle colonne presenti nella tabella.
+        """
+        cols = list()
+        for col in info.columns:
+            try:
+                cols.append(col['nullable'])
+            except NotImplementedError:
+                cols.append(object)
+        return cols
 
 def main():
     print("Prova Classe I2FVG:")

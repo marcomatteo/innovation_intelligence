@@ -3,10 +3,11 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-from data_providers import \
-    formatFiscalcodeColumn, formatFiscalcode, \
-    getColumnNames, getColumnsTypes, \
-    getColumnsMaxLenght, getColumnsNullPresence
+from data_providers import (
+        formatFiscalcodeColumn, formatFiscalcode,
+        getColumnNames, getColumnsTypes, 
+        getColumnsMaxLenght, getColumnsNullPresence
+    )
 
 class Test_DataProviderUtil(test.TestCase):
     
@@ -110,6 +111,7 @@ class Test_DataProviderUtil(test.TestCase):
                 + "Colonne ottenute: {}".format(cols_mod)
         )
 
+    
     
 
 if __name__ == '__main__':
