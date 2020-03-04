@@ -59,7 +59,7 @@ def getColumnsMaxLenght(df: pd.DataFrame) -> list:
     maxLenght_list = df.aggregate(maxLenght, axis=0).to_numpy().tolist()
     return maxLenght_list
 
-def getColumnsNullPresence(df: pd.DataFrame) -> list:
+def getColumnNullables(df: pd.DataFrame) -> list:
     """
     Funzione che da un pd.DataFrame ritorna \
     una lista di bool indicante la presenza \
