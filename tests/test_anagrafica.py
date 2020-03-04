@@ -67,6 +67,11 @@ class Test_AnagraficaInfocamere(test.TestCase):
         )
 
     def test_acceptance_columnsMaxLenght(self):
+        
+        def trimmedLength(x) -> int:
+            s = str(x).strip()
+            return len(s)
+
         default_columns_max_lenght = self.db_columns_info.lengths
         test_columns_max_lenght = getColumnsMaxLenght(self.anagrafica.df)
 
@@ -76,8 +81,9 @@ class Test_AnagraficaInfocamere(test.TestCase):
             if max_lenght:
                 # Conditional assertion test
                 if test_columns_max_lenght[column_number] > max_lenght:
-                    column = self.anagrafica.df.iloc[:, column_number]
-                    condition = column.map(lambda x: len(str(x).strip())) > max_lenght
+                    column = self.anagrafica.df.iloc[:, column_number].map(
+                        lambda x: trimmedLength(x))
+                    condition = column > max_lenght
                     rows_to_check = column.loc[condition]
                     #TODO: sostituire iteritems() con metodo vettorizzato
                     for index, value in rows_to_check.iteritems():

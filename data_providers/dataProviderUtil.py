@@ -50,10 +50,14 @@ def getColumnsMaxLenght(df: pd.DataFrame) -> list:
     le lunghezze massime per colonna del df \
     in una lista
     """
+
+    def trimmedLength(x) -> int:
+        s = str(x).strip()
+        return len(s)
     
     def maxLenght(col) -> pd.Series:
         """Usiliary function for calculate column content lenght"""
-        lenght = col.map(lambda x: len(str(x)))
+        lenght = col.map(lambda x: trimmedLength(x))
         return lenght.max(axis=0)
     
     maxLenght_list = df.aggregate(maxLenght, axis=0).to_numpy().tolist()
