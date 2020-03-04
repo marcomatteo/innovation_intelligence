@@ -5,4 +5,4 @@ from .anagraficaInfocamere import AnagraficaInfocamere
 from .dataProviderUtil import \
     formatFiscalcode, formatFiscalcodeColumn, getColumnNames, \
     getColumnsDateFormatted, getColumnsMaxLenght, \
-    getColumnsNullPresence, getColumnsTypes
+    getColumnNullables, getColumnsTypes

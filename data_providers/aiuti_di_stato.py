@@ -11,9 +11,9 @@ import os
 from collections import defaultdict
 from collections import Counter
 
-from innovation_intelligence.data_providers.dataprovider import Data
+from data_providers import DataProvider
 
-class AiutiStato(Data):
+class AiutiStato(DataProvider):
     mark = '{http://www.rna.it/RNA_aiuto/schema}'
 
     aiuti_tags = [

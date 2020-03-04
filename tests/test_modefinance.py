@@ -16,7 +16,7 @@ from data_providers import Modefinance
 from data_providers import \
     formatFiscalcodeColumn, formatFiscalcode, \
     getColumnNames, getColumnsTypes, \
-    getColumnsMaxLenght, getColumnsNullPresence
+    getColumnsMaxLenght, getColumnNullables
 
 class Test_Modefinance(test.TestCase):
     # PARAMETRI:
@@ -120,7 +120,7 @@ class Test_Modefinance(test.TestCase):
             for boolean in default_columns_not_null
             if boolean
         ]
-        columns_has_null = getColumnsNullPresence(self.modefinance.df)
+        columns_has_null = getColumnNullables(self.modefinance.df)
 
         # Test through all the columns
         for column_number, _ in enumerate(default_columns_must_be_not_null):

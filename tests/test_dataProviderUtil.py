@@ -6,7 +6,7 @@ from datetime import datetime
 from data_providers import (
         formatFiscalcodeColumn, formatFiscalcode,
         getColumnNames, getColumnsTypes, 
-        getColumnsMaxLenght, getColumnsNullPresence
+        getColumnsMaxLenght, getColumnNullables
     )
 
 class Test_DataProviderUtil(test.TestCase):

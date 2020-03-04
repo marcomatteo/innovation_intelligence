@@ -17,9 +17,12 @@ class AnagraficaInfocamere(DataProvider):
         Method that override the superclass method.
         # TODO: rewrite the classes in SOLID
         """
+        col_types = {0: 'object'} # CF right type
         if (self.file_ext == 'xls') | (self.file_ext == 'xlsx'):
             if self.sheet_name is not None:
-                self.df = pd.read_excel(self.file_name, sheet_name=self.sheet_name)
+                self.df = pd.read_excel(
+                    self.file_name, sheet_name=self.sheet_name, 
+                    dtype=col_types)
             else:
                 self.df = pd.read_excel(self.file_name)
 

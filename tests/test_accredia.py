@@ -12,7 +12,7 @@ from data_providers import Accredia
 from data_providers import \
     formatFiscalcodeColumn, formatFiscalcode, \
     getColumnNames, getColumnsTypes, \
-    getColumnsMaxLenght, getColumnsNullPresence
+    getColumnsMaxLenght, getColumnNullables
 
 # DB_INTERFACE
 #from innovation_intelligence.db_interface.i2fvg import I2FVG
@@ -120,7 +120,7 @@ class Test_Accredia(test.TestCase):
             for boolean in default_columns_not_null
             if boolean
         ]
-        columns_not_null = getColumnsNullPresence(self.accredia.df)
+        columns_not_null = getColumnNullables(self.accredia.df)
 
         # Test through all the columns
         for column_number, _ in enumerate(default_columns_must_be_not_null):

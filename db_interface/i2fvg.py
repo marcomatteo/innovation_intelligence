@@ -209,54 +209,6 @@ class I2FVG(object):
             else:
                 raise AttributeError('Wrong table in _names to open')
     
-    def get_column_names(self, info) -> list:
-        """
-        Metodo che dato un oggetto info ritorna la \
-        lista dei nomi delle colonne presenti nella tabella.
-        """
-        cols = list()
-        for col in info.columns:
-            cols.append(col['name'])
-        return cols
-    
-    def get_column_types(self, info) -> list:
-        """
-        Metodo che dato un oggetto info ritorna la \
-        lista delle tipologie delle colonne presenti nella tabella.
-        """
-        cols = list()
-        for col in info.columns:
-            try:
-                cols.append(col['type'].python_type)
-            except NotImplementedError:
-                cols.append(object)
-        return cols
-
-    def get_column_length(self, info) -> list:
-        """
-        Metodo che dato un oggetto info ritorna la \
-        lista delle tipologie delle colonne presenti nella tabella.
-        """
-        cols = list()
-        for col in info.columns:
-            try:
-                cols.append(col['type'].length)
-            except NotImplementedError:
-                cols.append(object)
-        return cols
-
-    def get_column_nullable(self, info) -> list:
-        """
-        Metodo che dato un oggetto info ritorna la \
-        lista delle tipologie delle colonne presenti nella tabella.
-        """
-        cols = list()
-        for col in info.columns:
-            try:
-                cols.append(col['nullable'])
-            except NotImplementedError:
-                cols.append(object)
-        return cols
 
 def main():
     print("Prova Classe I2FVG:")

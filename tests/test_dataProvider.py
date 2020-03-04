@@ -2,14 +2,14 @@ import unittest
 from io import StringIO
 import os
 
-path = r'innovation_intelligence\tests\Log'
+path = r'tests/Log'
 log_file = r'test.log'
 
 with open(os.path.join(path, log_file), 'w') as fp: 
     pass
 
 import logging
-logging.basicConfig(level=logging.DEBUG, filename=path + r'\'' + log_file, filemode='w')
+logging.basicConfig(level=logging.DEBUG, filename=path + r'/' + log_file, filemode='w')
 logger = logging.getLogger()
 
 
