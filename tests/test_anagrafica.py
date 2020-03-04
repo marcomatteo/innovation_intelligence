@@ -12,21 +12,14 @@ from db_interface import I2FVG
 from db_interface import getColumnsInfo, getNumpyTypesConversion
 
 class Test_AnagraficaInfocamere(test.TestCase):
-    # PARAMETRI:
-    # -----------
-    # Formato del file fonte
+    
     source_default_type = "xlsx"
     source_sheet_name = 'FRIULI anagrafica'
     db_table_name = "TMP_IC_Anagrafica"
-    
-    # Chiavi primarie - valori univoci
+
     columns_unique = [0, 1, 4]
+    date_format = "%d/%m/%Y"
     
-    # Formato data
-    anagrafica_date_format = "%d/%m/%Y"
-    
-    # METODI:
-    # -----------
     @classmethod
     def setUpClass(cls):
         cls.anagrafica = AnagraficaInfocamere("Infocamere_06feb2019bis.xlsx")
@@ -120,21 +113,7 @@ class Test_AnagraficaInfocamere(test.TestCase):
                         "Colonna n. {}\n".format(column_number) + \
                         "Indici: {}".format(missing_list) 
                     )
-
-                # Iterazione sulla colonna che presenta valori mancanti, se presenti
-                # if not col_to_check.empty:
-                #     for index, value in col_to_check.iteritems():
-                #         # subTest per output
-                #         with self.subTest():
-                #             self.assertTrue(
-                #                 value,
-                #                 "Column {} has missing value ".format(column_number) + \
-                #                 "in row {} :\n{}".format(
-                #                     index, self.anagrafica.df.loc[index]
-                #                 )
-                #             )
                         
-
     def test_acceptance_columnsDateFormat(self):
 
         def dateTextIsValid(text: str, date_format: str) -> bool:
@@ -148,7 +127,7 @@ class Test_AnagraficaInfocamere(test.TestCase):
             test_column_series = self.anagrafica.df.iloc[:,column]
             # Test each row
             for index, value in test_column_series.iteritems():
-                true_value = dateTextIsValid(value, self.anagrafica_date_format)
+                true_value = dateTextIsValid(value, self.date_format)
                 # subTest allows no interruption if test fails
                 with self.subTest():
                     self.assertTrue(
