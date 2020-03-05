@@ -30,28 +30,36 @@ def formatFiscalcodeColumn(table: pd.DataFrame, col_name: object) -> pd.DataFram
 
 def getColumnNames(df: pd.DataFrame) -> list:
     """
-    Funzione che da un pd.DataFrame ritorna \
+    Funzione che da un pd.DataFrame ritorna 
     le colonne presenti in una lista
     """
-    names_list = df.columns.to_numpy().tolist()
+    names_list = df.columns.tolist()
     return names_list
 
 def getColumnsTypes(df: pd.DataFrame) -> list:
     """
-    Funzione che da un pd.DataFrame ritorna \
+    Funzione che da un pd.DataFrame ritorna 
     i tipi di dato del df in una lista
     """
-    types_list = df.dtypes.to_numpy().tolist()
+    types_list = df.dtypes.tolist()
     return types_list
 
 def getColumnsMaxLenght(df: pd.DataFrame) -> list:
     """
-    Funzione che da un pd.DataFrame ritorna \
-    le lunghezze massime per colonna del df \
+    Funzione che da un pd.DataFrame ritorna
+    le lunghezze massime per colonna del df
     in una lista
     """
 
     def trimmedLength(x) -> int:
+        try:
+            cond = np.isnan(x)
+        except TypeError:
+            cond = False
+
+        if cond:
+            return 0
+        
         s = str(x).strip()
         return len(s)
     
@@ -60,13 +68,13 @@ def getColumnsMaxLenght(df: pd.DataFrame) -> list:
         lenght = col.map(lambda x: trimmedLength(x))
         return lenght.max(axis=0)
     
-    maxLenght_list = df.aggregate(maxLenght, axis=0).to_numpy().tolist()
+    maxLenght_list = df.aggregate(maxLenght, axis=0).tolist()
     return maxLenght_list
 
 def getColumnNullables(df: pd.DataFrame) -> list:
     """
-    Funzione che da un pd.DataFrame ritorna \
-    una lista di bool indicante la presenza \
+    Funzione che da un pd.DataFrame ritorna 
+    una lista di bool indicante la presenza 
     di valori mancanti nelle colonne
     """
     
@@ -75,7 +83,7 @@ def getColumnNullables(df: pd.DataFrame) -> list:
         answer_bool = col.isna().any()
         return answer_bool
 
-    null_presence_list = df.aggregate(columnHaveNullValues, axis=0).to_numpy().tolist()
+    null_presence_list = df.aggregate(columnHaveNullValues, axis=0).tolist()
     return null_presence_list
 
 def getColumnsDateFormatted(column: str, date_format: str) -> (pd.Series, pd.Series):

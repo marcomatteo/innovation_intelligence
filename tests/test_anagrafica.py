@@ -14,7 +14,7 @@ from db_interface import getColumnsInfo, getNumpyTypesConversion
 class Test_AnagraficaInfocamere(test.TestCase):
     
     source_default_type = "xlsx"
-    source_sheet_name = 'FRIULI anagrafica'
+    source_sheet_name = 'FRIULI anagrafica' # info non rilevante
     db_table_name = "TMP_IC_Anagrafica"
 
     columns_unique = [0, 1, 4]
@@ -22,6 +22,7 @@ class Test_AnagraficaInfocamere(test.TestCase):
     
     @classmethod
     def setUpClass(cls):
+        cls.maxDiff = None
         cls.anagrafica = AnagraficaInfocamere("Infocamere_06feb2019bis.xlsx")
         cls.i2fvg = I2FVG()
         cls.db_info = cls.i2fvg.get_stats(cls.db_table_name)
@@ -56,7 +57,15 @@ class Test_AnagraficaInfocamere(test.TestCase):
         self.assertEqual(
             default_columns_type,
             test_columns_types,
-            "Data Provider wrong columns types. Expected {}".format(default_columns_type)
+            "\nData Provider wrong columns types.\n" + \
+            "Differences: \n{}".format(
+                {
+                    x: y
+                    for x,y in zip(
+                        default_columns_type, test_columns_types
+                    )
+                }
+            )
         )
 
     def test_acceptance_columnsMaxLenght(self):

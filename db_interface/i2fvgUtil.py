@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from datetime import datetime
+from datetime import datetime, date
 from db_interface import I2FVG
 
 def getColumnNames(info: I2FVG.Info) -> list:
@@ -34,9 +34,17 @@ def getNumpyTypesConversion(py_types: list) -> list:
     Metodo che data una lista di Python types \
     ritorna una lista di Numpy.dtypes
     """
+    def strReplacing(ty):
+        if ty is str:
+            return object
+        if ty is date:
+            return '<M8[ns]'
+        return ty
+
+    py_types_mapped = map(strReplacing, py_types)
     result = [
         np.dtype(ty)
-        for ty in py_types
+        for ty in py_types_mapped
     ]
     return result
 

@@ -11,8 +11,7 @@ from data_providers import (
 
 class Test_DataProviderUtil(test.TestCase):
     
-    def test_formatFiscalcode(self):
-        #fiscalcode_array = np.random.randint(1, 99999999, 100)
+    def test_formatFiscalcode_right(self):
         fiscalcode_array = [ 
             1, 12, 123, 
             1234, 12345, 123456, 
@@ -45,8 +44,7 @@ class Test_DataProviderUtil(test.TestCase):
             formatted_series.values.tolist()
         )
 
-    def test_formatFiscalcodeColumn(self):
-        #fiscalcode_array = np.random.randint(1, 99999999, 100)
+    def test_formatFiscalcodeColumn_right(self):
         fiscalcode_array = [ 
             1, 12, 123, 
             1234, 12345, 123456, 
@@ -81,38 +79,71 @@ class Test_DataProviderUtil(test.TestCase):
             formatted_table['fiscalcode'].values.tolist()
         )
 
-    def test_getColumnNames(self):
-        """
-        La funzione serve per ottenere una lista \
-            contenente le colonne di un DataFrame
+    def test_getColumnNames_right(self):
+        default_col_name = ['Colonna1', 'Colonna2']
         
-        Input:
-        ------
-            df: pd.DataFrame
-        
-        Output:
-        -------
-            names_list: list
-        """
         col1 = np.random.randint(0, 100, 100)
         col2 = np.random.randint(-100, 0, 100)
-        col_names = ['Colonna1', 'Colonna2']
-        cols = dict(zip(col_names, [col1, col2]))
+        cols = dict(zip(default_col_name, [col1, col2]))
         index = np.arange(0, 100, 1)
-        df = pd.DataFrame(data=cols, index=index)
-
-        cols_mod = getColumnNames(df)
+        test_df = pd.DataFrame(data=cols, index=index)
 
         self.assertListEqual(
-            col_names,
-            cols_mod,
-            "I nomi delle colonne non corrispondono.\n" \
-                + "Colonne originali: {}\n".format(col_names) \
-                + "Colonne ottenute: {}".format(cols_mod)
+            default_col_name,
+            getColumnNames(test_df),
+            "Error getColumnNames"
         )
 
+    def test_getColumnsTypes_right(self):
+        default_numpy_types_list = [
+            np.dtype('O'), # object type
+            np.dtype('int64'), # signed integer
+            np.dtype('float64'), # float
+            np.dtype('<M8[ns]') # datetime
+        ]
+
+        datetimes = [
+            datetime(2019, 9, 30),
+            datetime(2020, 2, 29),
+            datetime(2018, 8, 30)
+        ]
+        test_data = {
+            'col0': ['casa', '000342', 'abcABC0123lk#'],
+            'col1': [0, 123, 9999999],
+            'col2': [0.2, 0.0002, 123.456],
+            'col3': [
+                np.datetime64(datetimes[0]),
+                np.datetime64(datetimes[1]),
+                np.datetime64(datetimes[2])
+            ]
+        }
+        test_df = pd.DataFrame(test_data)
+
+        self.assertListEqual(
+            default_numpy_types_list,
+            getColumnsTypes(test_df),
+            "Error test getColumnsTypes"
+        )
     
-    
+    def test_getColumnsMaxLength_right(self):
+        default_max_length = [10, 2, 1, 0]
+        test_data = {
+            'col1': [
+                '    min    ',
+                'asdasdasd0',
+                '          ciao',
+                'ciao          '],
+            'col2': ['UD', '   O', 'P   ', '   TS    '],
+            'col3': [0, 1, 2, 1],
+            'col4': [np.nan] * 4
+        }
+        test_df = pd.DataFrame(test_data)
+        self.assertListEqual(
+            default_max_length,
+            getColumnsMaxLenght(test_df),
+            "Error getColumnsMaxLenght"
+        )
+        
 
 if __name__ == '__main__':
     test.main()

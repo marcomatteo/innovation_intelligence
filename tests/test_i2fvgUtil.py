@@ -166,13 +166,14 @@ class Test_i2fvgUtil(test.TestCase):
         python types in una lista di numpy.dtypes
         """
         default_column_numpy_types_list = [
-            np.dtype('i'), 
+            np.dtype('int32'), 
             np.dtype('float64'), 
             np.dtype('O'), 
-            np.dtype('O'), 
+            np.dtype('datetime64[ns]'), 
+            np.dtype('O')
         ]
         test_column_python_types_list = [
-            int, float, object, date
+            int, float, object, date, str
         ]
         test_column_numpy_types_list = getNumpyTypesConversion(
             test_column_python_types_list
