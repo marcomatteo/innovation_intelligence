@@ -6,6 +6,31 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
+def getNumerateDictFromList(l: list) -> dict:
+    return {i: val for i, val in enumerate(l)}
+
+def getTrimmedLength(x) -> int:
+    try:
+        cond = np.isnan(x)
+    except TypeError:
+        cond = False # No Not a number
+
+    if cond:
+        return 0
+    
+    s = str(x).strip()
+    return len(s)
+
+def getMaxLength(col: pd.Series) -> pd.Series:
+    """Usiliary function for calculate column content lenght"""
+    length = col.map(lambda x: getTrimmedLength(x))
+    return length.max(axis=0)
+
+def ColumnHaveNullValues(col: pd.Series) -> bool:
+    """Usiliary function for check null presence in table columns"""
+    answer_bool = col.isna().any()
+    return answer_bool
+
 def formatFiscalcode(num: int) -> object:
     """
     Funzione per che formatta correttamente il codice fiscale 
@@ -28,64 +53,37 @@ def formatFiscalcodeColumn(table: pd.DataFrame, col_name: object) -> pd.DataFram
     )
     return table
 
-def getColumnNames(df: pd.DataFrame) -> list:
+def getColumnNames(df: pd.DataFrame) -> dict:
     """
-    Funzione che da un pd.DataFrame ritorna 
-    le colonne presenti in una lista
+    Funzione che ritorna le colonne di un pd.DataFrame
     """
-    names_list = df.columns.tolist()
-    return names_list
+    names = df.columns.tolist()
+    return getNumerateDictFromList(names)
 
-def getColumnsTypes(df: pd.DataFrame) -> list:
+def getColumnsTypes(df: pd.DataFrame) -> dict:
     """
-    Funzione che da un pd.DataFrame ritorna 
-    i tipi di dato del df in una lista
+    Funzione che ritorna i numpy.dtypes delle colonne di un pd.DataFrame
     """
     types_list = df.dtypes.tolist()
-    return types_list
+    return getNumerateDictFromList(types_list)
 
-def getColumnsMaxLenght(df: pd.DataFrame) -> list:
+def getColumnsMaxLength(df: pd.DataFrame) -> dict:
     """
-    Funzione che da un pd.DataFrame ritorna
-    le lunghezze massime per colonna del df
-    in una lista
-    """
+    Funzione che ritorna la lunghezza massima nelle colonne di un pd.DataFrame
+    """    
+    maxLength_list = df.aggregate(getMaxLength, axis=0).tolist()
+    return getNumerateDictFromList(maxLength_list)
 
-    def trimmedLength(x) -> int:
-        try:
-            cond = np.isnan(x)
-        except TypeError:
-            cond = False
-
-        if cond:
-            return 0
-        
-        s = str(x).strip()
-        return len(s)
-    
-    def maxLenght(col) -> pd.Series:
-        """Usiliary function for calculate column content lenght"""
-        lenght = col.map(lambda x: trimmedLength(x))
-        return lenght.max(axis=0)
-    
-    maxLenght_list = df.aggregate(maxLenght, axis=0).tolist()
-    return maxLenght_list
-
-def getColumnNullables(df: pd.DataFrame) -> list:
+def getColumnNullables(df: pd.DataFrame) -> dict:
     """
     Funzione che da un pd.DataFrame ritorna 
     una lista di bool indicante la presenza 
     di valori mancanti nelle colonne
     """
-    
-    def columnHaveNullValues(col) -> bool:
-        """Usiliary function for check null presence in table columns"""
-        answer_bool = col.isna().any()
-        return answer_bool
+    null_presence_list = df.aggregate(ColumnHaveNullValues, axis=0).tolist()
+    return getNumerateDictFromList(null_presence_list)
 
-    null_presence_list = df.aggregate(columnHaveNullValues, axis=0).tolist()
-    return null_presence_list
-
+# Deprecated
 def getColumnsDateFormatted(column: str, date_format: str) -> (pd.Series, pd.Series):
 
     def getStringColumn(col) -> pd.Series:

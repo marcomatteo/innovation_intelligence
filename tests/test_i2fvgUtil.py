@@ -10,6 +10,9 @@ from db_interface import (
     getColumnNames, getColumnNullables,
     getColumnTypes, getNumpyTypesConversion
 )
+from db_interface.i2fvgUtil import (
+    TypeReplacing
+)
 
 class Test_i2fvgUtil(test.TestCase):
     
@@ -56,73 +59,54 @@ class Test_i2fvgUtil(test.TestCase):
         )
 
     def test_getColumnNames(self):
-        """
-        Da un I2FVG.Info, ritorna una lista \
-        con i nomi delle colonne presenti nella tabella.
-        """
-        default_column_names_list = [
-            'col1', 'col2', 'col3', 'col4', 'col5'
-        ]
+        default_column_names = {
+            0: 'col1', 1: 'col2', 2: 'col3', 3: 'col4', 4: 'col5'
+        }
         test_column_names_list = getColumnNames(self.info)
-        self.assertListEqual(
-            default_column_names_list,
+        self.assertDictEqual(
+            default_column_names,
             test_column_names_list,
-            "Error for getColumnNames function"
+            "Column names must be 0: 'col1', 1: 'col2', 2: 'col3', 3: 'col4', 4: 'col5'"
         )
     
     def test_getColumnTypes(self):
-        """
-        Da un I2FVG.Info, ritorna una lista \
-        con la tipologia delle colonne presenti nella tabella \
-        con le strutture di dati di python.
-        """
-        default_column_types_list = [
-            str, date, int, float, str
-        ]
-        test_column_types_list = getColumnTypes(self.info)
-        self.assertListEqual(
-            default_column_types_list,
-            test_column_types_list,
-            "Error for getColumnTypes function"
+        default_column_types = {
+            0: str, 1: date, 2: int, 3: float, 4: str
+        }
+        test_column_types = getColumnTypes(self.info)
+        self.assertDictEqual(
+            default_column_types,
+            test_column_types,
+            "Types must be -> 0: str, 1: date, 2: int, 3: float, 4: str"
         )
     
     def test_getColumnLength(self):
-        """
-        Da un I2FVG.Info, ritorna una lista \
-        con la lunghezza delle colonne presenti nella tabella \
-        indicati dalle tipologie di dati in sqlalchemy.types
-        """
-        default_column_length_list = [
-            11, None, None, None, 10
-        ]
-        test_column_length_list = getColumnLengths(self.info)
-        self.assertListEqual(
-            default_column_length_list,
-            test_column_length_list,
-            "Error for getColumnLengths"
+        default_column_length = {
+            0: 11, 1: None, 2: None, 3: None, 4: 10
+        }
+        test_column_length = getColumnLengths(self.info)
+        self.assertDictEqual(
+            default_column_length,
+            test_column_length,
+            "Dict of length must be 0: 11, 1: None, 2: None, 3: None, 4: 10"
         )
 
     def test_getColumnNullables(self):
-        """
-        Da un I2FVG.Info, ritorna una lista \
-        con: 
-            - True se la colonna può essere Null \
-            - False se la colonna non può essere Null
-        """
-        default_column_nullable_list = [
-            True, False, True, True, True
-        ]
-        test_column_nullable_list = getColumnNullables(self.info)
-        self.assertListEqual(
-            default_column_nullable_list,
-            test_column_nullable_list,
-            "Error for getColumnNullables"
+        default_column_nullable = {
+            0: True, 1: False, 2: True, 3: True, 4: True
+        }
+        test_column_nullable = getColumnNullables(self.info)
+        self.assertDictEqual(
+            default_column_nullable,
+            test_column_nullable,
+            "Dict must be 0: True, 1: False, 2: True, 3: True, 4: True"
         )
 
     def test_getColumnsInfo(self):
         # Because there's one column more from the db
         # that isn't into he data provider DataFrame
         default_selection = slice(0,-1) 
+        
         default_column_names_list = [
             'col1', 'col2', 'col3', 'col4'
         ]
@@ -161,25 +145,57 @@ class Test_i2fvgUtil(test.TestCase):
             )
 
     def test_getNumpyTypesConversion(self):
-        """
-        Test del metodo che converte una lista di \
-        python types in una lista di numpy.dtypes
-        """
-        default_column_numpy_types_list = [
-            np.dtype('int32'), 
-            np.dtype('float64'), 
-            np.dtype('O'), 
-            np.dtype('datetime64[ns]'), 
-            np.dtype('O')
-        ]
+        default_column_numpy_types = {
+            0: np.dtype('int32'), 
+            1: np.dtype('float64'), 
+            2: np.dtype('O'), 
+            3: np.dtype('datetime64[ns]'), 
+            4: np.dtype('O')
+        }
         test_column_python_types_list = [
             int, float, object, date, str
         ]
-        test_column_numpy_types_list = getNumpyTypesConversion(
+        test_column_numpy_types = getNumpyTypesConversion(
             test_column_python_types_list
         )
-        self.assertListEqual(
-            default_column_numpy_types_list,
-            test_column_numpy_types_list,
+        self.assertDictEqual(
+            default_column_numpy_types,
+            test_column_numpy_types,
             "Data types are not the same"
+        )
+
+    def test_TypeReplacing_String(self):
+        value = str
+        default_val = object
+        self.assertEqual(
+            TypeReplacing(value), 
+            default_val, 
+            "Type str -> object"
+        )
+    
+    def test_TypeReplacing_Date(self):
+        value = date
+        default_val = '<M8[ns]'
+        self.assertEqual(
+            TypeReplacing(value), 
+            default_val, 
+            "Type date -> '<M8[ns]'"
+        )
+    
+    def test_TypeReplacing_Int(self):
+        value = int
+        default_val = int
+        self.assertEqual(
+            TypeReplacing(value), 
+            default_val, 
+            "Type int -> int"
+        )
+
+    def test_TypeReplacing_Float(self):
+        value = float
+        default_val = float
+        self.assertEqual(
+            TypeReplacing(value), 
+            default_val, 
+            "Type float -> float"
         )

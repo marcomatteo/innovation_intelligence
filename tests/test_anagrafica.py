@@ -6,7 +6,7 @@ from datetime import datetime
 from data_providers import AnagraficaInfocamere
 from data_providers import (
     getColumnNames, getColumnsTypes, 
-    getColumnsMaxLenght, getColumnNullables
+    getColumnsMaxLength, getColumnNullables
 )
 from db_interface import I2FVG
 from db_interface import getColumnsInfo, getNumpyTypesConversion
@@ -16,13 +16,12 @@ class Test_AnagraficaInfocamere(test.TestCase):
     source_default_type = "xlsx"
     source_sheet_name = 'FRIULI anagrafica' # info non rilevante
     db_table_name = "TMP_IC_Anagrafica"
-
     columns_unique = [0, 1, 4]
     date_format = "%d/%m/%Y"
     
     @classmethod
     def setUpClass(cls):
-        cls.maxDiff = None
+        cls.maxDiff = None 
         cls.anagrafica = AnagraficaInfocamere("Infocamere_06feb2019bis.xlsx")
         cls.i2fvg = I2FVG()
         cls.db_info = cls.i2fvg.get_stats(cls.db_table_name)
@@ -33,13 +32,13 @@ class Test_AnagraficaInfocamere(test.TestCase):
             if typ is datetime.date
         ]
 
-    def test_acceptance_fileExtension(self):
+    def test_acceptance_fileExtension_xls(self):
         default_type = self.source_default_type
         test_fileExtension_type = self.anagrafica.file_ext
         self.assertEqual(
             default_type, 
             test_fileExtension_type,
-            "Data Provider wrong extension. Expected file in {} format".format(default_type)
+            "Data Provider wrong extension. Expected xlsx extension!"
         )
 
     def test_acceptance_columnsNumber(self):
@@ -48,34 +47,88 @@ class Test_AnagraficaInfocamere(test.TestCase):
         self.assertEqual(
             default_columns_number,
             test_columns_names_number,
-            "Data Provider wrong columns number. Expected {}".format(default_columns_number)    
+            "Data Provider wrong columns number. Expected 48 columns"   
         )
 
-    def test_acceptance_columnsTypes(self):
+    def test_acceptance_columnsTypes_int(self):
         default_columns_type = getNumpyTypesConversion(self.db_columns_info.types)
-        test_columns_types = getColumnsTypes(self.anagrafica.df)
-        self.assertEqual(
-            default_columns_type,
-            test_columns_types,
-            "\nData Provider wrong columns types.\n" + \
-            "Differences: \n{}".format(
-                {
-                    x: y
-                    for x,y in zip(
-                        default_columns_type, test_columns_types
-                    )
-                }
+        cols_type_int = {i: col for i, col in default_columns_type.items() if 'int' in str(col)}
+        # seleziono le colonne tipo int
+        selected_cols_df = self.anagrafica.df.iloc[:, list(cols_type_int.keys())]
+        # casting
+        try:
+            col_casted = selected_cols_df.fillna(0).astype('int32')
+        except:
+            col_casted = selected_cols_df
+        # Map with original column numbers
+        test_columns_types = {
+            i: ty 
+            for i, ty in zip(
+                cols_type_int.keys(), 
+                getColumnsTypes(col_casted).values()
             )
+        }
+        self.assertEqual(
+            cols_type_int,
+            test_columns_types,
+            "Selected columns [26, 28] must be np.dtype('int32')"
+        )
+    
+    def test_acceptance_columnsTypes_float(self):
+        default_columns_type = getNumpyTypesConversion(self.db_columns_info.types)
+        cols_type_float = {i: col for i, col in default_columns_type.items() if 'float' in str(col)}
+        # seleziono le colonne tipo int
+        selected_cols_df = self.anagrafica.df.iloc[:, list(cols_type_float.keys())]
+        # casting
+        try:
+            col_casted = selected_cols_df.astype('float64')
+        except:
+            col_casted = selected_cols_df
+        # Map with original column numbers
+        test_columns_types = {
+            i: ty 
+            for i, ty in zip(
+                cols_type_float.keys(), 
+                getColumnsTypes(col_casted).values()
+            )
+        }
+        self.assertEqual(
+            cols_type_float,
+            test_columns_types,
+            "Selected columns [31] must be np.dtype('float64')"
+        )
+    
+    def test_acceptance_columnsTypes_obj(self):
+        default_columns_type = getNumpyTypesConversion(self.db_columns_info.types)
+        cols_type_obj = {i: col for i, col in default_columns_type.items() if 'obj' in str(col)}
+        # seleziono le colonne tipo int
+        selected_cols_df = self.anagrafica.df.iloc[:, list(cols_type_obj.keys())]
+        # casting
+        try:
+            col_casted = selected_cols_df.astype('object')
+        except:
+            col_casted = selected_cols_df
+        # Map with original column numbers
+        test_columns_types = {
+            i: ty 
+            for i, ty in zip(
+                cols_type_obj.keys(), 
+                getColumnsTypes(col_casted).values()
+            )
+        }
+        self.assertEqual(
+            cols_type_obj,
+            test_columns_types,
+            "Selected columns must be np.dtype('object')"
         )
 
-    def test_acceptance_columnsMaxLenght(self):
-        
+    def test_acceptance_columnsMaxLength(self):
         def trimmedLength(x) -> int:
             s = str(x).strip()
             return len(s)
 
         default_columns_max_lenght = self.db_columns_info.lengths
-        test_columns_max_lenght = getColumnsMaxLenght(self.anagrafica.df)
+        test_columns_max_lenght = getColumnsMaxLength(self.anagrafica.df)
 
         # Test through all the columns
         for column_number, max_lenght in enumerate(default_columns_max_lenght):
@@ -124,7 +177,6 @@ class Test_AnagraficaInfocamere(test.TestCase):
                     )
                         
     def test_acceptance_columnsDateFormat(self):
-
         def dateTextIsValid(text: str, date_format: str) -> bool:
             try:
                 datetime.strptime(text, date_format)
