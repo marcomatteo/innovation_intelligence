@@ -53,6 +53,39 @@ def formatFiscalcodeColumn(table: pd.DataFrame, col_name: object) -> pd.DataFram
     )
     return table
 
+def isValidDateFormat(value, date_format: str) -> bool:
+    """From a value return True if is a valid 
+    date formatted string"""
+    try:
+        check = pd.isnull(value)
+        if check:
+            return True
+    except:
+        pass
+
+    if isinstance(value, datetime):
+        try:
+            value = value.strftime(date_format)
+        except:
+            return False
+    
+    if value:
+        x = str(value).strip()
+        try:
+            result = datetime.strptime(x, date_format)
+        except:
+            return False
+    return True
+
+def getBoolSeriesForDateChecking(s: pd.Series, date_format: str) -> pd.Series:
+    try:
+        result = s.map(lambda x: isValidDateFormat(x, date_format))
+    except:
+        return pd.Series([False], index=[0])
+    return result.all()
+
+# Exported
+
 def getColumnNames(df: pd.DataFrame) -> dict:
     """
     Funzione che ritorna le colonne di un pd.DataFrame

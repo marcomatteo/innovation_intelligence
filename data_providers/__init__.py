@@ -5,4 +5,5 @@ from .anagraficaInfocamere import AnagraficaInfocamere
 from .dataProviderUtil import (
     formatFiscalcode, formatFiscalcodeColumn, getColumnNames, 
     getColumnsDateFormatted, getColumnsMaxLength, 
-    getColumnNullables, getColumnsTypes, getNumerateDictFromList)
+    getColumnNullables, getColumnsTypes, getNumerateDictFromList,
+    getBoolSeriesForDateChecking)

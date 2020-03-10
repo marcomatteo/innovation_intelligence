@@ -2,14 +2,10 @@ import unittest
 from io import StringIO
 import os
 
-path = r'tests/Log'
-log_file = r'test.log'
-
-with open(os.path.join(path, log_file), 'w') as fp: 
-    pass
+LOG_FILE = r'tests/logs/test.log'
 
 import logging
-logging.basicConfig(level=logging.DEBUG, filename=path + r'/' + log_file, filemode='w')
+logging.basicConfig(level=logging.DEBUG, filename=LOG_FILE, filemode='w')
 logger = logging.getLogger()
 
 
@@ -63,5 +59,5 @@ class MyTestCase(BaseTestCase):
 if __name__ == "__main__":
     loader = unittest.TestLoader()
     suite = loader.loadTestsFromTestCase(MyTestCase)
-    runner = LogCaptureRunner(verbosity=2)
+    runner = LogCaptureRunner(verbosity=1)
     runner.run(suite)

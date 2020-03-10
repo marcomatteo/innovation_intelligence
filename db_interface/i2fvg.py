@@ -100,7 +100,7 @@ class I2FVG(object):
         if self.test:
             return "mssql+pyodbc://I2FVGTestReader:I2FVGTestReader@I2FVG_TEST"
         else:
-            return "mssql+pyodbc://I2FVGDataReader:I2FVGDataReader@I2FVG_DATA"
+            return "mssql+pyodbc://I2FVGDataReader:I2FVGDataReader@I2FVG_DATA_dev"
              
     @classmethod
     def set_primary_keys(cls, info, df):
