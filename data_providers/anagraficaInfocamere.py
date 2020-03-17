@@ -10,7 +10,7 @@ class AnagraficaInfocamere(DataProvider):
    
     def __init__(self, file_name):
         self.file_name = file_name
-        self.file_path = self.file_path + r"Infocamere/" + self.file_name
+        self.file_path = self.file_path + r"Infocamere/Datasets/" + self.file_name
         self.sheet_name = 0
         try:
             self.open_source()
@@ -26,7 +26,14 @@ class AnagraficaInfocamere(DataProvider):
         assert self.file_ext.startswith("xls"), TypeError("Wrong file extension!")
         assert os.path.isfile(self.file_path), FileExistsError("File not found!")
 
-        self.df = pd.read_excel(self.file_path, sheet_name=0, dtype=object)
+        self.df = pd.read_excel(
+                self.file_path, 
+                sheet_name=0, 
+                dtype=object, 
+                keep_default_na=False, 
+                na_values=""
+            )
+
 
         # cols_int32 = [26, 27, 28]
         # cols_float64 = [31]

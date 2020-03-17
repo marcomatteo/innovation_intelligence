@@ -20,7 +20,7 @@ from db_interface import getColumnsInfo, getNumpyTypesConversion
 
 from log_test import LogCaptureRunner, BaseTestCase
 
-LOG_FILE = "tests/logs/anag_infocamere.log"
+LOG_FILE = "tests/logs/anag_infocamere.md"
 logging.basicConfig(
     level = logging.DEBUG, # Only debug levels or higher
     format = "%(asctime)s %(levelname)-8s (%(funcName)s) %(message)s",
@@ -29,10 +29,8 @@ logging.basicConfig(
     filemode = "w"
 )
 
-# Create logger
-logger = logging.getLogger(__name__)
-
 class Test_AnagraficaInfocamere(BaseTestCase):
+    file_name = "Infocamere2020.xlsx" #"Infocamere_06feb2019bis.xlsx" #"Insiel.xlsx"
     source_sheet_name = 'FRIULI anagrafica' # info non rilevante
     db_table_name = "TMP_IC_Anagrafica"
     
@@ -41,141 +39,186 @@ class Test_AnagraficaInfocamere(BaseTestCase):
     
     def setUp(self, *args, **kwargs):
         super().setUp(*args, **kwargs)
+        # Log inizio esecuzione della funzione
+        self.logger.debug("\n\n")
         # create a in memory stream
         self.stream = StringIO()
         # add handler to logger
         self.handler = logging.StreamHandler(self.stream)
-        logger.addHandler(self.handler)
+        self.logger.addHandler(self.handler)
 
     def tearDown(self, *args, **kwargs):
         super().tearDown(*args, **kwargs)
+        # Log fine esecuzione della funzione
+        self.logger.debug("\n\n{}".format(super().log_new_line))
         # we're done with the caputre handler
-        logger.removeHandler(self.handler) 
+        self.logger.removeHandler(self.handler) 
 
     @classmethod
     def setUpClass(cls):
-        cls.maxDiff = None 
-        logger.info("Apertura del file excel")
-        cls.anagrafica = AnagraficaInfocamere("AnagraficaPreprocessed.xlsx")
-        # cls.anagrafica = AnagraficaInfocamere("Infocamere_06feb2019bis.xlsx")
-        # cls.anagrafica = AnagraficaInfocamere("Insiel.xlsx")
-        logger.info("Aperto il file nella classe AnagraficaInfocamere")
-        logger.info("Apertura connessione con il DB")
-        cls.i2fvg = I2FVG()
-        logger.info("Scarico le informazioni sulla tabella '%s'", cls.db_table_name)
-        cls.db_info = cls.i2fvg.get_stats(cls.db_table_name)
-        logger.info("Utilizzo funzione getColumnsInfo per riorganizzare le info dal DB")
+        cls.maxDiff = None
+
+        # Create logger
+        cls.logger = logging.getLogger(__name__)    
+        cls.logger.info("\n\n# Test Data Provider : INFOCAMERE 2020\n{}\n".format(
+            super().log_new_line
+        ))
+
+        cls.logger.info("\n\nApertura del file excel...\n")
+        try:
+            cls.anagrafica = AnagraficaInfocamere(cls.file_name)
+        except:
+            cls.logger.error("\n\nErrore apertura file '{}'!\n".format(cls.file_name))
+        
+        
+        cls.logger.info("\n\nApertura connessione con il DB...\n")
+        try:
+            cls.i2fvg = I2FVG()
+        except:
+            cls.logger.error("\n\nErrore connessione con il DB!\n")
+        
+        cls.logger.info("\n\nScarico le informazioni sulla tabella '{}'...\n".format(
+            cls.db_table_name))
+        try:
+            cls.db_info = cls.i2fvg.get_stats(cls.db_table_name)
+        except:
+            cls.logger.error("\n\nImpossibile scaricare le informazioni dalla tabella {}\n".format(
+                cls.db_table_name))
+
+        # Formatto info dal DB per i controlli    
         cls.db_columns_info = getColumnsInfo(cls.db_info, slice(0,-2))
         cls.default_columns_type = getNumpyTypesConversion(cls.db_columns_info.types)
 
+        # TODO:Log info del data provider
+        super().logInfo(cls.anagrafica.df)
+        
+        cls.logger.info("\n\n{}".format(super().log_new_line))
 
     def test_acceptance_fileExtension_xls(self):
         test_fileExtension_type = self.anagrafica.file_ext
+
+        # Log to file
+        self.logger.debug("\n\n### Test Acceptance Estensione\n")
+        super().logDifferences(["xlsx"], [self.anagrafica.file_ext])
+
         self.assertEqual(
             test_fileExtension_type, 'xlsx',
             "Data Provider wrong extension. Expected xlsx extension!"
         )
 
     def test_acceptance_columnsNumber(self):
+        # Log to file
+        self.logger.debug("\n\n### Test Acceptance Columns Number\n")
+
         default_columns_number = len(self.db_columns_info.names)
-        logger.debug("Test numero di colonne presenti nel file: {}".format(
-                        default_columns_number))
-        test_columns_names_number = len(getColumnNames(self.anagrafica.df))
+        data_provider_names = getColumnNames(self.anagrafica.df)
+        
+        # Log diffs
+        super().logDifferences(self.db_columns_info.names, data_provider_names)
+
+        test_columns_names_number = len(data_provider_names)
         self.assertEqual(
             test_columns_names_number, default_columns_number,
             "Data Provider wrong columns number"   
         )
 
     def test_acceptance_columnsTypes_int(self):
-        default_cols_int = {i: col for i, col in self.default_columns_type.items() if 'int' in str(col)}
-        logger.debug("Test sulle colonne di tipo 'int': ({})".format(", ".join(
-            [str(key) + ": " + str(value)
-                for key, value in default_cols_int.items()]
-            ))
-        )
+        # Log to file
+        self.logger.debug("\n\n### Test Acceptance Columns Int Type\n")
+        # Seleziono le colonne dalle info del DB
+        default_cols_int = {
+                i: col 
+                for i, col in self.default_columns_type.items()
+                if 'int' in str(col)
+            }
+        test_columns_types = dict()
+        cast_result = dict()
         # seleziono le colonne tipo int
-        selected_cols_df = self.anagrafica.df.iloc[:, list(default_cols_int.keys())]
-        # casting
-        try:
-            col_casted = selected_cols_df.fillna(0).astype('int32')
-        except:
-            col_casted = selected_cols_df
-        # Map with original column numbers
-        test_columns_types = {
-            i: ty 
-            for i, ty in zip(
-                default_cols_int.keys(), 
-                getColumnsTypes(col_casted).values()
-            )
-        }
+        for num_col in default_cols_int.keys():
+            selected_cols_df = self.anagrafica.df.iloc[:, num_col].to_frame()
+            # casting
+            try:
+                col_casted = selected_cols_df.fillna(0).astype('int32')
+                cast_result[num_col] = True
+            except:
+                cast_result[num_col] = False
+                col_casted = selected_cols_df
+            test_columns_types[num_col] = getColumnsTypes(col_casted).popitem()[1]
+
+        # LOG
+        super().logDifferences_types(self.anagrafica.df, cast_result)
+
         self.assertEqual(
             test_columns_types, default_cols_int,
             "Selected columns [26, 28] must be np.dtype('int32')"
         )
     
     def test_acceptance_columnsTypes_float(self):
-        default_cols_float = {i: col for i, col in self.default_columns_type.items() if 'float' in str(col)}
-        logger.debug("Test sulle colonne di tipo 'float': ({})".format(", ".join(
-            [str(key) + ": " + str(value)
-                for key, value in default_cols_float.items()]
-            ))
-        )
-        # seleziono le colonne tipo int
+        # Log to file
+        self.logger.debug("\n\n### Test Acceptance Columns Float Type\n")
+        # Seleziono le colonne dalle info del DB
+        default_cols_float = {
+                i: col 
+                for i, col in self.default_columns_type.items() 
+                if 'float' in str(col)
+            }
+        # seleziono le colonne tipo float
         selected_cols_df = self.anagrafica.df.iloc[:, list(default_cols_float.keys())]
-        # casting
-        try:
-            col_casted = selected_cols_df.astype('float64')
-        except:
-            col_casted = selected_cols_df
-        # Map with original column numbers
-        test_columns_types = {
-            i: ty 
-            for i, ty in zip(
-                default_cols_float.keys(), 
-                getColumnsTypes(col_casted).values()
-            )
-        }
+        test_columns_types = dict()
+        cast_result = dict()
+        for num_col in default_cols_float.keys():
+            selected_cols_df = self.anagrafica.df.iloc[:, num_col].to_frame()
+            # casting
+            try:
+                col_casted = selected_cols_df.astype('float64')
+                cast_result[num_col] = True
+            except:
+                cast_result[num_col] = False
+                col_casted = selected_cols_df
+            test_columns_types[num_col] = getColumnsTypes(col_casted).popitem()[1]
+        # LOG
+        super().logDifferences_types(self.anagrafica.df, cast_result)
         self.assertEqual(
             test_columns_types, default_cols_float,
             "Selected columns [31] must be np.dtype('float64')"
         )
     
     def test_acceptance_columnsTypes_obj(self):
-        default_cols_obj = {i: col for i, col in self.default_columns_type.items() if 'obj' in str(col)}
-        logger.debug("Test sulle colonne di tipo 'object': ({})".format(", ".join(
-            [str(key) + ": " + str(value)
-                for key, value in default_cols_obj.items()]
-            ))
-        )
-        # seleziono le colonne tipo int
+        # Log to file
+        self.logger.debug("\n\n### Test Acceptance Columns Object Type\n")
+        # Seleziono le colonne dalle info del DB
+        default_cols_obj = {
+                i: col 
+                for i, col in self.default_columns_type.items() 
+                if 'obj' in str(col)
+            }
+        # seleziono le colonne tipo object
         selected_cols_df = self.anagrafica.df.iloc[:, list(default_cols_obj.keys())]
-        # casting
-        try:
-            col_casted = selected_cols_df.astype('object')
-        except:
-            col_casted = selected_cols_df
-        # Map with original column numbers
-        test_columns_types = {
-            i: ty 
-            for i, ty in zip(
-                default_cols_obj.keys(), 
-                getColumnsTypes(col_casted).values()
-            )
-        }
+        test_columns_types = dict()
+        cast_result = dict()
+        for num_col in default_cols_obj.keys():
+            selected_cols_df = self.anagrafica.df.iloc[:, num_col].to_frame()
+            # casting
+            try:
+                col_casted = selected_cols_df.astype('object')
+                cast_result[num_col] = True
+            except:
+                cast_result[num_col] = False
+                col_casted = selected_cols_df
+            test_columns_types[num_col] = getColumnsTypes(col_casted).popitem()[1]
+        # LOG
+        super().logDifferences_types(self.anagrafica.df, cast_result)
         self.assertEqual(
             test_columns_types, default_cols_obj,
             "Selected columns must be np.dtype('object')"
         )
 
     def test_acceptance_columnsMaxLength(self):
+        # Log to file
+        self.logger.debug("\n\n### Test Acceptance Columns Max Lenght\n")
         default_cols_max_lenght = self.db_columns_info.lengths
-        logger.debug("Test sulla lunghezza massima delle colonne: ({})".format(", ".join(
-            [str(key) + ": " + str(value)
-                for key, value in enumerate(default_cols_max_lenght)]
-            ))
-        )
-        
         test_columns_max_lenght = getColumnsMaxLength(self.anagrafica.df)
+
         # Test through all the columns
         for column_number, max_lenght in enumerate(default_cols_max_lenght):
             # If not Null
@@ -197,10 +240,15 @@ class Test_AnagraficaInfocamere(BaseTestCase):
                                     column_number, index, value_lenght
                                 )
                             )
-    
+        super().logDifferences(default_cols_max_lenght, test_columns_max_lenght)
+
     def test_acceptance_columnsNullable(self):
+        # Log to file
+        self.logger.debug("\n\n### Test Acceptance Columns Nullables\n")
+
         default_cols_nullables = self.db_columns_info.nullables
         test_columns_nullables = getColumnNullables(self.anagrafica.df)
+
         # Iterazione di tutte le colonne
         for column_number, _ in enumerate(default_cols_nullables):
             # Effettuo il controllo solo se False -> non può essere nullable (null)
@@ -219,13 +267,12 @@ class Test_AnagraficaInfocamere(BaseTestCase):
                         "Indici: {}".format(missing_list) 
                     )
         
-        logger.debug("Test sulle colonne nullable: ({})".format(", ".join(
-            [str(key) + ": " + str(value)
-                for key, value in enumerate(default_cols_nullables)]
-            ))
-        )
+        super().logDifferences(default_cols_nullables, test_columns_nullables)
         
     def test_acceptance_columnsDateFormat(self):
+        # Log to file
+        self.logger.debug("\n\n### Test Acceptance Columns Date Format\n")
+
         # Seleziono le colonne che da DB devono risultare come date
         default_cols_date = {i: col for i, col in self.default_columns_type.items() if 'date' in str(col)}
 
@@ -234,18 +281,93 @@ class Test_AnagraficaInfocamere(BaseTestCase):
                 lambda x: getBoolSeriesForDateChecking(x, self.date_format),
                 axis = 0
             )
-        result_toLog = result_series.tolist()
-        # Stampo le colonne da DB su file di log
-        logger.debug("Test sulle colonne data: ({})".format(", ".join(
-            [str(key) + ": " + str(value)
-                for key, value in zip(default_cols_date.keys(), result_toLog)]
-            ))
-        )
+        result_toLog = {
+            i: val 
+            for i, val in zip(
+                    default_cols_date.keys(),
+                    result_series.tolist()
+                )
+            }
+
+        super().logDifferences(default_cols_date, result_toLog)
+
         self.assertTrue(
             result_series.all(),
             "The dataframe has columns with incorrect date format"
         )
         
+    def test_acceptance_column_innovativa(self):
+        """
+        Controllo valori possibili: [NO, SI]
+        """
+        # Log to file
+        self.logger.debug("\n\n### Test Acceptance Innovativa\n")
+        n_col = 42
+        test_values = ['NO','SI']
+        # LOG
+        super().logDifferences_types(
+            self.anagrafica.df, {n_col:False})
+        # TEST
+        self.assertEqual(
+            self.anagrafica.df.iloc[:,n_col].value_counts().sort_index().index.tolist(),
+            test_values,
+            "Valori non ammessi per la colonna {}!".format(n_col)
+        )
+    
+    def test_acceptance_column_femminile(self):
+        """
+        Controllo valori possibili: ['NO', 'Esclusiva', 'Forte', 'Maggioritaria']
+        """
+        # Log to file
+        self.logger.debug("\n\n### Test Acceptance Femminile\n")
+        n_col = 44
+        test_values = ['Esclusiva', 'Forte', 'Maggioritaria', 'NO']
+        # LOG
+        super().logDifferences_types(
+            self.anagrafica.df, {n_col:False})
+        # TEST
+        self.assertEqual(
+            self.anagrafica.df.iloc[:,n_col].value_counts().sort_index().index.tolist(),
+            test_values,
+            "Valori non ammessi per la colonna {}!".format(n_col)
+        )
+    
+    def test_acceptance_column_giovanile(self):
+        """
+        Controllo valori possibili: ['NO', 'Esclusiva', 'Forte', 'Maggioritaria']
+        """
+        # Log to file
+        self.logger.debug("\n\n### Test Acceptance Giovanile\n")
+        n_col = 45
+        test_values = ['Esclusiva', 'Forte', 'Maggioritaria', 'NO']
+        # LOG
+        super().logDifferences_types(
+            self.anagrafica.df, {n_col:False})
+        # TEST
+        self.assertEqual(
+            self.anagrafica.df.iloc[:,n_col].value_counts().sort_index().index.tolist(),
+            test_values,
+            "Valori non ammessi per la colonna {}!".format(n_col)
+        )
+    
+    def test_acceptance_column_straniera(self):
+        """
+        Controllo valori possibili: ['NO', 'Esclusiva', 'Forte', 'Maggioritaria']
+        """
+        # Log to file
+        self.logger.debug("\n\n### Test Acceptance Straniera\n")
+        n_col = 46
+        test_values = ['Esclusiva', 'Forte', 'Maggioritaria', 'NO']
+        # LOG
+        super().logDifferences_types(
+            self.anagrafica.df, {n_col:False})
+        # TEST
+        self.assertEqual(
+            self.anagrafica.df.iloc[:,n_col].value_counts().sort_index().index.tolist(),
+            test_values,
+            "Valori non ammessi per la colonna {}!".format(n_col)
+        )
+
 if __name__ == '__main__':
     loader = test.TestLoader()
     suite = loader.loadTestsFromTestCase(Test_AnagraficaInfocamere)

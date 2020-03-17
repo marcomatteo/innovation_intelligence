@@ -202,7 +202,7 @@ class I2FVG(object):
                 self.tbl_info[key] = self.get_stats(tbl)
                 # Load DF
                 self.tbl_df[key] = pd.read_sql_table(
-                    tbl, con = self.engine, )
+                    tbl, con = self.engine)
                 print("Aperta tabella in tbl_df['{}'] = '{}' in {}".format(
                     key, tbl, self.mod
                 ))

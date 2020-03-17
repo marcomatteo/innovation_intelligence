@@ -2,6 +2,9 @@ import unittest
 import logging
 import sys
 
+import pandas as pd
+import numpy as np
+
 from io import StringIO
 
 class LogCaptureResult(unittest.TextTestResult):
@@ -51,6 +54,63 @@ class LogThisTestCase(type):
         return type.__new__(cls, name, bases, dct)
 
 class BaseTestCase(unittest.TestCase):
-    pass
+    log_new_line = "-".join(["-"]*10)
+
+    @staticmethod
+    def logInfo(obj):
+        logger = logging.getLogger()
+        buf = StringIO()
+        obj.info(buf=buf)
+        s = buf.getvalue().encode().decode('utf-8')
+        logger.debug("\n```\n{}\n```\n".format(s))
+
+    @staticmethod
+    def logDifferences(db_info, file_info: dict):
+        logger = logging.getLogger()
+        if isinstance(db_info, list):
+            db_series = pd.Series(
+                db_info,
+                index=range(len(db_info)),
+                name="DB"
+            )
+        elif isinstance(db_info, dict):
+            db_series = pd.Series(
+                db_info,
+                name="DB"
+            )
+
+        file_series = pd.Series(file_info, name="DP")
+
+        df = db_series.to_frame().join(
+            file_series,
+            how="outer"
+        )
+        df.dropna(inplace=True)
+        logger.debug("\n{}\n".format(df.to_markdown()))
+
+    @staticmethod
+    def logDifferences_types(obj, cols: dict):
+        logger = logging.getLogger()
+        col_list = [
+            i
+            for i, val in cols.items()
+            if val == False
+        ]
+        if isinstance(obj, pd.DataFrame):
+            df = obj.iloc[:, col_list]
+        elif isinstance(obj, pd.Series):
+            df = obj.to_frame()
+        
+        values = [
+            str(df[col].astype('object').unique())
+            for col in df.columns
+        ]
+        if len(col_list) == 0:
+            logger.debug("\n\n**OK**\n\n")
+        else:
+            logger.debug("\n```\n{}\n```\n".format(
+                "\n\n".join(values)
+            )
+        )
 
     
