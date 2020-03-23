@@ -125,7 +125,7 @@ class I2FVG(object):
             tables.append(fk['referred_table'])
         return tables
 
-    def get_stats(self, table):
+    def get_stats(self, table: str):
         """
         Getting info from the table.
         

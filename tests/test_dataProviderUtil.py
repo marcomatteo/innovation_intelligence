@@ -11,7 +11,8 @@ from data_providers import (
         formatFiscalcodeColumn, formatFiscalcode,
         getColumnNames, getColumnsTypes, 
         getColumnsMaxLength, getColumnNullables,
-        getNumerateDictFromList, getBoolSeriesForDateChecking
+        getNumerateDictFromList, getBoolSeriesForDateChecking,
+        getColumnTest, getTableTest
     )
 from data_providers.dataProviderUtil import (
     getTrimmedLength, getMaxLength, ColumnHaveNullValues,
@@ -321,8 +322,8 @@ class Test_DataProviderUtil(test.TestCase):
         self.assertFalse(
             isValidDateFormat(dt_date, "%d/%m/%Y"), 
             "datetime from format '%m-%d-%Y' ('01-31-2020') must be False")
-    
-    def test_getBoolSeriesForDateChecking_right(self):
+
+    def test_getColumnTest_Date_right(self):
         data = [
             "07/06/2020",
             "30/11/2019",
@@ -330,11 +331,11 @@ class Test_DataProviderUtil(test.TestCase):
         ]
         s = pd.Series(data, index=range(len(data)))
         self.assertTrue(
-            getBoolSeriesForDateChecking(s, "%d/%m/%Y"),
+            getColumnTest(s, isValidDateFormat, "%d/%m/%Y").all(),
             "All is a valid date"
         )
     
-    def test_getBoolSeriesForDateChecking_right_withBlanks(self):
+    def test_getColumnTest_Date_right_withBlanks(self):
         data = [
             "   07/06/2020    ",
             "   30/11/2019",
@@ -342,11 +343,11 @@ class Test_DataProviderUtil(test.TestCase):
         ]
         s = pd.Series(data, index=range(len(data)))
         self.assertTrue(
-            getBoolSeriesForDateChecking(s, "%d/%m/%Y"),
+            getColumnTest(s, isValidDateFormat, "%d/%m/%Y").all(),
             "All is a valid date even with blanks (not trimmed yet)"
         )
 
-    def test_getBoolSeriesForDateChecking_right_withNan(self):
+    def test_getColumnTest_Date_right_withNan(self):
         data = [
             np.nan,
             "30/11/2019",
@@ -354,11 +355,11 @@ class Test_DataProviderUtil(test.TestCase):
         ]
         s = pd.Series(data, index=range(len(data)))
         self.assertTrue(
-            getBoolSeriesForDateChecking(s, "%d/%m/%Y"),
+            getColumnTest(s, isValidDateFormat, "%d/%m/%Y").all(),
             "Even with missing values, the Series is all right"
         )
     
-    def test_getBoolSeriesForDateChecking_right_allNan(self):
+    def test_getColumnTest_Date_right_allNan(self):
         data = [
             np.nan,
             np.nan,
@@ -366,11 +367,11 @@ class Test_DataProviderUtil(test.TestCase):
         ]
         s = pd.Series(data, index=range(len(data)))
         self.assertTrue(
-            getBoolSeriesForDateChecking(s, "%d/%m/%Y"),
+            getColumnTest(s, isValidDateFormat, "%d/%m/%Y").all(),
             "Even with all missing values, the Series is all right"
         )
     
-    def test_getBoolSeriesForDateChecking_wrong_all(self):
+    def test_getColumnTest_Date_wrong_all(self):
         data = [
             "09/16/2020",
             "04/13/2019",
@@ -378,11 +379,11 @@ class Test_DataProviderUtil(test.TestCase):
         ]
         s = pd.Series(data, index=range(len(data)))
         self.assertFalse(
-            getBoolSeriesForDateChecking(s, "%d/%m/%Y"),
+            getColumnTest(s, isValidDateFormat, "%d/%m/%Y").all(),
             "All is an invalid date"
         )
 
-    def test_getBoolSeriesForDateChecking_wrong_one(self):
+    def test_getColumnTest_Date_wrong_one(self):
         data = [
             "09/02/2020",
             "04/01/2019",
@@ -390,11 +391,11 @@ class Test_DataProviderUtil(test.TestCase):
         ]
         s = pd.Series(data, index=range(len(data)))
         self.assertFalse(
-            getBoolSeriesForDateChecking(s, "%d/%m/%Y"),
+            getColumnTest(s, isValidDateFormat, "%d/%m/%Y").all(),
             "One is an invalid date, so must be False"
         )
 
-    def test_getBoolSeriesForDateChecking_wrong_allFormat(self):
+    def test_getColumnTest_Date_wrong_allFormat(self):
         data = [
             "07-06-2020",
             "30-11-2019",
@@ -402,11 +403,11 @@ class Test_DataProviderUtil(test.TestCase):
         ]
         s = pd.Series(data, index=range(len(data)))
         self.assertFalse(
-            getBoolSeriesForDateChecking(s, "%d/%m/%Y"),
+            getColumnTest(s, isValidDateFormat, "%d/%m/%Y").all(),
             "All is an invalid date by format '%d-%m-%Y'"
         )
 
-    def test_getBoolSeriesForDateChecking_wrong_oneFormat(self):
+    def test_getColumnTest_Date_wrong_oneFormat(self):
         data = [
             "07-06-2020",
             "30/11/2019",
@@ -414,8 +415,42 @@ class Test_DataProviderUtil(test.TestCase):
         ]
         s = pd.Series(data, index=range(len(data)))
         self.assertFalse(
-            getBoolSeriesForDateChecking(s, "%d/%m/%Y"),
+            getColumnTest(s, isValidDateFormat, "%d/%m/%Y").all(),
             "One is an invalid date by format '%d-%m-%Y', so must be False"
+        )
+
+    def test_getTableTest_Date_ok(self):
+        col1 = [
+            "07/06/2020",
+            "30/11/2019",
+            "01/01/1992"
+        ]
+        col2 = [
+            "   07/06/2020    ",
+            "   30/11/2019",
+            "01/01/1992       "
+        ]
+        col3 = [
+            np.nan,
+            "30/11/2019",
+            np.nan
+        ]
+        col4 = [
+            np.nan,
+            np.nan,
+            np.nan
+        ]
+        cols = {
+            'c1': col1,
+            'c2': col2,
+            'c3': col3,
+            'c4': col4
+        }
+        df = pd.DataFrame(cols, index=range(3))
+        self.assertTrue(
+            getTableTest(df, isValidDateFormat, "%d/%m/%Y").all(),
+            "All the columns have right formatting date ('%d-%m-%Y')," \
+                + " so must be False"
         )
 
 if __name__ == '__main__':

@@ -21,10 +21,13 @@ def getTrimmedLength(x) -> int:
     s = str(x).strip()
     return len(s)
 
-def getMaxLength(col: pd.Series) -> pd.Series:
+def getMaxLength(col: pd.Series, default_length: int=None) -> pd.Series:
     """Usiliary function for calculate column content lenght"""
     length = col.map(lambda x: getTrimmedLength(x))
-    return length.max(axis=0)
+    if default_length:
+        return (length <= default_length)
+    else:
+        return length.max(axis=0)
 
 def ColumnHaveNullValues(col: pd.Series) -> bool:
     """Usiliary function for check null presence in table columns"""
@@ -54,8 +57,10 @@ def formatFiscalcodeColumn(table: pd.DataFrame, col_name: object) -> pd.DataFram
     return table
 
 def isValidDateFormat(value, date_format: str) -> bool:
-    """From a value return True if is a valid 
-    date formatted string"""
+    """
+    From a value return True if is a valid 
+    date formatted string
+    """
     try:
         check = pd.isnull(value)
         if check:
@@ -77,12 +82,7 @@ def isValidDateFormat(value, date_format: str) -> bool:
             return False
     return True
 
-def getBoolSeriesForDateChecking(s: pd.Series, date_format: str) -> pd.Series:
-    try:
-        result = s.map(lambda x: isValidDateFormat(x, date_format))
-    except:
-        return pd.Series([False], index=[0])
-    return result.all()
+
 
 # Exported
 
@@ -100,11 +100,19 @@ def getColumnsTypes(df: pd.DataFrame) -> dict:
     types_list = df.dtypes.tolist()
     return getNumerateDictFromList(types_list)
 
-def getColumnsMaxLength(df: pd.DataFrame) -> dict:
+def getColumnsMaxLength(df: pd.DataFrame, default_lengths: list=None) -> dict:
     """
     Funzione che ritorna la lunghezza massima nelle colonne di un pd.DataFrame
     """    
-    maxLength_list = df.aggregate(getMaxLength, axis=0).tolist()
+    maxLength_list = list()
+    if default_lengths:
+        for i, max_length in enumerate(default_lengths):
+            maxLength_list.append(
+                df.iloc[:, i].map(lambda x: getMaxLength(x, max_length).all())
+            )
+    else:
+        maxLength_list = df.aggregate(
+            lambda x: getMaxLength(x), axis=0).tolist()
     return getNumerateDictFromList(maxLength_list)
 
 def getColumnNullables(df: pd.DataFrame) -> dict:
@@ -116,7 +124,59 @@ def getColumnNullables(df: pd.DataFrame) -> dict:
     null_presence_list = df.aggregate(ColumnHaveNullValues, axis=0).tolist()
     return getNumerateDictFromList(null_presence_list)
 
-# Deprecated
+def getColumnTest(s: pd.Series, func, params) -> pd.Series:
+    """
+    Metodo che permette di testare una colonna all'interno
+    di pandas.DataFrame.agg()
+
+    Input:
+    ----------
+
+        s : pd.Series
+        Colonna di un DataFrame da testare
+
+        func : dataProviderUtil function
+        Funzione da applicare a scelta tra: 
+            - isValidDateFormat (OK)
+            - getMaxLength (TBD)
+            - ColumnHaveNullValues (TBD)
+        
+        params: str, list, dict
+    """
+    try:
+        result = s.map(lambda x: func(x, params))
+    except:
+        return pd.Series([False], index=[0])
+    return result
+
+def getTableTest(df: pd.DataFrame, func, params) -> pd.Series:
+    """
+    Metodo che permette di testare una tabella all'interno
+    di: 
+        - test_acceptance_columnsDateFormat (OK)
+        - test_acceptance_columnsNullable (TBD)
+        - test_acceptance_columnsMaxLength (TBD)
+
+    Input:
+    ----------
+
+        df : pd.DataFrame
+        Un DataFrame da testare in tutte le sue colonne
+
+        func : dataProviderUtil function
+        Funzione da applicare a scelta tra: 
+            - isValidDateFormat (OK)
+            - getMaxLength (TBD)
+            - ColumnHaveNullValues (TBD)
+        
+        params: str, list, dict
+    """
+    return df.agg(
+                lambda x: getColumnTest(x, func, params).all(),
+                axis = 0
+            )
+    
+# ======    Deprecated   =======
 def getColumnsDateFormatted(column: str, date_format: str) -> (pd.Series, pd.Series):
 
     def getStringColumn(col) -> pd.Series:
@@ -154,3 +214,11 @@ def getColumnsDateFormatted(column: str, date_format: str) -> (pd.Series, pd.Ser
     column_str_mod = getDateIntoStringColumn(column_dates)
 
     return column_str, column_str_mod
+
+def getBoolSeriesForDateChecking(s: pd.Series, date_format: str) -> pd.Series:
+    try:
+        result = s.map(lambda x: isValidDateFormat(x, date_format))
+    except:
+        return pd.Series([False], index=[0])
+    return result.all()
+    

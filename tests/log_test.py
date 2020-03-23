@@ -62,7 +62,7 @@ class BaseTestCase(unittest.TestCase):
         buf = StringIO()
         obj.info(buf=buf)
         s = buf.getvalue().encode().decode('utf-8')
-        logger.debug("\n```\n{}\n```\n".format(s))
+        logger.debug("\n\n```\n{}\n```\n".format(s))
 
     @staticmethod
     def logDifferences(db_info, file_info: dict):
@@ -86,7 +86,7 @@ class BaseTestCase(unittest.TestCase):
             how="outer"
         )
         df.dropna(inplace=True)
-        logger.debug("\n{}\n".format(df.to_markdown()))
+        logger.debug("\n\n{}\n".format(df.to_markdown()))
 
     @staticmethod
     def logDifferences_types(obj, cols: dict):
@@ -108,9 +108,39 @@ class BaseTestCase(unittest.TestCase):
         if len(col_list) == 0:
             logger.debug("\n\n**OK**\n\n")
         else:
-            logger.debug("\n```\n{}\n```\n".format(
+            logger.debug("\n\n```\n{}\n```\n".format(
                 "\n\n".join(values)
             )
         )
+    
+    @staticmethod
+    def logDataFrame(df, cols=None):
+        logger = logging.getLogger()
+        if cols:
+            logger.debug("\n\n{}\n".format(
+                df.loc[:, cols].to_markdown())
+            )
+        else:
+            logger.debug("\n\n{}\n".format(
+                df.to_markdown())
+            )
 
+    def setUp(self, *args, **kwargs):
+        logger = logging.getLogger()
+        super().setUp(*args, **kwargs)
+        # Log inizio esecuzione della funzione
+        logger.debug("\n\n")
+        # create a in memory stream
+        self.stream = StringIO()
+        # add handler to logger
+        self.handler = logging.StreamHandler(self.stream)
+        logger.addHandler(self.handler)
+
+    def tearDown(self, *args, **kwargs):
+        logger = logging.getLogger()
+        super().tearDown(*args, **kwargs)
+        # Log fine esecuzione della funzione
+        logger.debug("\n\n{}".format(self.log_new_line))
+        # we're done with the caputre handler
+        logger.removeHandler(self.handler) 
     

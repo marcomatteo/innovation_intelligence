@@ -7,20 +7,20 @@ from io import StringIO
 import sys
 sys.path.append(r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence")
 
-from data_providers import AnagraficaInfocamere
+from data_providers import AtecoInfocamere
 from data_providers import (
     getColumnNames, getColumnsTypes, 
     getColumnsMaxLength, getColumnNullables,
-    getColumnTest, getTableTest,
-    isValidDateFormat, getTrimmedLength
+    getBoolSeriesForDateChecking
 )
+from data_providers.dataProviderUtil import getTrimmedLength
 
 from db_interface import I2FVG
 from db_interface import getColumnsInfo, getNumpyTypesConversion
 
 from log_test import LogCaptureRunner, BaseTestCase
 
-LOG_FILE = "tests/logs/anag_infocamere.md"
+LOG_FILE = "tests/logs/ateco_infocamere.md"
 logging.basicConfig(
     level = logging.DEBUG, # Only debug levels or higher
     format = "%(asctime)s %(levelname)-8s (%(funcName)s) %(message)s",
@@ -29,12 +29,12 @@ logging.basicConfig(
     filemode = "w"
 )
 
-class Test_AnagraficaInfocamere(BaseTestCase):
-    file_name = "Infocamere2020.xlsx" #"Infocamere_06feb2019bis.xlsx" #"Insiel.xlsx"
-    db_table_name = "TMP_IC_Anagrafica"
+class Test_AtecoInfocamere(BaseTestCase):
+    file_name = "Infocamere2020.xlsx"
+    db_table_name = "TMP_IC_CodiciAttivita"
     
-    columns_unique = [0, 1, 4]
-    date_format = "%d/%m/%Y"
+    # columns_unique = [0, 1, 4]
+    # date_format = "%d/%m/%Y"
     
     @classmethod
     def setUpClass(cls):
@@ -42,13 +42,13 @@ class Test_AnagraficaInfocamere(BaseTestCase):
 
         # Create logger
         cls.logger = logging.getLogger(__name__)    
-        cls.logger.info("\n\n## Test Data Provider : Anagrafica Infocamere 2020\n{}\n".format(
+        cls.logger.info("\n\n## Test Data Provider : Ateco Infocamere 2020\n{}\n".format(
             super().log_new_line
         ))
 
         cls.logger.info("\n\nApertura del file excel...\n")
         try:
-            cls.anagrafica = AnagraficaInfocamere(cls.file_name) # To change
+            cls.anagrafica = AtecoInfocamere(cls.file_name) # To change
         except:
             cls.logger.error("\n\nErrore apertura file '{}'!\n".format(cls.file_name))
         
@@ -67,7 +67,7 @@ class Test_AnagraficaInfocamere(BaseTestCase):
                 cls.db_table_name))
 
         # Formatto info dal DB per i controlli    
-        cls.db_columns_info = getColumnsInfo(cls.db_info, slice(0,-2))
+        cls.db_columns_info = getColumnsInfo(cls.db_info, slice(1,-2))
         cls.default_columns_type = getNumpyTypesConversion(cls.db_columns_info.types)
 
         # Log info del data provider
@@ -225,6 +225,7 @@ class Test_AnagraficaInfocamere(BaseTestCase):
     def test_acceptance_columnsNullable(self):
         # Log to file
         self.logger.debug("\n\n### Test Acceptance Columns Nullables\n")
+
         default_cols_nullables = self.db_columns_info.nullables
         test_columns_nullables = getColumnNullables(self.anagrafica.df)
 
@@ -247,129 +248,9 @@ class Test_AnagraficaInfocamere(BaseTestCase):
                     )
         
         super().logDifferences(default_cols_nullables, test_columns_nullables)
-        
-    def test_acceptance_columnsDateFormat(self):
-        # Log to file
-        self.logger.debug("\n\n### Test Acceptance Columns Date Format\n")
-
-        # Seleziono le colonne che da DB devono risultare come date
-        default_cols_date = {i: col for i, col in self.default_columns_type.items() if 'date' in str(col)}
-
-        selected_cols_df = self.anagrafica.df.iloc[:, list(default_cols_date.keys())]
-        result_series = getTableTest(
-                selected_cols_df, 
-                isValidDateFormat, 
-                self.date_format
-            )
-        result_toLog = {
-            i: val 
-            for i, val in zip(
-                    default_cols_date.keys(),
-                    result_series.tolist()
-                )
-            }
-
-        super().logDifferences(default_cols_date, result_toLog)
-
-        self.assertTrue(
-            result_series.all(),
-            "The dataframe has columns with incorrect date format"
-        )
-        
-    def test_acceptance_column_innovativa(self):
-        """
-        Controllo valori possibili: [NO, SI]
-        """
-        # Log to file
-        self.logger.debug("\n\n### Test Acceptance Innovativa\n")
-        n_col = 42
-        test_values = ['NO','SI']
-        # LOG
-        super().logDifferences_types(
-            self.anagrafica.df, {n_col:False})
-        # TEST
-        self.assertEqual(
-            self.anagrafica.df.iloc[:,n_col].value_counts().sort_index().index.tolist(),
-            test_values,
-            "Valori non ammessi per la colonna {}!".format(n_col)
-        )
-    
-    def test_acceptance_column_femminile(self):
-        """
-        Controllo valori possibili: ['NO', 'Esclusiva', 'Forte', 'Maggioritaria']
-        """
-        # Log to file
-        self.logger.debug("\n\n### Test Acceptance Femminile\n")
-        n_col = 44
-        test_values = ['Esclusiva', 'Forte', 'Maggioritaria', 'NO']
-        # LOG
-        super().logDifferences_types(
-            self.anagrafica.df, {n_col:False})
-        # TEST
-        self.assertEqual(
-            self.anagrafica.df.iloc[:,n_col].value_counts().sort_index().index.tolist(),
-            test_values,
-            "Valori non ammessi per la colonna {}!".format(n_col)
-        )
-    
-    def test_acceptance_column_giovanile(self):
-        """
-        Controllo valori possibili: ['NO', 'Esclusiva', 'Forte', 'Maggioritaria']
-        """
-        # Log to file
-        self.logger.debug("\n\n### Test Acceptance Giovanile\n")
-        n_col = 45
-        test_values = ['Esclusiva', 'Forte', 'Maggioritaria', 'NO']
-        # LOG
-        super().logDifferences_types(
-            self.anagrafica.df, {n_col:False})
-        # TEST
-        self.assertEqual(
-            self.anagrafica.df.iloc[:,n_col].value_counts().sort_index().index.tolist(),
-            test_values,
-            "Valori non ammessi per la colonna {}!".format(n_col)
-        )
-    
-    def test_acceptance_column_straniera(self):
-        """
-        Controllo valori possibili: ['NO', 'Esclusiva', 'Forte', 'Maggioritaria']
-        """
-        # Log to file
-        self.logger.debug("\n\n### Test Acceptance Straniera\n")
-        n_col = 46
-        test_values = ['Esclusiva', 'Forte', 'Maggioritaria', 'NO']
-        # LOG
-        super().logDifferences_types(
-            self.anagrafica.df, {n_col:False})
-        # TEST
-        self.assertEqual(
-            self.anagrafica.df.iloc[:,n_col].value_counts().sort_index().index.tolist(),
-            test_values,
-            "Valori non ammessi per la colonna {}!".format(n_col)
-        )
-
-    def test_validity_keys(self):
-        # Log to file
-        self.logger.debug("\n\n### Test Validity Primary Keys\n")
-        pk_columns = self.anagrafica.df.iloc[:, self.columns_unique].columns.tolist()
-        test_duplicated = self.anagrafica.df.duplicated(
-            subset = pk_columns
-        )
-        if test_duplicated.sum() > 0:
-            super().logDataFrame(
-                self.anagrafica.df.loc[test_duplicated],
-                pk_columns
-            )
-        else:
-            cols = [", ".join(pk_columns)]
-            super().logDifferences(
-                cols, 
-                {0:False}
-            )
-
-
+                
 if __name__ == '__main__':
     loader = test.TestLoader()
-    suite = loader.loadTestsFromTestCase(Test_AnagraficaInfocamere)
+    suite = loader.loadTestsFromTestCase(Test_AtecoInfocamere)
     runner = LogCaptureRunner(verbosity=2)
     runner.run(suite)
