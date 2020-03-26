@@ -3,17 +3,13 @@ Created 06/02/2020
 
 """
 
-import xml.etree.ElementTree as ET
 import numpy as np
 import pandas as pd
-import json
 import os
 from collections import defaultdict
 from collections import Counter
 import sys
 sys.path.append(r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence")
-
-from data_providers import DataProvider
 
 class AiutoDiStato:
     """
@@ -95,37 +91,49 @@ class AiutoDiStato:
                     self.columns_dict[key].append(None)
                     self.counter_dict[key] += 1
 
-    def set_column_tag(self, 
+    def addValueToTagColumn(self, 
         tag: str, content: str,
         foreign_index: int = None):
         """
-        The method adds a new column value into a dictionary
-        with counter checking for feature parsing into 
-        pandas.DataFrame object.
+        Metodo che aggiunge un nuovo valore al tag
+        della fattispecie di AiutoDiStato che richiama 
+        il metodo (se presente).
+        
+        Attributes:
+        -----------
+            tag: str
+            Il tag XML a cui aggiungere il nuovo valore
+
+            content: str
+            Il contenuto/valore da aggiungere
+
+            foreign_index: int, Default=None
+            La chiave esterna per rispettare la relazione
+            esistente tra gli oggetti di AiutoDiStato
         """
-        # Il primo tag indica che si crea un nuovo record
         if tag == self.tags[0]:
-            # Controllo che il record precedente abbia tutti i campi
+            # Nuova riga
             self.check_column_values(self.primary_index)
-            # Creo chiave primaria
             key = 'pk_' + str(tag).lower()
             self.columns_dict[key].append(self.primary_index)
+            self.primary_index += 1
+            # Aggiungo riferimento esterno, se presente
             if foreign_index:
                 key = 'fk_' + str(tag).lower()
                 self.columns_dict[key].append(foreign_index)
-            self.primary_index += 1
         elif tag in self.tags:
+            # inserisco valore colonna
             self.columns_dict[tag].append(content)
             self.counter_dict[tag] += 1
-
-    def get_counter_values(self):
-        for num, (key, val) in enumerate(self.columns_dict.items()):
-            print(num, key, len(val))
 
     def __init__(self):
         self.columns_dict = defaultdict(list)
         self.counter_dict = defaultdict(int)
         self.primary_index = 0
+    
+    def get_counter_values(self):
+        for num, (key, val) in enumerate(self.columns_dict.items()):
+            print(num, key, len(val))
 
 class Aiuti(AiutoDiStato):
     
@@ -152,11 +160,15 @@ class Aiuti(AiutoDiStato):
 class Componenti(AiutoDiStato):
     
     tags = [
-        'COMPONENTE_AIUTO', # Tag di nuovo record
-        # info sull'aiuto
-        'ID_COMPONENTE_AIUTO', 'COD_PROCEDIMENTO', 'DES_PROCEDIMENTO', 
-        'COD_REGOLAMENTO', 'DES_REGOLAMENTO', 'COD_OBIETTIVO', 
-        'DES_OBIETTIVO', 'SETTORE_ATTIVITA'
+        'COMPONENTE_AIUTO',     # Tag di nuovo record
+        'ID_COMPONENTE_AIUTO', 
+        'COD_PROCEDIMENTO', 
+        'DES_PROCEDIMENTO', 
+        'COD_REGOLAMENTO', 
+        'DES_REGOLAMENTO', 
+        'COD_OBIETTIVO', 
+        'DES_OBIETTIVO', 
+        'SETTORE_ATTIVITA'
     ]
 
     def __init__(self):
@@ -168,7 +180,6 @@ class Strumenti(AiutoDiStato):
 
     tags = [
         'STRUMENTO_AIUTO',  # Tag di nuovo record
-        # info sullo strumento dell'aiuto 
         'COD_STRUMENTO',    # Codice nel registro
         'DES_STRUMENTO',    # Forma in cui viene concesso l'aiuto
         'ELEMENTO_DI_AIUTO' # Importo dell'aiuto
@@ -178,79 +189,6 @@ class Strumenti(AiutoDiStato):
         self.columns_dict = defaultdict(list)
         self.counter_dict = defaultdict(int)
         self.primary_index = 0
-    
-class ParserAiuto(DataProvider):
-    mark = '{http://www.rna.it/RNA_aiuto/schema}'
-
-    def parseXML(self):
-        '''
-        XML Parser for OpenData_Aiuti_YEAR_MONTH.xml
-        '''
-        # XML external libraries
-        tree = ET.parse(self.source_file)
-
-        # Reading the file
-        root = tree.getroot()
-        for elem in root.iter():
-            tag = elem.tag[len(self.mark):]
-            content = elem.text
-            # AIUTI
-            self.aiuto.set_column_tag(
-                    tag = tag, 
-                    content = content
-                )
-            # COMPONENTI
-            self.componenti.set_column_tag(
-                    tag = tag, 
-                    content = content, 
-                    foreign_index = self.aiuto.primary_index
-                )
-            # STRUMENTI
-            self.strumenti.set_column_tag(
-                    tag = tag, 
-                    content = content, 
-                    foreign_index = self.componenti.primary_index
-                )
-
-    def __init__(self, file_name):
-        self.file_path = self.file_path + r"Aiuti_di_stato/dati/"
-        self.file_name = file_name
-        self.source_file = self.file_path + self.file_name
-
-        if not os.path.isfile(self.source_file):
-            raise FileNotFoundError("The file not exist")
-        print(self.source_file)
-
-        self.aiuto = Aiuti()
-        self.componenti = Componenti()
-        self.strumenti = Strumenti()
-
-        try:
-            self.parseXML()
-        except ET.ParseError:
-            print("Error: can't read the XML file")
-            exit()
-
-        aiuti_df = pd.DataFrame(self.aiuto.columns_dict).set_index('pk_aiuto')
-        componenti_df = pd.DataFrame(self.componenti.columns_dict).set_index('pk_componente_aiuto')
-        strumenti_df = pd.DataFrame(self.strumenti.columns_dict).set_index('pk_strumento_aiuto')
-
-        self.df = strumenti_df.merge(
-            componenti_df.merge(
-                aiuti_df, 
-                left_on="fk_componente_aiuto",
-                right_index=True
-            ),
-            left_on="fk_strumento_aiuto",
-            right_index=True
-        )        
-        self.df.drop(columns="fk_componente_aiuto", inplace=True)
-        self.df.drop(columns="fk_strumento_aiuto", inplace=True)
 
 if __name__ == '__main__':
-    try:
-        aiuti = ParserAiuto("OpenData_Aiuti_2019_08.xml")
-    except FileNotFoundError:
-        print("File not found")
-    print(aiuti.df.shape)
-    print(aiuti.df.head())
+    pass
