@@ -25,13 +25,17 @@ class Certificazione(I2FVG):
         """
         super().__init__(inTest = test)
         self.open_tables(name=table)
-        self.df = self.tbl_df['certificazioni'].astype(
-            {'RF_Certificazione':'float64'}).merge(
+        self.df = self.mergeTables()
+    
+    def mergeTables(self):
+        convert_type = {'RF_Certificazione':'float64'}
+        df = self.tbl_df['certificazioni'].astype(convert_type).merge(
                     self.tbl_df['tipologie'], 
                     how='left', 
                     left_on='RF_Certificazione', 
                     right_on='ID_Certificazione'
             )
+        return df
 
 def main():
     print("Prova della classe Certificazione:")

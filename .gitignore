@@ -20,5 +20,6 @@ _*
 
 /Scripts
 /i2fvg_test
+/data
 
 app.py

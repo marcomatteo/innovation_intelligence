@@ -18,7 +18,7 @@ class Accredia(DataProvider):
         self.file_path = self.file_path + r"Accredia/" + self.file_name
         self.sep = '|'
         try:
-            self.open_source()
+            self.df = self.open_source()
         except TypeError:
             print("Wrong file extension!")
         except FileNotFoundError:
@@ -28,13 +28,24 @@ class Accredia(DataProvider):
         assert self.file_ext.startswith("csv"), TypeError("Wrong file extension!")
         assert os.path.isfile(self.file_path), FileNotFoundError("File not found!")
 
-        self.df = pd.read_csv(
+        df = pd.read_csv(
                 self.file_path, 
                 sep=self.sep, 
                 dtype=object, 
                 keep_default_na=False, 
                 na_values=""
             )
+
+        return df
+
+    def get_renamed_df(self):
+        """Metodo per rinominare le colonne come sono importate in DB"""
+        rename_dict = {
+            'fiscalcode': 'CF',
+            'istat_province_prcode': 'PV',
+            'regulation': 'CodiceCertificazione'
+        }
+        return self.df.rename(columns=rename_dict).copy()
 
 def main():
     print("Prova della classe Accredia:")
