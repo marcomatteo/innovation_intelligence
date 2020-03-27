@@ -6,17 +6,11 @@ certificazione.py
 Classe Certificazione che fa riferimento alle tabelle di Innovation Intelligence sulle certificazione (ISO 9100, etc.)
 
 """
+import sys
+sys.path.append(r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence")
 import os
-
-path = r'C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts'
-try:
-    os.chdir(path)
-    #print(f"Current dir: {os.getcwd()}")
-except:
-    print("Can't load the right directory")   
-
-from innovation_intelligence.db_interface.i2fvg import I2FVG
 import pandas as pd
+from db_interface import I2FVG
 
 class Certificazione(I2FVG):
     # Costanti
@@ -31,10 +25,13 @@ class Certificazione(I2FVG):
         """
         super().__init__(inTest = test)
         self.open_tables(name=table)
-        self.df = self.tbl_df['certificazioni'].astype({'RF_Certificazione':'float64'}).merge(
-            self.tbl_df['tipologie'], how='left', 
-            left_on='RF_Certificazione', right_on='ID_Certificazione')
-
+        self.df = self.tbl_df['certificazioni'].astype(
+            {'RF_Certificazione':'float64'}).merge(
+                    self.tbl_df['tipologie'], 
+                    how='left', 
+                    left_on='RF_Certificazione', 
+                    right_on='ID_Certificazione'
+            )
 
 def main():
     print("Prova della classe Certificazione:")

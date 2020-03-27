@@ -13,9 +13,10 @@ Propensione innovazione:
 Innovation Intelligence in Python
 Marco Matteo Buzzulini
 """
-from innovation_intelligence.db_interface.anagrafica import Anagrafica
+
 from innovation_intelligence.db_interface.brevetti import Brevetti
 from innovation_intelligence.db_interface.finanziamenti import Finanziamenti
+from db_interface import Anagrafica
 
 import pandas as pd
 import numpy as np

@@ -1,9 +1,12 @@
+import sys
+sys.path.append(r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence")
+
 import pandas as pd
 import numpy as np
 import os
 
-from .dataProvider import DataProvider
-from .dataProviderUtil import formatFiscalcodeColumn 
+from data_providers import DataProvider
+from data_providers.dataProviderUtil import formatFiscalcodeColumn
 
 class AnagraficaInfocamere(DataProvider):
     source_type = "Infocamere"
@@ -16,7 +19,7 @@ class AnagraficaInfocamere(DataProvider):
             self.open_source()
         except TypeError:
             print("The file type is not xls or xlsx.")
-        except FileExistsError:
+        except FileNotFoundError:
             print("Check the file_name path.")
 
     def open_source(self):
@@ -24,7 +27,7 @@ class AnagraficaInfocamere(DataProvider):
         Open the sheet 0 in the Infocamere excel file
         """  
         assert self.file_ext.startswith("xls"), TypeError("Wrong file extension!")
-        assert os.path.isfile(self.file_path), FileExistsError("File not found!")
+        assert os.path.isfile(self.file_path), FileNotFoundError("File not found!")
 
         self.df = pd.read_excel(
                 self.file_path, 
@@ -79,15 +82,11 @@ class AnagraficaInfocamere(DataProvider):
         return df
 
 
-def main():
+if __name__ == '__main__':
     print("Prova della classe Anagrafica di Infocamere:")
     try:
-        anagrafica = AnagraficaInfocamere("Infocamere_06feb2019bis.xlsx")
+        anagrafica = AnagraficaInfocamere("Infocamere2020.xlsx")
     except:
         raise ValueError("Errore! Il file non è stato correttamente aperto.")
     
     print(anagrafica.file_name)
-
-
-if __name__ == '__main__':
-    main()

@@ -9,10 +9,12 @@ import numpy as np
 
 from data_providers import Accredia
 
-from data_providers import \
-    formatFiscalcodeColumn, formatFiscalcode, \
-    getColumnNames, getColumnsTypes, \
-    getColumnsMaxLenght, getColumnNullables
+from data_providers import (
+    getColumnNames, getColumnsTypes, 
+    getColumnsMaxLength, getColumnNullables,
+    getColumnTest, getTableTest,
+    isValidDateFormat, getTrimmedLength
+)
 
 # DB_INTERFACE
 #from innovation_intelligence.db_interface.i2fvg import I2FVG

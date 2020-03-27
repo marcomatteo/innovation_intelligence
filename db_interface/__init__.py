@@ -1,7 +1,7 @@
 from .i2fvg import I2FVG
 from .anagrafica import Anagrafica
 from .bilanci import Bilanci
-
+from .certificazione import Certificazione
 from .i2fvgUtil import (
     getColumnLengths, getColumnNames,
     getColumnNullables, getColumnsInfo,
@@ -9,6 +9,5 @@ from .i2fvgUtil import (
 )
 
 # from .brevetti import Brevetti
-# from .certificazione import Certificazione
 # from .cluster_imprese import Clusters
 # from .finanziamenti import Finanziamenti
