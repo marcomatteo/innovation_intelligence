@@ -32,7 +32,9 @@ class I2FVG(object):
     
     Methods
     -------
-    
+        get_fiscalcode_list
+
+        
     """
     # Colleziona tutte le info per la tabella
     Info = namedtuple(
@@ -102,6 +104,7 @@ class I2FVG(object):
         else:
             return "mssql+pyodbc://I2FVGDataReader:I2FVGDataReader@I2FVG_DATA_dev"
              
+    #TODO: da correggere - metodo SET non ha return
     @classmethod
     def set_primary_keys(cls, info, df):
         """
@@ -209,6 +212,11 @@ class I2FVG(object):
             else:
                 raise AttributeError('Wrong table in _names to open')
     
+    def get_fiscalcode_list(self):
+        query = "SELECT DISTINCT CF FROM DATA_Impresa"
+        cf = pd.read_sql_query(query, self.engine)
+        return cf.tolist()
+
 
 def main():
     print("Prova Classe I2FVG:")

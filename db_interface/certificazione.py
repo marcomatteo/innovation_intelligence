@@ -25,9 +25,12 @@ class Certificazione(I2FVG):
         """
         super().__init__(inTest = test)
         self.open_tables(name=table)
-        self.df = self.mergeTables()
+        self.df = self.get_merge_tables()
     
-    def mergeTables(self):
+    def get_merge_tables(self):
+        """
+        Unione delle tabelle 'DATA_Certificazione' e 'SVC_Certificazione'
+        """
         convert_type = {'RF_Certificazione':'float64'}
         df = self.tbl_df['certificazioni'].astype(convert_type).merge(
                     self.tbl_df['tipologie'], 
@@ -36,6 +39,27 @@ class Certificazione(I2FVG):
                     right_on='ID_Certificazione'
             )
         return df
+
+    def get_certificazioni(self):
+        """
+        Metodo che permette di estrarre le singole tipologie
+        di certificazioni presenti nel DB
+        """
+        certificazioni_series = self.df['CodiceCertificazione'].value_counts()
+        certificazioni_series = certificazioni_series.drop(labels=' No certificazioni', axis=0)
+        certificazioni_list = certificazioni_series.index.map(lambda x: str(x).strip()).tolist()
+        return certificazioni_list
+    
+    def set_cleaned_merged_table(self):
+        """
+        Pulizia delle colonne non necessarie
+        """
+        cols_list = [
+            'ID_DataCertificazione', 'RF_Certificazione',
+            'RF_Importazione', 'ID_Certificazione', 
+            'RF_TipoCertificazione', 'DataInsert'
+        ]
+        self.df.drop(columns=cols_list, inplace=True)
 
 def main():
     print("Prova della classe Certificazione:")

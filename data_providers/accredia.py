@@ -47,6 +47,31 @@ class Accredia(DataProvider):
         }
         return self.df.rename(columns=rename_dict).copy()
 
+    def get_certificazioni(self):
+        """
+        Metodo che permette di estrarre le singole tipologie
+        di certificazioni presenti nel DB
+        """
+        certificazioni_series = self.df.iloc[:, 2].value_counts()
+        certificazioni_list = certificazioni_series.index.map(lambda x: str(x).strip()).tolist()
+        return certificazioni_list
+
+    def set_selected_fiscalcodes(self, cf_list: list):
+        """
+        Metodo per selezionare i codici fiscali nel df
+        """
+        cond = self.df.iloc[:, 0].isin(cf_list)
+        self.df = self.df.loc[cond]
+
+    def set_renamed_df(self):
+        """Metodo per rinominare le colonne come sono importate in DB"""
+        rename_dict = {
+            'fiscalcode': 'CF',
+            'istat_province_prcode': 'PV',
+            'regulation': 'CodiceCertificazione'
+        }
+        self.df.rename(columns=rename_dict, inplace=True)
+
 def main():
     print("Prova della classe Accredia:")
     prova = Accredia("20200203_accredia.csv")
