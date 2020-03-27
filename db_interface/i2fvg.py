@@ -19,22 +19,26 @@ class I2FVG(object):
     Attributes
     ----------
         test: str 
-            used in the init method for mode selection
+        used in the init method for mode selection
+
         engine: SqlAlchemy obj
-            used for setting up the db connection
+        used for setting up the db connection
+
         tables: list
-            with all the db tables available
+        with all the db tables available
+
         tbl_df: dict of pandas.DataFrame
-            the place where you can find the tables in pandas DataFrame with
-            short name as dict key
+        the place where you can find the tables in pandas DataFrame with
+        short name as dict key
+        
         tbl_info: dict of subclass Info (obj created with namedtuple) 
-            the place where you can find the info related to the tbl_df key
+        the place where you can find the info related to the tbl_df key
     
     Methods
     -------
         get_fiscalcode_list
 
-        
+
     """
     # Colleziona tutte le info per la tabella
     Info = namedtuple(
@@ -214,7 +218,7 @@ class I2FVG(object):
     
     def get_fiscalcode_list(self):
         query = "SELECT DISTINCT CF FROM DATA_Impresa"
-        cf = pd.read_sql_query(query, self.engine)
+        cf = pd.read_sql_query(query, self.engine)['CF']
         return cf.tolist()
 
 

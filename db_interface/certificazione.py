@@ -13,7 +13,69 @@ import pandas as pd
 from db_interface import I2FVG
 
 class Certificazione(I2FVG):
-    # Costanti
+    """
+    Oggetto di I2FVG per le certificazioni di qualità,
+    certificazioni ambientali ed energetiche, 
+    certificazioni di gestione della sicurezza
+
+    Le certificazioni sono salvate sul DB in due tabelle:
+
+    - DATA_Certificazione: per azienda
+
+    - SVC_Certificazione: per certificazione
+
+    Ogni istanza carica le tabelle e salva la loro unione
+    in un'unica rappresentazione tabellare.
+
+    Attributi:
+    ----------
+        test: str 
+        Modalità di apertura del test
+
+        engine: SqlAlchemy obj
+        Attributo utilizzato per interagire con il connettore del DB
+
+        tables: list
+        Lista di tutte le tabelle presenti nel DB
+
+        _names: dict of str
+        Dizionario in cui sono inserite le tabelle del DB sulle Certificazioni
+        Le key sono delle abbreviazioni utilizzate anche in tbl_df e tbl_info
+
+        tbl_df: dict of pandas.DataFrame
+        Dizionario delle tabelle del DB sulle Certificazioni
+        Ogni tabella ha come key del dict la corrispondente 
+        nel dict _names.keys()
+        
+        tbl_info: dict of subclass Info (obj created with namedtuple) 
+        Dizionario delle informazioni delle tabelle del DB 
+        sulle Certificazioni
+        Ogni tabella ha come key del dict la corrispondente 
+        nel dict _names.keys()
+
+        df: pandas.DataFrame
+        Rappresentazione unica delle informazioni sul DB in Pandas
+
+    Metodi:
+    -------
+        __init__(self, file_name):
+        Inizializzatore di classe che apre apre 
+        le tabelle contenute in _names e salva in df 
+        la loro unione in un unico pandas.DataFrame
+
+        def set_cleaned_merged_table(self):
+        Metodo che permette di eliminare le colonne di sistema
+        che non riguardano le Certificazioni
+
+        def get_merged_tables(self) -> pd.DataFrame:
+        Metodo per ottenere l'unione delle due tabelle 
+        in un pandas.DataFrame
+
+        def get_certificazioni(self) -> list:
+        Metodo che permette di estrarre le singole tipologie 
+        di certificazioni presenti nel DB
+    """
+
     _names = {
         'certificazioni': 'DATA_Certificazione',
         'tipologie': 'SVC_Certificazione'
@@ -25,9 +87,20 @@ class Certificazione(I2FVG):
         """
         super().__init__(inTest = test)
         self.open_tables(name=table)
-        self.df = self.get_merge_tables()
+        self.df = self.get_merged_tables()
+
+    def set_cleaned_merged_table(self):
+        """
+        Pulizia delle colonne non necessarie
+        """
+        cols_list = [
+            'ID_DataCertificazione', 'RF_Certificazione',
+            'RF_Importazione', 'ID_Certificazione', 
+            'RF_TipoCertificazione', 'DataInsert'
+        ]
+        self.df.drop(columns=cols_list, inplace=True)
     
-    def get_merge_tables(self):
+    def get_merged_tables(self) -> pd.DataFrame:
         """
         Unione delle tabelle 'DATA_Certificazione' e 'SVC_Certificazione'
         """
@@ -40,7 +113,7 @@ class Certificazione(I2FVG):
             )
         return df
 
-    def get_certificazioni(self):
+    def get_certificazioni(self) -> list:
         """
         Metodo che permette di estrarre le singole tipologie
         di certificazioni presenti nel DB
@@ -50,16 +123,6 @@ class Certificazione(I2FVG):
         certificazioni_list = certificazioni_series.index.map(lambda x: str(x).strip()).tolist()
         return certificazioni_list
     
-    def set_cleaned_merged_table(self):
-        """
-        Pulizia delle colonne non necessarie
-        """
-        cols_list = [
-            'ID_DataCertificazione', 'RF_Certificazione',
-            'RF_Importazione', 'ID_Certificazione', 
-            'RF_TipoCertificazione', 'DataInsert'
-        ]
-        self.df.drop(columns=cols_list, inplace=True)
 
 def main():
     print("Prova della classe Certificazione:")

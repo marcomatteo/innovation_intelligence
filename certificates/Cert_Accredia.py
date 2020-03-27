@@ -38,9 +38,13 @@ a = data_provider.get_certificazioni()
 # %%
 b = db_obj.get_certificazioni()
 # %%
-set(a) ~& set(b)
+def trim_cols(col):
+    return col.map(lambda x: str(x).strip())
 
-# %%
-set.difference(set(a),set(b))
+custom_df = data_provider_df_selected.drop(columns='id_istat_province').apply(lambda x: trim_cols(x))
+
+match_list = list()
+for row in custom_df.itertuples(name="Certificazioni", index=False):
+    match_list.append(row)
 
 # %%

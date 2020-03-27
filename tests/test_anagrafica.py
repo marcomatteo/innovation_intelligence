@@ -42,44 +42,45 @@ class Test_AnagraficaInfocamere(BaseTestCase):
 
         # Create logger
         cls.logger = logging.getLogger(__name__)    
-        cls.logger.info("\n\n## Test Data Provider : Anagrafica Infocamere 2020\n{}\n".format(
-            super().log_new_line
-        ))
+        super().logInfoTitle(message="## Test Data Provider : Anagrafica Infocamere 2020")
 
-        cls.logger.info("\n\nApertura del file excel...\n")
+        super().logInfoMessage("Apertura del file excel...")
         try:
             cls.anagrafica = AnagraficaInfocamere(cls.file_name) # To change
         except:
-            cls.logger.error("\n\nErrore apertura file '{}'!\n".format(cls.file_name))
+            super().logErrorMessage("Errore apertura file '{}'!".format(cls.file_name))
         
-        cls.logger.info("\n\nApertura connessione con il DB...\n")
+        super().logInfoMessage("Apertura connessione con il DB...")
         try:
             cls.i2fvg = I2FVG()
         except:
-            cls.logger.error("\n\nErrore connessione con il DB!\n")
+            cls.logger.error("\n\n\n")
+            super().logErrorMessage("Errore connessione con il DB!")
         
-        cls.logger.info("\n\nScarico le informazioni sulla tabella '{}'...\n".format(
-            cls.db_table_name))
+        super().logInfoMessage(
+            "Scarico le informazioni sulla tabella '{}'...".format(cls.db_table_name))
         try:
             cls.db_info = cls.i2fvg.get_stats(cls.db_table_name)
         except:
-            cls.logger.error("\n\nImpossibile scaricare le informazioni dalla tabella {}\n".format(
-                cls.db_table_name))
+            super().logErrorMessage(
+                "Impossibile scaricare le informazioni dalla tabella {}!".format(
+                    cls.db_table_name)
+                )
 
         # Formatto info dal DB per i controlli    
         cls.db_columns_info = getColumnsInfo(cls.db_info, slice(0,-2))
         cls.default_columns_type = getNumpyTypesConversion(cls.db_columns_info.types)
 
         # Log info del data provider
-        super().logInfo(cls.anagrafica.df)
+        super().logDataFrameInfo(cls.anagrafica.df)
         cls.logger.info("\n\n{}".format(super().log_new_line))
 
     def test_acceptance_fileExtension_xls(self):
         test_fileExtension_type = self.anagrafica.file_ext
 
         # Log to file
-        self.logger.debug("\n\n### Test Acceptance Estensione\n")
-        super().logDifferences(["xlsx"], [self.anagrafica.file_ext])
+        self.logDebugMessage("### Test Acceptance Estensione")
+        self.logDifferences(["xlsx"], [self.anagrafica.file_ext])
 
         self.assertEqual(
             test_fileExtension_type, 'xlsx',
