@@ -44,8 +44,9 @@ class Test_CertificazioneAccredia(BaseTestCase):
         super().logInfoMessage("Carico le tabelle sul DB")
         cls.db = Certificazione()
         cls.data_db = cls.db.df
+        super().logNewLine()
 
-    def test_NuoviCodiceCertificazioni_vuoto(self):
+    def test_NewCodiceCertificazioni_ZeroDifferences(self):
         self.logTestTile("Test nuovi CodiceCertificazioni")
 
         dp_set = set(self.dp.get_certificazioni())
@@ -53,41 +54,66 @@ class Test_CertificazioneAccredia(BaseTestCase):
 
         # Controllo che le tipologie del dp siano importate tutte
         differences = set.difference(dp_set, db_set)
-        self.logObject(differences)
+        assertion = len(differences) == 0
+        if ~ assertion:
+            self.logSeries([diff for diff in differences])
+        
         self.assertTrue(
-            len(differences) == 0,
-            "Sono presenti tipologie di Certificazioni non importate"
+            assertion,
+            "Sono presenti n. {} tipologie di Certificazioni non importate".format(
+                len(differences)
+            )
         )
 
-    def test_MatchRowsWithNamedTuples(self):
+    def test_MatchAllRowsFromDataProvider_EmptyDataFrame(self):
         
         def trim_cols(col):
             return col.map(lambda x: str(x).strip())
 
-        def load_dataProvider_list(df) -> list:
-            match_list = list()
-            for row in df.itertuples(name="Certificazioni", index=False):
-                match_list.append(row)
-            return match_list
+        self.logTestTile("Test su ogni certificazione importata")
 
-        # self.logTestTile("Test su ogni certificazione importata")
+        custom_dp_df = self.data_dp.drop(columns='id_istat_province').apply(
+            lambda x: trim_cols(x))
+        custom_db_df = self.data_db.iloc[:, [1, 2, 3, 9]].apply(
+            lambda x: trim_cols(x))
 
-        custom_dp_df = self.data_dp.drop(columns='id_istat_province').apply(lambda x: trim_cols(x))
-        custom_db_df = self.data_db.iloc[:, [1, 2, 3, 9]]
+        # CF, PV e CodiceCertificazione sono univoci
+        custom_dp_df.set_index(
+            ['CF', "PV", "CodiceCertificazione"], inplace = True)
+        custom_db_df.set_index(
+            ["CF", "ID_Provincia", "CodiceCertificazione"], inplace = True
+        )
 
-        dp_list = load_dataProvider_list(custom_dp_df)
-        db_list = load_dataProvider_list(custom_db_df)
+        # Rename indici per il join
+        names = ["CF", "PV", "Cert"]
+        custom_dp_df.index.set_names(names, inplace = True)
+        custom_db_df.index.set_names(names, inplace = True)
 
-        dp_set = set(dp_list)
-        db_set = set(db_list)
+        df_join = custom_dp_df.join(
+            custom_db_df,
+            how = "left"
+        )
 
-        differences = set.difference(dp_set, db_set)
-        self.logObject(differences)
+        # Verifico che non ci siano record non importati
+        cond = df_join['DataCertificazione'].isna()
+        df_cond = cond.reset_index()
+        df_check = df_cond.loc[df_cond['DataCertificazione'] == True]
+        assertion = df_check.empty
+
+        # LOG if there is some missing
+        if ~ assertion:
+            df_check.index.set_names("Indice", inplace=True)
+            message = "Nella tabella ci sono certificazioni non importate.\n" + \
+                "Nella colonna DataCertificazione e' indicato con ```True``` che la " + \
+                "certificazione e' mancante."
+            self.logDataFrame(df=df_check, message=message)
 
         self.assertTrue(
-            len(differences) == 0,
-            "Alcune certificazioni non corrispondono"
+            assertion,
+            "Ci sono {} certificazioni non importate".format(
+                df_check.shape[0])
         )
+
 
 if __name__ == '__main__':
     loader = test.TestLoader()

@@ -125,7 +125,25 @@ class BaseTestCase(unittest.TestCase):
         )
     
     @staticmethod
-    def logDataFrame(df, cols=None):
+    def logSeries(obj):
+        """
+        Metodo per stampare una lista o array o Series
+        in una pandas.Series nel file di log in .md
+        """
+        logger = logging.getLogger()
+        if isinstance(obj, pd.Series):
+            s = obj
+        elif isinstance(obj, np.ndarray):
+            s = pd.Series(obj)
+        elif isinstance(obj, list):
+            s = pd.Series(obj)
+        df = s.to_frame()
+        logger.debug("\n\n{}\n".format(
+                df.to_markdown())
+            ) 
+
+    @staticmethod
+    def logDataFrame(df, cols=None, message=None):
         """
         Metodo per stampare un DataFrame per file markdown
 
@@ -138,12 +156,17 @@ class BaseTestCase(unittest.TestCase):
         """
         logger = logging.getLogger()
         if cols:
-            logger.debug("\n\n{}\n".format(
-                df.loc[:, cols].to_markdown())
+            df_log = df.loc[:, cols]
+        else:
+            df_log = df
+        if message:
+            logger.debug(": {}\n\n{}\n".format( 
+                message,
+                df_log.to_markdown())
             )
         else:
-            logger.debug("\n\n{}\n".format(
-                df.to_markdown())
+            logger.debug("\n\n{}\n".format( 
+                df_log.to_markdown())
             )
 
     @staticmethod 
@@ -153,14 +176,6 @@ class BaseTestCase(unittest.TestCase):
         """
         logger = logging.getLogger()
         logger.debug("\n\n```\n{}\n```\n".format(obj))
-    
-    @classmethod
-    def logInfoTitle(cls, message):
-        logger = logging.getLogger()
-        logger.info("\n\n# {}\n{}\n".format(
-            message,
-            cls.log_new_line
-        ))
     
     @staticmethod
     def logInfoMessage(message):
@@ -181,6 +196,19 @@ class BaseTestCase(unittest.TestCase):
     def logTestTile(message):
         logger = logging.getLogger()
         logger.debug("\n\n### {}\n".format(message))
+
+    @classmethod
+    def logInfoTitle(cls, message):
+        logger = logging.getLogger()
+        logger.info("\n\n# {}\n{}\n".format(
+            message,
+            cls.log_new_line
+        ))
+
+    @classmethod
+    def logNewLine(cls):
+        logger = logging.getLogger()
+        logger.info("\n\n{}".format(cls.log_new_line))
 
     def setUp(self, *args, **kwargs):
         logger = logging.getLogger()
