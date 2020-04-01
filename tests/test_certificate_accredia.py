@@ -68,6 +68,7 @@ class Test_CertificazioneAccredia(BaseTestCase):
     def test_MatchAllRowsFromDataProvider_EmptyDataFrame(self):
         
         def trim_cols(col):
+            """Elimina gli spazi prima e dopo in ogni riga della colonna col"""
             return col.map(lambda x: str(x).strip())
 
         self.logTestTile("Test su ogni certificazione importata")

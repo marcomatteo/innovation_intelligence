@@ -2,11 +2,11 @@
 
 import pandas as pd
 import numpy as nps
-from .dataProvider import Data
+from data_providers import DataProvider
 from innovation_intelligence.db_interface.i2fvg import I2FVG
 from sqlalchemy import create_engine
 
-class ContrattiRete(Data):
+class ContrattiRete(DataProvider):
 
     def __init__(self, fonte_name):
         # Sistemo il percorso per recuperare il file utilizzando la classe dataProvider e aggiungendo il nome passato dall'inizializzatore
