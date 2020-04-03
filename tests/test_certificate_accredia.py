@@ -10,6 +10,7 @@ sys.path.append(r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_i
 
 from data_providers import Accredia
 from db_interface import I2FVG, Certificazione
+from certificates import trim_columns_spaces, dataframe_index_differences
 from log_test import LogCaptureRunner, BaseTestCase
 
 LOG_FILE = "tests/logs/certificazioni/accredia.md"
@@ -34,16 +35,22 @@ class Test_CertificazioneAccredia(BaseTestCase):
             "Test Certificazione Data Provider : Accredia {}".format(anno))
 
         super().logInfoMessage("Creo connessione con il db e ottengo lista cf...")
+        
         cls.ii = I2FVG(True)
         cf_list = cls.ii.get_fiscalcode_list()
+        
         super().logInfoMessage("Carico file data provider...")
         cls.dp = Accredia(cls.dp_file_name)
         cls.dp.set_selected_fiscalcodes(cf_list)
         cls.dp.set_renamed_df()
         cls.data_dp = cls.dp.df
+        cls.data_dp = cls.data_dp.apply(lambda col: trim_columns_spaces(col))
+        cls.data_dp.drop(columns='id_istat_province', inplace=True)
+        
         super().logInfoMessage("Carico le tabelle sul DB")
         cls.db = Certificazione()
         cls.data_db = cls.db.df
+        cls.data_db = cls.data_db.apply(lambda col: trim_columns_spaces(col))
         super().logNewLine()
 
     def test_NewCodiceCertificazioni_ZeroDifferences(self):
@@ -65,18 +72,12 @@ class Test_CertificazioneAccredia(BaseTestCase):
             )
         )
 
-    def test_MatchAllRowsFromDataProvider_EmptyDataFrame(self):
+    def test_index_comparison_with_utility_function(self):
         
-        def trim_cols(col):
-            """Elimina gli spazi prima e dopo in ogni riga della colonna col"""
-            return col.map(lambda x: str(x).strip())
+        self.logTestTile("Test su ogni certificazione importata con funzione Utility")
 
-        self.logTestTile("Test su ogni certificazione importata")
-
-        custom_dp_df = self.data_dp.drop(columns='id_istat_province').apply(
-            lambda x: trim_cols(x))
-        custom_db_df = self.data_db.iloc[:, [1, 2, 3, 9]].apply(
-            lambda x: trim_cols(x))
+        custom_dp_df = self.data_dp.copy()
+        custom_db_df = self.data_db.iloc[:, [1, 2, 3, 9]].copy()
 
         # CF, PV e CodiceCertificazione sono univoci
         custom_dp_df.set_index(
@@ -85,35 +86,25 @@ class Test_CertificazioneAccredia(BaseTestCase):
             ["CF", "ID_Provincia", "CodiceCertificazione"], inplace = True
         )
 
-        # Rename indici per il join
-        names = ["CF", "PV", "Cert"]
-        custom_dp_df.index.set_names(names, inplace = True)
-        custom_db_df.index.set_names(names, inplace = True)
-
-        df_join = custom_dp_df.join(
+        df_check = dataframe_index_differences(
+            custom_dp_df,
             custom_db_df,
-            how = "left"
+            how='left'
         )
 
-        # Verifico che non ci siano record non importati
-        cond = df_join['DataCertificazione'].isna()
-        df_cond = cond.reset_index()
-        df_check = df_cond.loc[df_cond['DataCertificazione'] == True]
-        assertion = df_check.empty
-
         # LOG if there is some missing
-        if ~ assertion:
-            df_check.index.set_names("Indice", inplace=True)
-            message = "Nella tabella ci sono certificazioni non importate.\n" + \
+        if ~ df_check.empty:
+            df_check.reset_index().index.set_names("Indice", inplace=True)
+            message = f"Nella tabella ci sono {df_check.shape[0]} certificazioni non importate.\n" + \
                 "Nella colonna DataCertificazione e' indicato con ```True``` che la " + \
                 "certificazione e' mancante."
             self.logDataFrame(df=df_check, message=message)
 
         self.assertTrue(
-            assertion,
-            "Ci sono {} certificazioni non importate".format(
-                df_check.shape[0])
+            df_check.empty,
+            f"Inner join left tra i due df ha {df_check.shape[0]} valori mancanti"
         )
+
 
 
 if __name__ == '__main__':

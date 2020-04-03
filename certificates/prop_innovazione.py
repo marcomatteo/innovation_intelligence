@@ -13,7 +13,7 @@ Propensione innovazione:
 Innovation Intelligence in Python
 Marco Matteo Buzzulini
 """
-
+#TODO: per certificare il BUG 2283
 from innovation_intelligence.db_interface.brevetti import Brevetti
 from innovation_intelligence.db_interface.finanziamenti import Finanziamenti
 from db_interface import Anagrafica

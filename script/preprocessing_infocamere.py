@@ -5,6 +5,9 @@ import os
 import dateutil
 from datetime import datetime
 from data_providers import AnagraficaInfocamere
+import sys
+
+sys.path.append(r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence")
 # %% Parameters
 file_name_trim = "Infocamere2020_old"
 file_name_full = file_name_trim + ".xlsx"
