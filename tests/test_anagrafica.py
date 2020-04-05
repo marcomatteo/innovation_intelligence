@@ -33,7 +33,7 @@ class Test_AnagraficaInfocamere(BaseTestCase):
     file_name = "Infocamere2020.xlsx" #"Infocamere_06feb2019bis.xlsx" #"Insiel.xlsx"
     db_table_name = "TMP_IC_Anagrafica"
     
-    columns_unique = [0, 1, 4]
+    columns_constraints = [0, 1, 4]
     date_format = "%d/%m/%Y"
     
     @classmethod
@@ -359,7 +359,7 @@ class Test_AnagraficaInfocamere(BaseTestCase):
     def test_validity_keys(self):
         # Log to file
         self.logger.debug("\n\n### Test Validity Primary Keys\n")
-        pk_columns = self.anagrafica.df.iloc[:, self.columns_unique].columns.tolist()
+        pk_columns = self.anagrafica.df.iloc[:, self.columns_constraints].columns.tolist()
         test_duplicated = self.anagrafica.df.duplicated(
             subset = pk_columns
         )
