@@ -5,9 +5,9 @@ if root not in sys.path:
 
 import pandas as pd
 import os
-from iparser import IParser
+from file_parser import IParser
 
-class IParserXls(IParser):
+class ParserXls(IParser):
 
     def __init__(self):
         pass
@@ -31,4 +31,4 @@ class IParserXls(IParser):
 
 if __name__ == '__main__':
     print("IParserXls.py")
-    parser = IParserXls()
+    parser = ParserXls()

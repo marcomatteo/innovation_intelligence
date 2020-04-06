@@ -1,4 +1,5 @@
 import abc
+import pandas as pd
 
 class IParser(metaclass = abc.ABCMeta):
     
@@ -9,11 +10,12 @@ class IParser(metaclass = abc.ABCMeta):
                 NotImplemented)
     
     @abc.abstractmethod
-    def open_file(self, path: str, file_name: str):
+    def open_file(self) -> pd.DataFrame:
         """Load the data as a pandas.DataFrame"""
         raise NotImplementedError
-
-    def get_file_ext(self, file_name):
+    
+    @staticmethod
+    def get_file_ext(file_name):
         """
         Return the file_name extension after the '.'
         """
