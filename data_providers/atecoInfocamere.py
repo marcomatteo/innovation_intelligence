@@ -4,6 +4,7 @@ import os
 
 from .dataProvider import DataProvider
 from .dataProviderUtil import formatFiscalcodeColumn 
+from file_parser import ParserXls
 
 class AtecoInfocamere(DataProvider):
     source_type = "Infocamere"
@@ -18,6 +19,25 @@ class AtecoInfocamere(DataProvider):
             print("The file type is not xls or xlsx.")
         except FileExistsError:
             print("Check the file_name path.")
+        self.df = self.get_SedeUl_column()
+
+    def get_SedeUl_column(self):
+        def addUL(x):
+            """
+            Funzione che aggiunge la colonna SedeUL
+            al file fonte di AtecoInfocamere perché
+            solo presente con colonna 'loc'.
+
+            Aggiunge SEDE al posto di 0
+            altrimenti UL- + num se num != 0
+            """
+            if x == 0:   
+                return "SEDE"
+            return "UL-" + str(x)
+
+        return self.df.assign(
+                SedeUl = lambda df: df["loc"].map(lambda x: addUL(x))
+            )
 
     def open_source(self):
         """
@@ -26,13 +46,7 @@ class AtecoInfocamere(DataProvider):
         assert self.file_ext.startswith("xls"), TypeError("Wrong file extension!")
         assert os.path.isfile(self.file_path), FileExistsError("File not found!")
 
-        self.df = pd.read_excel(
-                self.file_path, 
-                sheet_name=self.sheet_name, 
-                dtype=object, 
-                keep_default_na=False, 
-                na_values=""
-            )
+        self.df = ParserXls(self.file_path, sheet_name=2).open_file()
 
 def main():
     print("Prova della classe Anagrafica di Infocamere:")

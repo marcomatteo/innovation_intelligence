@@ -17,7 +17,7 @@ class ParserCsv(IParser):
         self.file_name = file_name
         self.sep = sep
 
-    def open_file(self) -> pd.DataFrame:
+    def open_file(self, *args, **kwargs) -> pd.DataFrame:
         """
         Open a csv file. 
         Returns a pandas.DataFrame
@@ -27,7 +27,8 @@ class ParserCsv(IParser):
                 sep = self.sep,
                 dtype = object, 
                 keep_default_na = False, 
-                na_values = ""
+                na_values = "",
+                *args, **kwargs
             )
 
 if __name__ == '__main__':

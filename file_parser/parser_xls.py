@@ -17,7 +17,7 @@ class ParserXls(IParser):
         self.file_name = file_name
         self.sheet_name = sheet_name
         
-    def open_file(self) -> pd.DataFrame:
+    def open_file(self, *args, **kwargs) -> pd.DataFrame:
         """
         Open a xls file. 
         Returns a pandas.DataFrame
@@ -27,7 +27,8 @@ class ParserXls(IParser):
                 sheet_name = self.sheet_name, 
                 dtype = object, 
                 keep_default_na = False, 
-                na_values = ""
+                na_values = "",
+                *args, **kwargs
             )
 
 

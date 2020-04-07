@@ -17,6 +17,7 @@ class Test_ParserCsv(test.TestCase):
     def setUpClass(cls):
         file_path = cls.root_dir + "test_file.csv"
         cls.parser = ParserCsv(file_name = file_path, sep="|")
+        cls.df = cls.parser.open_file()
 
     def setUp(self):
         pass
@@ -25,7 +26,6 @@ class Test_ParserCsv(test.TestCase):
         pass
 
     def test_open_file_columns(self):
-        df = self.parser.open_file()
         columns = [
             "fiscalcode", "annomese", "regulation", 
             "id_istat_province", "istat_province_prcode"]

@@ -12,6 +12,7 @@ from data_providers import AtecoInfocamere
 from db_interface import I2FVG, Anagrafica
 from certificates import trim_columns_spaces, dataframe_index_differences
 from log_test import LogCaptureRunner, BaseTestCase
+from file_parser import ParserXls
 
 LOG_FILE = "tests/logs/certificazioni/AtecoInfocamere.md"
 logging.basicConfig(
@@ -25,8 +26,8 @@ logging.basicConfig(
 class Test_CertificazioneAtecoInfocamere(BaseTestCase):
     # Data Provider file name
     dp_file_name = "Infocamere2020.xlsx"
-    dp_keys = ['c fiscale', "pv", "loc", "imp att", "ateco 2007"]
-    db_keys = ['CF', 'Provincia', "SedeUl", "RF_TipoCodiceAteco", "CodiceAteco"]
+    dp_keys = ['c fiscale', "SedeUl", "imp att", "ateco 2007"]
+    db_keys = ['CF', "SedeUl", "RF_TipoCodiceAteco", "CodiceAteco"]
     db_columns = []
     # Ricostruisco i dati nel DB come sono nel file fonte
     db_query = "SELECT {} ".format(", ".join(db_keys)) + \
@@ -47,6 +48,7 @@ class Test_CertificazioneAtecoInfocamere(BaseTestCase):
             super().logErrorMessage("Errore apertura file '{}'!".format(cls.dp_file_name))
         
         cls.data_dp = cls.dp.df
+        cls.data_dp.dropna(axis=0, inplace=True)
         cls.data_dp = cls.data_dp.apply(lambda col: trim_columns_spaces(col))
         cls.data_dp.set_index(cls.dp_keys, inplace = True)
         
@@ -67,12 +69,6 @@ class Test_CertificazioneAtecoInfocamere(BaseTestCase):
         self.logTestTile("Test su ogni codice Ateco importato")
 
         dp = self.data_dp.copy()
-        #TODO: Modificare la colonna SedeUl per confrontarla con il file fonte,
-        # nel file fonte la colonna 'loc' corrisponde a 'SedeUl' ma ha valori diversi:
-        # SEDE -> 0
-        # UL-3 -> 3
-        # UL-6 -> 6
-        # e così via... convertire la colonna lato db o dp (meglio se lato db)
         db = self.data_db.copy()
 
         # Creo una colonna fittizia per il confronto
