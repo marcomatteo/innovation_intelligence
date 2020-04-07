@@ -10,12 +10,12 @@ from file_parser import IParser
 class ParserCsv(IParser):
 
     def __init__(self, file_name: str, sep=None):
+        if not self.get_file_ext(file_name) == "csv": 
+            raise ValueError("Wrong file extension!")
+        if not os.path.isfile(file_name):
+            raise FileNotFoundError("File not found!")
         self.file_name = file_name
         self.sep = sep
-        if not self.get_file_ext(self.file_name) == "csv": 
-            raise ValueError("Wrong file extension!")
-        if not os.path.isfile(self.file_name):
-            raise FileNotFoundError("File not found!")
 
     def open_file(self) -> pd.DataFrame:
         """
@@ -32,4 +32,5 @@ class ParserCsv(IParser):
 
 if __name__ == '__main__':
     print("IParserCsv.py")
-    parser = ParserCsv(ROOT + r"/data/data_tests/IParsers/test_file.csv")
+    file_path = r"/data/data_tests/IParsers/test_file.csv"
+    parser = ParserCsv(ROOT + file_path)
