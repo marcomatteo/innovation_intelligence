@@ -8,6 +8,6 @@ from .i2fvgUtil import (
     getColumnTypes, getNumpyTypesConversion
 )
 
-# from .brevetti import Brevetti
-# from .cluster_imprese import Clusters
-# from .finanziamenti import Finanziamenti
+from .brevetti import Brevetti
+from .cluster_imprese import Clusters
+from .finanziamenti import Finanziamenti
