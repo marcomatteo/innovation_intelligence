@@ -1,23 +1,12 @@
-import sys
-ROOT = r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence"
-if ROOT not in sys.path:
-    sys.path.append(ROOT)
-
+from utilities import ROOT
+from file_parser import ParserCsv
+from logger import TestLogger
 import unittest as test
 import pandas as pd
 from datetime import datetime
 
-from file_parser import ParserCsv
-from logger import TestLogger
-
 class Test_ParserCsv(test.TestCase):
-    root_dir = ROOT + r"data/data_tests/IParsers/"
-
-    @classmethod
-    def setUpClass(cls):
-        file_path = cls.root_dir + "test_file.csv"
-        cls.parser = ParserCsv(file_name = file_path, sep="|")
-        cls.df = cls.parser.open_file()
+    root_dir = ROOT + r"/data/data_tests/IParsers/"
 
     def setUp(self):
         pass
@@ -25,13 +14,29 @@ class Test_ParserCsv(test.TestCase):
     def tearDown(self):
         pass
 
-    def test_open_file_columns(self):
-        columns = [
-            "fiscalcode", "annomese", "regulation", 
-            "id_istat_province", "istat_province_prcode"]
-
+    def test_open_file_semicolon_columns_matching(self):
+        file_path = self.root_dir + "test_file2.csv"
+        parser = ParserCsv(file_name=file_path, sep=";")
+        df = parser.open_file()
+        
         self.assertEqual(
-            df.columns.tolist(),
-            columns
+            ["fiscal_code", "final_rank", 
+            "evaluation_date", "is_consolidated"],
+            df.columns.tolist()
         )
 
+    def test_open_file_verticalBar_columns_matching(self):
+        file_path = self.root_dir + "test_file.csv"
+        parser = ParserCsv(file_name=file_path, sep="|")
+        df = parser.open_file()
+
+        self.assertEqual(
+            ["fiscalcode", "annomese", "regulation", 
+            "id_istat_province", "istat_province_prcode"],
+            df.columns.tolist()
+        )
+
+if __name__ == '__main__':
+    loader = test.TestLoader()
+    suite = loader.loadTestsFromTestCase(Test_ParserCsv)
+    test.TextTestRunner().run(suite)

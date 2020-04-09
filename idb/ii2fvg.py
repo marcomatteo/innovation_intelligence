@@ -1,8 +1,4 @@
-import sys
-ROOT = r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence"
-if ROOT not in sys.path:
-    sys.path.append(ROOT)
-
+from utilities import ROOT, Singleton
 import pandas as pd
 from sqlalchemy import create_engine, inspect
 

@@ -9,13 +9,14 @@ from file_parser import IParser
 
 class ParserXls(IParser):
 
-    def __init__(self, file_name: str, sheet_name=None):
-        if not self.get_file_ext(file_name).startswith("xls"): 
-            raise ValueError("Wrong file extension!")
+    def __init__(self, file_name: str):
+        file_ext = self.get_file_ext(file_name)
+        if not file_ext.startswith("xls"): 
+            raise ValueError("Invalid extension {}".format(file_ext))
         if not os.path.isfile(file_name):
-            raise FileNotFoundError("File not found!")
+            raise FileNotFoundError("File {} not found!".format(file_name))
+
         self.file_name = file_name
-        self.sheet_name = sheet_name
         
     def open_file(self, *args, **kwargs) -> pd.DataFrame:
         """
@@ -24,13 +25,12 @@ class ParserXls(IParser):
         """
         return pd.read_excel(
                 self.file_name, 
-                sheet_name = self.sheet_name, 
                 dtype = object, 
                 keep_default_na = False, 
                 na_values = "",
+                engine="openpyxl",
                 *args, **kwargs
             )
-
 
 if __name__ == '__main__':
     print("IParserXls.py")

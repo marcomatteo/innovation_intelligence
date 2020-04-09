@@ -1,60 +1,43 @@
-# File contenente la classe ContrattiRete per il data provider dei "Contratti di rete" in Innovation Intelligence
-
+"""
+File contenente la classe ContrattiRete per il data provider 
+dei "Contratti di rete" in Innovation Intelligence
+"""
 import pandas as pd
-import numpy as nps
+import numpy as np
+
 from data_providers import DataProvider
-from innovation_intelligence.db_interface.i2fvg import I2FVG
-from sqlalchemy import create_engine
+from file_parser import ParserXls
 
 class ContrattiRete(DataProvider):
 
-    def __init__(self, fonte_name):
-        # Sistemo il percorso per recuperare il file utilizzando la classe dataProvider e aggiungendo il nome passato dall'inizializzatore
-        super().__init__()
-        self.fonte_source = self.fonte_source + "Contratti rete\\" + fonte_name
-        self.i2fvg_df = self.open_i2fvg()
-        # Controllo che tipologia di file fonte si intende aprire
-        check = len(fonte_name.split("_"))
-        if check == 3:
-            # Apertura dei due fogli, merge e pulizia dei duplicati
-            pass
-        elif check == 4:
-            # Apertura con la pulizia dei duplicati
-            pass
-        elif check == 5:
-            # Apertura file aggiornato
-            self._lastFileFonte()
+    def __init__(self, file_name):
+        self.file_name = file_name
+        self.file_path = self.file_path + r"Contratti rete/" + self.file_name
+       
+        self.parser = ParserXls(self.file_path)
+        self.elenco = self.parser.open_file(sheet_name="Elenco")
+        print("Aperto foglio 'elenco' in ContrattiRete.elenco")
+        self.sogg_giuridico = self.parser.open_file(sheet_name="Sogg. Giu.")
+        print("Aperto foglio 'Sogg. Giu.' in ContrattiRete.sogg_giuridico")
 
-    # Apertura del file fonte aggiornato
-    def _lastFileFonte(self):
-        foglio1 = "Elenco"
-        self.fonte_df = pd.read_excel(self.fonte_source, sheet_name=foglio1)
-        print("File fonte sui Contratti di Rete importato correttatmente.")
-
-    # Unisco i due fogli del file fonte
-    def _mergeFileFonte(self):
-        # Nome dei fogli del file excel
-        foglio1 = "Elenco"
-        foglio2 = "Sogg. Giu."
-
+    def preprocessing_merge_sheets(self) -> pd.DataFrame:
+        """
+        Preprocessing file fonte Contratti di rete
+        """
         # Apertura DF
-        file_foglio1 = pd.read_excel(self.fonte_source, sheet_name=foglio1)
-        file_foglio2 = pd.read_excel(self.fonte_source, sheet_name=foglio2)
-
-        # Sistemazione dei due DF per la provincia di Napoli
-        file_foglio1['PV'].fillna('NA', inplace=True)
-        file_foglio2['PV impresa'].fillna('NA', inplace=True)
-
+        file_foglio1 = self.elenco.astype({'progr.' : np.int64})
+        file_foglio2 = self.sogg_giuridico.astype({'progr.' : np.int64})
+        
         # Sistemazione numero progressivo
-        file_foglio2.loc[:,['progr.']] = file_foglio2['progr.'] + file_foglio1['progr.'].max()
+        file_foglio2.loc[:,'progr.'] = file_foglio2['progr.'] + file_foglio1['progr.'].max()
 
         # Aggiunta colonna: Soggetto Giuridico SI/NO
-        file_foglio1 = file_foglio1.assign(SoggettoGiuridico = pd.Series(['NO' for i in file_foglio1.index.get_values().tolist()]))
-        file_foglio2 = file_foglio2.assign(SoggettoGiuridico = pd.Series(['SI' for i in file_foglio1.index.get_values().tolist()]))
+        file_foglio1 = file_foglio1.assign(SoggettoGiuridico = pd.Series(['NO' for i in file_foglio1.index.tolist()]))
+        file_foglio2 = file_foglio2.assign(SoggettoGiuridico = pd.Series(['SI' for i in file_foglio1.index.tolist()]))
 
         # Elenco delle colonne in lista per entrambi i file
-        elenco_cols1 = file_foglio1.columns.get_values().tolist()
-        elenco_cols2 = file_foglio2.columns.get_values().tolist()
+        elenco_cols1 = file_foglio1.columns.tolist()
+        elenco_cols2 = file_foglio2.columns.tolist()
         cols = { col: col[0] for col in elenco_cols2 }
 
         # Match chiave e valori del dizionario per rinominare le colonne
@@ -78,32 +61,17 @@ class ContrattiRete(DataProvider):
         # Seleziono le colonne che utilizzo e salvo nel DF temp
         file_temp = file_foglio2.loc[:, [v for k, v in cols.items() if len(v)>1]]
 
-        self.fonte_df = file_foglio1.append(file_temp, ignore_index=True, sort=False)
-        # Libero memoria non utilizzata
-        del file_temp, file_foglio1, file_foglio2
+        return file_foglio1.append(file_temp, ignore_index=True, sort=False)
     
-    # Apertura tabella di Innovation intelligence
-    def open_i2fvg(self):
-        name = "DATA_ContrattiRete"
-        df = pd.read_sql_table(name, I2FVG.connessione)
-        print("Tabella da I2FVG sui Contratti di Rete importata correttamente.")
-        return df
+def main():
+    print("Prova della classe ContrattiRete:")
+    try:
+        prova = ContrattiRete("Source_ContrattiRete_15052019_updated_manually.xlsx")
+        print("Classe ContrattiRete: OK!")
+    except:
+        print("Non è andata a buon fine.")
 
-    def split_contratti_i2fvg(self, df):
-        """
-        Metodo costruito per tener traccia della funzione split
-        per evidenziare tutte le imprese che hanno partecipato ad un contratto.
-        """
-        return df.join(
-            df['AziendePartecipanti'].str.split(", ", expand=True).head(),
-            how='inner'
-        )
+    del prova
 
-print("Prova della classe ContrattiRete:")
-try:
-    prova = ContrattiRete("Source_ContrattiRete_15052019_updated_manually.xlsx")
-    print("Classe ContrattiRete: OK!")
-except:
-    print("Non è andata a buon fine.")
-
-del prova
+if __name__ == '__main__':
+    main()

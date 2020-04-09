@@ -30,7 +30,7 @@ class ParserCsv(IParser):
                 na_values = "",
                 *args, **kwargs
             )
-
+            
 if __name__ == '__main__':
     print("IParserCsv.py")
     file_path = r"/data/data_tests/IParsers/test_file.csv"

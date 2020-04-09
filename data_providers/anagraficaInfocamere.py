@@ -34,7 +34,8 @@ class AnagraficaInfocamere(DataProvider):
                 sheet_name=self.sheet_name, 
                 dtype=object, 
                 keep_default_na=False, 
-                na_values=""
+                na_values="",
+                engine="openpyxl"
             )
 
     def preprocessing_anagrafica(self) -> pd.DataFrame:
