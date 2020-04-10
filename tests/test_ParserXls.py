@@ -11,7 +11,7 @@ class Test_ParserXls(test.TestCase):
     @classmethod
     def setUpClass(cls):
         file_path = cls.root_dir + "test_file.xlsx"
-        cls.parser = ParserXls(file_name=file_path)
+        cls.parser = ParserXls(file_path=file_path)
         cls.file_fonte = cls.parser.open_file(sheet_name=None)
 
     def setUp(self):

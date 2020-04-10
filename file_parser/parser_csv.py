@@ -9,22 +9,24 @@ from file_parser import IParser
 
 class ParserCsv(IParser):
 
-    def __init__(self, file_name: str, sep=None):
-        if not self.get_file_ext(file_name) == "csv": 
+    def __init__(self, file_path: str, sep=None):
+        if not self.get_file_ext(file_path) == "csv": 
             raise ValueError("Wrong file extension!")
-        if not os.path.isfile(file_name):
+        if not os.path.isfile(file_path):
             raise FileNotFoundError("File not found!")
-        self.file_name = file_name
-        self.sep = sep
+        
+        self.file_path = file_path
+        
 
-    def open_file(self, *args, **kwargs) -> pd.DataFrame:
+    def open_file(self, sep: str = ',', 
+                  *args, **kwargs) -> pd.DataFrame:
         """
         Open a csv file. 
         Returns a pandas.DataFrame
         """
         return pd.read_csv(
-                self.file_name, 
-                sep = self.sep,
+                self.file_path, 
+                sep = sep,
                 dtype = object, 
                 keep_default_na = False, 
                 na_values = "",

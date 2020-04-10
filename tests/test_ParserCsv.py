@@ -16,8 +16,8 @@ class Test_ParserCsv(test.TestCase):
 
     def test_open_file_semicolon_columns_matching(self):
         file_path = self.root_dir + "test_file2.csv"
-        parser = ParserCsv(file_name=file_path, sep=";")
-        df = parser.open_file()
+        parser = ParserCsv(file_path=file_path)
+        df = parser.open_file(sep=";")
         
         self.assertEqual(
             ["fiscal_code", "final_rank", 
@@ -27,8 +27,8 @@ class Test_ParserCsv(test.TestCase):
 
     def test_open_file_verticalBar_columns_matching(self):
         file_path = self.root_dir + "test_file.csv"
-        parser = ParserCsv(file_name=file_path, sep="|")
-        df = parser.open_file()
+        parser = ParserCsv(file_path=file_path)
+        df = parser.open_file(sep="|")
 
         self.assertEqual(
             ["fiscalcode", "annomese", "regulation", 
