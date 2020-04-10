@@ -47,9 +47,9 @@ class TestLogger:
             msg_format {str} -- Only the message (default)
         """
         if not os.path.isdir(self.path):
-            os.mkdir(path_dir)
+            os.mkdir(self.path)
 
-        path = path_dir + r"/{}".format(file_name)
+        path = self.path + r"/{}".format(file_name)
         if not os.path.isfile(path):
             with open(path, 'w'):
                 pass
