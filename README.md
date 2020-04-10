@@ -19,16 +19,20 @@ Dev'essere tutto ristrutturato come segue:
 
     - effettua le operazioni di certificazione
 
-4. Una classe Logger per ottenere una formattazione adeguata
+4. Due classi di Logger:
+
+    1. La classe di logger si chiama **TestLogger** e viene utilizzata per tenere traccia dei test delle classi realizzate con un'output in console e su file txt
+
+    2. La classe **TestMarkdownOutput** che viene utilizzata per leggere i risultati dei test secondo una formattazione specifica
 
 5. Ogni classe creata avrà una sua classe di test:
 
-    1. Test sui *parser*: **Test_IParserCsv** e **Test_IParserXls**. Utilizzando i file in ```/data/data_tests/IParsers/``` come verifica dei metodi e del funzionamento della classe.
+    1. Test sui *parser*: **Test_IParserCsv** e **Test_IParserXls**. Utilizzando i file in ```/data/data_tests/IParsers/``` come verifica dei metodi e del funzionamento della classe
 
-    2. Test sulle interfaccie lato db, ad esempio **Test_ICertificazioni**, in cui sono salvate le specifiche per ogni tipologia di informazioni sul database. Il test verifica che le informazioni siano sempre le stesse e che funzionino i metodi dedicati. **TODO:** costruire un file di config con le specifiche per ogni tabella.
+    2. Test sulle interfaccie lato db, ad esempio **Test_ICertificazioni**, in cui sono salvate le specifiche per ogni tipologia di informazioni sul database. Il test verifica che le informazioni siano sempre le stesse e che funzionino i metodi dedicati. **TODO:** costruire un file di config con le specifiche per ogni tabella
 
-    3. Test sulle classi di Data Provider, ad esempio **Test_Accredia**, utilizzando un file fonte costruito per poter verificare che i metodi funzionino.
+    3. Test sulle classi di Data Provider, ad esempio **Test_Accredia**, utilizzando un file fonte costruito per poter verificare che i metodi funzionino
 
-    4. Test di certificazione in cui si verifica che i metodi delle classi Data Provider siano superati dato il vero file fonte come input.
+    4. Test di certificazione in cui si verifica che i metodi delle classi Data Provider siano superati dato il vero file fonte come input
 
     

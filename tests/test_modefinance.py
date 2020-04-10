@@ -13,10 +13,11 @@ import numpy as np
 from datetime import datetime
 
 from data_providers import Modefinance
+from file_parser import ParserCsv
 from data_providers import \
     formatFiscalcodeColumn, formatFiscalcode, \
     getColumnNames, getColumnsTypes, \
-    getColumnsMaxLenght, getColumnNullables
+    getColumnsMaxLength, getColumnNullables
 
 class Test_Modefinance(test.TestCase):
     # PARAMETRI:
@@ -52,11 +53,14 @@ class Test_Modefinance(test.TestCase):
     # -----------
     @classmethod
     def setUpClass(cls):
-        cls.modefinance = Modefinance("MFSourceSample.csv")
+        path = r"data/Modefinance/"
+        cls.file_path = path + "modefinance_09_04_2020.csv"
+        cls.modefinance = ParserCsv(cls.file_path)\
+                            .open_file(cls.source_default_sep)
 
     def test_acceptance_fileExtension(self):
         default_type = self.source_default_type
-        fileExtension_type = self.modefinance.file_ext
+        fileExtension_type = ParserCsv.get_file_ext(self.file_path)
         self.assertEqual(
             default_type, 
             fileExtension_type,
@@ -74,7 +78,7 @@ class Test_Modefinance(test.TestCase):
 
     def test_acceptance_columnsNumber(self):
         default_columns_number = len(self.table_columns)
-        columns_names_number = len(getColumnNames(self.modefinance.df))
+        columns_names_number = len(getColumnNames(self.modefinance))
         self.assertEqual(
             default_columns_number,
             columns_names_number,
@@ -83,7 +87,7 @@ class Test_Modefinance(test.TestCase):
 
     def test_acceptance_columnsTypes(self):
         default_columns_type = self.columns_types
-        columns_types = getColumnsTypes(self.modefinance.df)
+        columns_types = getColumnsTypes(self.modefinance)
         self.assertEqual(
             default_columns_type,
             columns_types,
@@ -92,13 +96,13 @@ class Test_Modefinance(test.TestCase):
     
     def test_acceptance_columnsMaxLenght(self):
         default_columns_max_lenght = self.columns_max_lenght
-        columns_max_lenght = getColumnsMaxLenght(self.modefinance.df)
+        columns_max_lenght = getColumnsMaxLength(self.modefinance)
 
         # Test through all the columns
         for column_number, max_lenght in enumerate(default_columns_max_lenght):
             # Conditional assertion test
             if columns_max_lenght[column_number] > max_lenght:
-                column = self.modefinance.df.iloc[:, column_number]
+                column = self.modefinance.iloc[:, column_number]
                 condition = column > max_lenght
                 rows_to_check = column.loc[condition]
                 for index, value in rows_to_check.iteritems():
@@ -120,13 +124,13 @@ class Test_Modefinance(test.TestCase):
             for boolean in default_columns_not_null
             if boolean
         ]
-        columns_has_null = getColumnNullables(self.modefinance.df)
+        columns_has_null = getColumnNullables(self.modefinance)
 
         # Test through all the columns
         for column_number, _ in enumerate(default_columns_must_be_not_null):
             # Conditional assertion test
             if columns_has_null[column_number] == True:
-                column = self.modefinance.df.iloc[:, column_number]
+                column = self.modefinance.iloc[:, column_number]
                 rows_to_check = column.isna()
                 for index, value in rows_to_check.iteritems():
                     # subTest allows no interruption if test fails
@@ -135,7 +139,7 @@ class Test_Modefinance(test.TestCase):
                             value,
                             "Column {} has missing value ".format(column_number) + \
                             "in row {} :\n{}".format(
-                                index, self.modefinance.df.loc[index]
+                                index, self.modefinance.loc[index]
                             )
                         )
                         
@@ -146,7 +150,7 @@ class Test_Modefinance(test.TestCase):
         # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         default_values_list = list(range(0,11))
 
-        for index, value in self.modefinance.df['final_rank'].items():
+        for index, value in self.modefinance['final_rank'].items():
             cond = value in default_values_list
             with self.subTest("Controllo se il rating è valido -> compreso tra 1 e 10"):
                 self.assertTrue(
@@ -166,7 +170,7 @@ class Test_Modefinance(test.TestCase):
             return True
 
         for column in self.columns_is_date:
-            column_series = self.modefinance.df.iloc[:,column]
+            column_series = self.modefinance.iloc[:,column]
             # Test each row
             for index, value in column_series.iteritems():
                 true_value = dateTextIsValid(value, self.modefinance_date_format)
