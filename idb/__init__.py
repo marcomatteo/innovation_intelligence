@@ -1,1 +1,1 @@
-from .ii2fvg import II2FVG
+from .database_connector import DatabaseConnector
