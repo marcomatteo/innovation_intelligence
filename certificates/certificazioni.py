@@ -37,16 +37,16 @@ class Certificazioni(metaclass = CertificazioniMeta):
 
     def check_column_length(self):
         if not self.dp is NotImplemented:
-            return 0
+            return self.dp.get_columns_max_length()
         pass
 
     def check_column_nullables(self):
         if not self.dp is NotImplemented:
-            return 0
+            return self.dp.get_column_nullables()
         pass
 
-    def check_column_constrains(self):
+    def check_column_constraints(self):
         if not self.dp is NotImplemented:
-            return 0
+            return self.dp.get_column_constraints_is_respected()
         pass
     

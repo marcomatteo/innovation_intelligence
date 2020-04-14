@@ -14,3 +14,10 @@ class Accredia(DataProvider):
             3: 'int',
             4: 'object'
         }
+        self.column_constraints = {
+            0: True,
+            1: False,
+            2: True,
+            3: False,
+            4: True
+        }
