@@ -55,12 +55,12 @@ class Test_Modefinance(test.TestCase):
     def setUpClass(cls):
         path = r"data/Modefinance/"
         cls.file_path = path + "modefinance_09_04_2020.csv"
-        cls.modefinance = ParserCsv(cls.file_path)\
-                            .open_file(cls.source_default_sep)
+        cls.file_parser = ParserCsv(cls.file_path)
+        cls.modefinance = cls.file_parser.open_file(cls.source_default_sep)
 
     def test_acceptance_fileExtension(self):
         default_type = self.source_default_type
-        fileExtension_type = ParserCsv.get_file_ext(self.file_path)
+        fileExtension_type = self.file_parser.file_ext
         self.assertEqual(
             default_type, 
             fileExtension_type,

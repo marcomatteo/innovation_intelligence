@@ -1,8 +1,3 @@
-import sys
-ROOT = r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence"
-if ROOT not in sys.path:
-    sys.path.append(ROOT)
-
 import os
 import logging
 import pandas as pd
@@ -13,7 +8,6 @@ from io import StringIO
 from logger import TestOutput
 
 class TestLogger(TestOutput):
-    root_dir = ROOT + r"/logs/"
 
     def __init__(self, logger_name: str):
         """

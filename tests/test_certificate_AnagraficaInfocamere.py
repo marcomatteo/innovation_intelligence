@@ -1,12 +1,9 @@
-import sys
 import logging
 import unittest as test
 import pandas as pd
 import numpy as np
 from datetime import datetime
 from io import StringIO
-
-sys.path.append(r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence")
 
 from data_providers import AnagraficaInfocamere
 from db_interface import I2FVG, Anagrafica

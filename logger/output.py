@@ -1,15 +1,11 @@
-import sys
-ROOT = r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence"
-if ROOT not in sys.path:
-    sys.path.append(ROOT)
-
 import logging
 import os
 from io import StringIO
 
 class TestOutput:
     log_new_line = "-".join(["-"]*10)
-    root_dir = ROOT + r"/logs"
+    root_dir = r"/mnt/c/Users/buzzulini/Documents/GitHub/I2FVG_scripts/"\
+        + r"innovation_intelligence/logs/"
 
     def __init__(self, logger_name: str):
         """

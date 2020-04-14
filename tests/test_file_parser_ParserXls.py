@@ -1,4 +1,3 @@
-from utilities import ROOT
 from file_parser import ParserXls
 from logger import TestLogger
 import unittest as test
@@ -6,12 +5,12 @@ import pandas as pd
 from datetime import datetime
 
 class Test_ParserXls(test.TestCase):
-    root_dir = ROOT + r"/data/data_tests/IParsers/"
+    root_dir = r"/mnt/c/Users/buzzulini/Documents/GitHub/I2FVG_scripts/"\
+        + r"innovation_intelligence/data/data_tests/IParsers/"
 
     @classmethod
     def setUpClass(cls):
         cls.logger = TestLogger("ParserXls")
-        cls.logger.log_title("")
         file_path = cls.root_dir + "test_file.xlsx"
         cls.parser = ParserXls(file_path=file_path)
         cls.file_fonte = cls.parser.open_file(sheet_name=None)
