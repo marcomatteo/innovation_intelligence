@@ -1,13 +1,14 @@
 from certificates import Certificazioni
 from data_provider import Accredia
-
-import numpy as np
+from idb import InnovationIntelligence
 
 class CertificazioniAccredia(Certificazioni):
 
     def __init__(self):
+        # Load dataprovider file
+        cf_list = InnovationIntelligence.connect().get_fiscalcode_list()
         self.dp = Accredia()
+        self.dp.set_filtred_fiscal_codes_dataframe(cf_list)
 
-if __name__ == '__main__':
-    cert = CertificazioniAccredia()
-    print(dir(cert))
+        # Load database connection
+        pass

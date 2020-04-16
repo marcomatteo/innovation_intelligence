@@ -1,8 +1,3 @@
-import sys
-ROOT = r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence/"
-if ROOT not in sys.path:
-    sys.path.append(ROOT)
-
 import abc
 import numpy as np
 import pandas as pd
@@ -16,8 +11,8 @@ class DataProviderMeta(type):
 
 class DataProvider(metaclass = abc.ABCMeta):
 
-    # root_path = ROOT + r"data/"
-    root_path = r"/mnt/c/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence/data/"
+    root_path = r"data/"
+    # root_path = r"/mnt/c/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence/data/"
     file_path = NotImplemented          # type: str
     file_parser = NotImplemented        # type: IParser
     df = NotImplemented                 # type: pandas.DataFrame
@@ -38,11 +33,13 @@ class DataProvider(metaclass = abc.ABCMeta):
                 df_casted = df.astype('float64')
             except:
                 df_casted = df
-        elif col_type == "object":
+        elif col_type == "date":
             try:
-                df_casted = df.astype('object')
+                df_casted = pd.to_datetime(s).to_frame()
             except:
                 df_casted = df
+        else:
+            df_casted = df
         
         return df_casted
 
@@ -84,6 +81,20 @@ class DataProvider(metaclass = abc.ABCMeta):
         if self.column_constraints is NotImplemented:
             raise NotImplementedError("Subclass must define self.column_constraints attribute. \n"\
                 + "This attribute should define the DataProvider column constraints for the certificate class.")
+
+    def get_filtred_fiscal_codes_dataframe(self, cf_column: int, cf_list: list) -> pd.DataFrame:
+        """Metodo che ritorna una copia del dataframe
+        solo per i codici fiscali passati in cf_list"""
+        if not self.df is NotImplemented:
+            cond = self.df.iloc[:, cf_column].isin(cf_list)
+            return self.df.loc[cond].copy()
+    
+    def set_filtred_fiscal_codes_dataframe(self, cf_column: int, cf_list: list):
+        """Metodo che filtra le righe del dataframe
+        solo per i codici fiscali passati in cf_list"""
+        if not self.df is NotImplemented:
+            cond = self.df.iloc[:, cf_column].isin(cf_list)
+            self.df = self.df.loc[cond].copy()
         
     def get_column_names(self) -> list:
         """

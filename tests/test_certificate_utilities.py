@@ -5,8 +5,6 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-sys.path.append(r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence")
-
 from certificates import dataframe_index_differences
 from log_test import LogCaptureRunner, BaseTestCase
 

@@ -56,7 +56,7 @@ class Test_i2fvgUtil(test.TestCase):
             keys=[],
             foreign=[],
             columns=cols    
-        )
+        ) 
 
     def test_getColumnNames(self):
         test_column_names_list = getColumnNames(self.info)

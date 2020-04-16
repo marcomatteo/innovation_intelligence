@@ -5,8 +5,9 @@ import pandas as pd
 from datetime import datetime
 
 class Test_ParserXls(test.TestCase):
-    root_dir = r"/mnt/c/Users/buzzulini/Documents/GitHub/I2FVG_scripts/"\
-        + r"innovation_intelligence/data/data_tests/IParsers/"
+    # root_dir = r"/mnt/c/Users/buzzulini/Documents/GitHub/I2FVG_scripts/"\
+    #     + r"innovation_intelligence/data/data_tests/IParsers/"
+    root_dir = r"data/data_tests/IParsers/"
 
     @classmethod
     def setUpClass(cls):
