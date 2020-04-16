@@ -53,7 +53,7 @@ class Test_CertificazioneAccredia(BaseTestCase):
         cls.data_db = cls.data_db.apply(lambda col: trim_columns_spaces(col))
         super().logNewLine()
 
-    def test_NewCodiceCertificazioni_ZeroDifferences(self):
+    def test_NewCodiceCertificazioni_ZeroDifferences(self): 
         self.logTestTile("Test nuovi CodiceCertificazioni")
 
         dp_set = set(self.dp.get_certificazioni())

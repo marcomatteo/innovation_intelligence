@@ -4,11 +4,9 @@ from certificates import CertificazioniAccredia
 
 class Test_CertificazioniAccredia(unittest.TestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(self):
         self.cert = CertificazioniAccredia()
-
-    def tearDown(self):
-        del self.cert
 
     def test_check_file_extension(self):
         self.assertEqual("csv", self.cert.check_file_extension())
@@ -51,12 +49,13 @@ class Test_CertificazioniAccredia(unittest.TestCase):
             3: True,
             4: True
         }
-
-        for i, col in enumerate(self.cert.dp.df.columns):
+        cert_check_nullables = self.cert.check_column_nullables()
+        for num, col in enumerate(self.cert.dp.df.columns):
+            is_nullable = column_nullables.get(num)
             # Per le colonne False (not nullable) controllo sia False
             with self.subTest(col = col):
-                if not col:
-                    self.assertFalse(column_nullables[i])
+                if not is_nullable:
+                    self.assertFalse(cert_check_nullables[num])
                 else:
                     self.assertTrue(True)
     
