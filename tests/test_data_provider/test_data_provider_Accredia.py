@@ -31,16 +31,6 @@ class Test_Accredia(TestDataProviderBaseClass):
             "PI"
         ]
         super().test_first_row_matching()
-
-    def test_class_inheritance_from_data_provider(self):
-        super().test_class_inheritance_from_data_provider()
-
-    def test_attributes_isinstance_df(self):
-        super().test_attributes_isinstance_df()
-
-    def test_attributes_isinstance_file_parser(self):
-        self.file_parser = ParserCsv
-        super().test_attributes_isinstance_file_parser()
         
     def test_attributes_file_path(self):
         self.file_path = r"data/Accredia/"
@@ -69,3 +59,13 @@ class Test_Accredia(TestDataProviderBaseClass):
             4: True
         }
         super().test_attributes_column_constraints()
+
+    def test_class_inheritance_from_data_provider(self):
+        super().test_class_inheritance_from_data_provider()
+
+    def test_attributes_isinstance_df(self):
+        super().test_attributes_isinstance_df()
+
+    def test_attributes_isinstance_file_parser(self):
+        self.file_parser = ParserCsv
+        super().test_attributes_isinstance_file_parser()

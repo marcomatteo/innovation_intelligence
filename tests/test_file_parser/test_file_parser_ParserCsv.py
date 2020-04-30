@@ -5,8 +5,7 @@ import pandas as pd
 from datetime import datetime
 
 class Test_ParserCsv(test.TestCase):
-    root_dir = r"/mnt/c/Users/buzzulini/Documents/GitHub/I2FVG_scripts/"\
-        + r"innovation_intelligence/data/data_tests/IParsers/"
+    root_dir = r"data/data_tests/IParsers/"
 
     def setUp(self):
         pass

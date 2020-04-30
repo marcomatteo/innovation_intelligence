@@ -16,6 +16,11 @@ class ParserXls(IParser):
             raise ValueError("Invalid extension {}".format(file_ext))
         if not os.path.isfile(file_path):
             raise FileNotFoundError("File {} not found!".format(file_path))
+        self.excel_file = pd.ExcelFile(self.file_path)
+
+    @property
+    def get_sheet_names(self) -> list:
+        return self.excel_file.sheet_names
 
     def open_file(self, *args, **kwargs) -> pd.DataFrame:
         """
@@ -26,7 +31,7 @@ class ParserXls(IParser):
                              dtype = object, 
                              keep_default_na = False, 
                              na_values = "",
-                             engine="openpyxl",
+                             engine="xlrd",
                              *args, **kwargs)
 
     def write_new_sheet_into_file(self, df: pd.DataFrame, 
@@ -53,12 +58,3 @@ class ParserXls(IParser):
                 float_format = float_format,
                 index = False
             )
-
-def main():
-    print("IParserXls.py")
-    file_path = r"/data/data_tests/IParsers/test_file.xlsx"
-    parser = ParserXls(ROOT + file_path)
-    print(parser.file_path)
-
-if __name__ == '__main__':
-    main()

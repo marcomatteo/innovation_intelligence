@@ -1,10 +1,11 @@
-# from utilities import ROOT, Singleton
+from __future__ import annotations
+
 import pandas as pd
-from sqlalchemy import create_engine, inspect
+from idb import Anagrafica, Certificazioni
 
 # from utilities import Singleton
 
-class InnovationIntelligence():
+class InnovationIntelligence:
     """
     InnovationIntelligence is the interface to the
     database that stores all the informations about firms.
@@ -15,9 +16,30 @@ class InnovationIntelligence():
     
     """
 
-    def __init__(self, inTest=True):
-        self.inTest = inTest
+    def __init__(self, df: pd.DataFrame):
+        self.df = df
 
     @staticmethod
-    def connect(inTest=True):
-        return InnovationIntelligence(inTest)
+    def connect() -> InnovationIntelligence:
+        anag = Anagrafica() 
+        df = anag.get_sedi_imprese()
+        df.set_index('CF', inplace=True)
+        return InnovationIntelligence(df)
+
+    def add_dataframe(self, 
+                df: pd.DataFrame, 
+                *args, **kwargs
+            ) -> pd.DataFrame:
+
+        return df.merge(self.df, *args, **kwargs)
+
+    def add_certificazioni(self) -> InnovationIntelligence:
+        certificazioni_df = Certificazioni().get_certificazioni()
+        
+        try:
+            new_df = self.add_dataframe(certificazioni_df)
+        except:
+            print("Can not merge certificazioni in self.df")
+            new_df = self.df
+
+        return InnovationIntelligence(new_df)

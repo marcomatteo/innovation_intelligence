@@ -2,8 +2,6 @@ import unittest as test
 import pandas as pd
 import numpy as np
 import logging
-import sys
-sys.path.append(r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence")
 
 from datetime import datetime
 
@@ -12,26 +10,13 @@ from data_providers import (
         getColumnNames, getColumnsTypes, 
         getColumnsMaxLength, getColumnNullables,
         getNumerateDictFromList, getBoolSeriesForDateChecking,
-        getColumnTest, getTableTest
+        getColumnTest, getTableTest,
+        getTrimmedLength, getMaxLength, ColumnHaveNullValues,
+        isValidDateFormat
     )
-from data_providers.dataProviderUtil import (
-    getTrimmedLength, getMaxLength, ColumnHaveNullValues,
-    isValidDateFormat
-)
 
-from log_test import LogCaptureRunner, BaseTestCase
 
-LOG_FILE = "tests/logs/dataProviderUtil.log"
-logging.basicConfig(
-    level = logging.DEBUG, # Only debug levels or higher
-    format = "%(asctime)s %(levelname)-8s (%(funcName)s) %(message)s",
-    datefmt = "%d-%m-%Y %H:%M:%S",
-    filename = LOG_FILE,
-    filemode = "w"
-)
-
-# Create logger
-logger = logging.getLogger(__name__)
+from tests import LogCaptureRunner, BaseTestCase
 
 class Test_DataProviderUtil(test.TestCase):
 
@@ -318,7 +303,6 @@ class Test_DataProviderUtil(test.TestCase):
         #TODO: trovare un modo per convertire date (con format diverso)
         dt_str = "01-31-2020"
         dt_date = datetime.strptime(dt_str, "%m-%d-%Y")
-        logger.debug("La stringa data creata da datetime.strptime(dt_str, '%m-%d-%Y') è {}".format(dt_date))
         self.assertFalse(
             isValidDateFormat(dt_date, "%d/%m/%Y"), 
             "datetime from format '%m-%d-%Y' ('01-31-2020') must be False")
@@ -452,8 +436,3 @@ class Test_DataProviderUtil(test.TestCase):
             "All the columns have right formatting date ('%d-%m-%Y')," \
                 + " so must be False"
         )
-
-if __name__ == '__main__':
-    loader = test.TestLoader()
-    suite = loader.loadTestsFromTestCase(Test_DataProviderUtil)
-    test.TextTestRunner().run(suite)

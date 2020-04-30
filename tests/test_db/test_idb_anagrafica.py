@@ -29,3 +29,22 @@ class Test_Anagrafica(unittest.TestCase):
             "mssql+pyodbc://I2FVGDataReader:I2FVGDataReader@I2FVG_DATA_dev", 
             self.anagrafica.connection_string)
 
+    def test_get_fiscalcode_list(self):
+        cf_list = [
+            '00001510288'
+            , '00002070324'
+            , '00004280327'
+            , '00007080369'
+            , '00007470933'
+        ]
+        self.assertEqual(
+            cf_list,
+            self.anagrafica.get_fiscalcode_list()[:5])
+
+    def test_get_sedi_imprese_return_DataFrame(self):
+        import pandas as pd        
+        table_name = "DATA_Impresa"
+        self.assertEqual(
+            pd.DataFrame,
+            type(self.anagrafica.open_table(table_name))
+        )

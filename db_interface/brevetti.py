@@ -6,17 +6,8 @@ Classe per le tabelle DATA_Brevetti_Impresa e DATA_Brevetti_Brevetto.
 Innovation Intelligence in Python
 Marco Matteo Buzzulini
 """
-import os
-
-path = r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts"
-try:
-    os.chdir(path)
-    #print(f"Current dir: {os.getcwd()}")
-except:
-    print("Can't load the right dir")   
-
 import pandas as pd
-from innovation_intelligence.db_interface.i2fvg import I2FVG
+from db_interface import I2FVG
 
 class Brevetti(I2FVG):
     # Nomi tabelle della classe

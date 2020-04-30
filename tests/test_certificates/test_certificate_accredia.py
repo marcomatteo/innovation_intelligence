@@ -11,7 +11,7 @@ sys.path.append(r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_i
 from data_providers import Accredia
 from db_interface import I2FVG, Certificazione
 from certificates import trim_columns_spaces, dataframe_index_differences
-from log_test import LogCaptureRunner, BaseTestCase
+from tests import LogCaptureRunner, BaseTestCase
 
 LOG_FILE = "tests/logs/certificazioni/accredia.md"
 logging.basicConfig(

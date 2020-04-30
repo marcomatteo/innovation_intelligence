@@ -6,7 +6,7 @@ import numpy as np
 from datetime import datetime
 
 from certificates import dataframe_index_differences
-from log_test import LogCaptureRunner, BaseTestCase
+from tests import LogCaptureRunner, BaseTestCase
 
 class Test_CertificateUtilities(BaseTestCase):
 

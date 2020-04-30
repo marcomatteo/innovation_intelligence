@@ -1,13 +1,8 @@
-import sys
-ROOT = r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence"
-if ROOT not in sys.path:
-    sys.path.append(ROOT)
-    
-import unittest as test
+import unittest
 from unittest.mock import patch
 from idb import DatabaseConnector
 
-class Test_DatabaseConnector(test.TestCase):
+class Test_DatabaseConnector(unittest.TestCase):
 
     def setUp(self):
         self.ii = DatabaseConnector()
@@ -33,6 +28,24 @@ class Test_DatabaseConnector(test.TestCase):
     def test_tables_number(self):
         tables = self.ii.tables
         self.assertEqual(65, len(tables))
+
+    def test_open_table_return_DataFrame(self):
+        import pandas as pd        
+        table_name = "SYSTEM_DataProviderInfo"
+        self.assertEqual(
+            pd.DataFrame,
+            type(self.ii.open_table(table_name))
+        )
+
+    def test_open_table_exception_raised(self):
+        table_name = "TABLE_TEST"
+        with self.assertRaises(KeyError) as cm:
+            df = self.ii.open_table(table_name)
+
+        the_exception = cm.exception
+        self.assertEqual(
+            str(the_exception),
+            "'Invalid table name! No TABLE_TEST in DB!'")
 
     def tearDown(self):
         del self.ii
