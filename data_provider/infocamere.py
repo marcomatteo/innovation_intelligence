@@ -63,6 +63,7 @@ class AnagraficaInfocamere(Infocamere):
             47: "object",        
             48: "object",        
         }
+        # self.column_constraints
 
 class BilanciInfocamere(Infocamere):
 
@@ -73,22 +74,22 @@ class BilanciInfocamere(Infocamere):
             0: 'object',
             1: 'object',
             2: 'object',
-            3: 'object',
-            4: 'object',
-            5: 'object',
-            6: 'object',
-            7: 'object',
-            8: 'object',
-            9: 'object',
-            10: 'object',
-            11: 'object',
-            12: 'object',
-            13: 'object',
-            14: 'object',
-            15: 'object',
-            16: 'object',
-            17: 'object' 
+            3: 'int',
+            4: 'float',
+            5: 'float',
+            6: 'float',
+            7: 'float',
+            8: 'float',
+            9: 'float',
+            10: 'float',
+            11: 'float',
+            12: 'float',
+            13: 'float',
+            14: 'float',
+            15: 'float'
         }
+        # self.column_constraints
+
 
 class AtecoInfocamere(Infocamere):
 
@@ -99,7 +100,7 @@ class AtecoInfocamere(Infocamere):
             0: "object",        
             1: "object",
             2: "object",
-            3: "object",
+            3: "int",
             4: "object",
             5: "object",
             6: "object"
