@@ -1,38 +1,22 @@
-import os
 import logging
-import pandas as pd
-import numpy as np
-from datetime import datetime
 
-from io import StringIO
+from datetime import datetime
 from logger import TestOutput
 
 class TestLogger(TestOutput):
 
-    def __init__(self, logger_name: str):
-        """
-        TestLogger is a class for logging while tests
-        in innovation intelligence app
-        
-        Arguments:
-            logger_name {str} -- Test topic to be logged
-        """
-        self.root_dir = super().root_dir + r"/txt/"
-        super().__init__(logger_name)
-        self.add_file_handler()
+    path = TestOutput.root_dir + r"txt/"
 
-    def add_file_handler(self, 
-                         level = logging.DEBUG, 
-                         msg_format = "%(asctime)s %(levelname)-8s %(message)s",
-                         *args, **kwargs):
-        """
-        Add a file Handler to log messages in DEBUG (default)
-        
-        Arguments:
-
-            level {int} -- Debug level (default)
-
-            msg_format {str} -- Only the message (default)
-        """
+    @staticmethod
+    def setup_custom_logger(logger_name: str) -> logging.Logger:
         file_name = datetime.today().strftime("%Y-%m-%d_%H-%M-%S") + ".txt"
-        super().add_file_handler(file_name, level=level, msg_format="%(message)s")
+        file_path = TestLogger.path + logger_name + r"/" + file_name
+
+        fh = TestOutput.get_file_handler(file_path)
+        ch = TestOutput.get_console_handler()
+        
+        logger = logging.getLogger(logger_name)
+        logger.addHandler(fh)
+        logger.addHandler(ch)
+
+        return logger

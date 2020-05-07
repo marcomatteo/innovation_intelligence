@@ -62,10 +62,12 @@ class Test_RatingLegalita(unittest.TestCase):
         column_types = {
             0: 'object',
             1: 'object',
-            2: 'datetime64',
+            2: 'object',
             3: 'object',
-            4: 'object',
-            5: 'datetime64'
+            4: 'date',
+            5: 'object',
+            6: 'object',
+            7: 'date'
         }
         self.assertEqual(column_types, self.dp.column_types)
 

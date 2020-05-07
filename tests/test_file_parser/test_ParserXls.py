@@ -27,7 +27,8 @@ class Test_ParserXls(test.TestCase):
         Controllo la corrispondenza nelle prime
         colonne del foglio aperto
         """
-        df = self.file_fonte["FRIULI anagrafica"]
+        df = self.file_fonte.get("FRIULI anagrafica")
+        
         self.assertEqual(
             ["c fiscale","PRV - Provincia",	
             "N-REG-IMP - Numero Registro Imprese", "rea",
@@ -40,7 +41,7 @@ class Test_ParserXls(test.TestCase):
         Controllo se un codice fiscale viene formattato
         correttamente mantenendo gli zeri iniziali
         """
-        df = self.file_fonte["FRIULI anagrafica"]
+        df = self.file_fonte.get("FRIULI anagrafica")
 
         self.assertEqual(
            ["00002070324",

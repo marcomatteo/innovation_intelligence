@@ -18,9 +18,9 @@ from data_providers import (
 from db_interface import I2FVG
 from db_interface import getColumnsInfo, getNumpyTypesConversion
 
-from log_test import LogCaptureRunner, BaseTestCase
+from tests import LogCaptureRunner, BaseTestCase
 
-LOG_FILE = "tests/logs/anag_infocamere.md"
+LOG_FILE = "logs/markdowns/anag_infocamere.md"
 logging.basicConfig(
     level = logging.DEBUG, # Only debug levels or higher
     format = "%(asctime)s %(levelname)-8s (%(funcName)s) %(message)s",
@@ -30,10 +30,10 @@ logging.basicConfig(
 )
  
 class Test_AnagraficaInfocamere(BaseTestCase):
-    file_name = "Infocamere2020.xlsx" #"Infocamere_06feb2019bis.xlsx" #"Insiel.xlsx"
+    file_name = "Infocamere2020_01_preprocessed.xlsx" #"Infocamere_06feb2019bis.xlsx" #"Insiel.xlsx"
     db_table_name = "TMP_IC_Anagrafica"
     
-    columns_constraints = [0, 1, 4]
+    columns_constraints = [0, 1, 4] 
     date_format = "%d/%m/%Y"
     
     @classmethod

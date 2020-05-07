@@ -18,9 +18,9 @@ from data_providers.dataProviderUtil import getTrimmedLength
 from db_interface import I2FVG
 from db_interface import getColumnsInfo, getNumpyTypesConversion
 
-from log_test import LogCaptureRunner, BaseTestCase
+from tests import LogCaptureRunner, BaseTestCase
 
-LOG_FILE = "tests/logs/bilanci_infocamere.md"
+LOG_FILE = "logs/markdowns/bilanci_infocamere.md"
 logging.basicConfig(
     level = logging.DEBUG, # Only debug levels or higher
     format = "%(asctime)s %(levelname)-8s (%(funcName)s) %(message)s",
@@ -30,7 +30,7 @@ logging.basicConfig(
 )
 
 class Test_BilanciInfocamere(BaseTestCase):
-    file_name = "Infocamere2020.xlsx" #"Infocamere_06feb2019bis.xlsx" #"Insiel.xlsx"
+    file_name = "Infocamere2020_01_preprocessed.xlsx" #"Infocamere_06feb2019bis.xlsx" #"Insiel.xlsx"
     db_table_name = "TMP_IC_DatiStoricizzati"
     
     columns_unique = [0, 1, 3]
@@ -71,7 +71,7 @@ class Test_BilanciInfocamere(BaseTestCase):
         cls.default_columns_type = getNumpyTypesConversion(cls.db_columns_info.types)
 
         # Log info del data provider
-        super().logInfo(cls.anagrafica.df)
+        super().logDataFrameInfo(cls.anagrafica.df)
         cls.logger.info("\n\n{}".format(super().log_new_line))
 
     def test_acceptance_fileExtension_xls(self):

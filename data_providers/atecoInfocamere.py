@@ -19,7 +19,7 @@ class AtecoInfocamere(DataProvider):
             print("The file type is not xls or xlsx.")
         except FileExistsError:
             print("Check the file_name path.")
-        self.df = self.get_SedeUl_column()
+        #self.df = self.get_SedeUl_column()
 
     def get_SedeUl_column(self):
         def addUL(x):
@@ -46,7 +46,7 @@ class AtecoInfocamere(DataProvider):
         assert self.file_ext.startswith("xls"), TypeError("Wrong file extension!")
         assert os.path.isfile(self.file_path), FileExistsError("File not found!")
 
-        self.df = ParserXls(self.file_path, sheet_name=2).open_file()
+        self.df = ParserXls(self.file_path).open_file(sheet_name=self.sheet_name)
 
 def main():
     print("Prova della classe Anagrafica di Infocamere:")

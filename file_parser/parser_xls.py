@@ -12,10 +12,12 @@ class ParserXls(IParser):
     def __init__(self, file_path: str):
         self.file_path = file_path
         file_ext = self.file_ext
+
         if not file_ext.startswith("xls"): 
             raise ValueError("Invalid extension {}".format(file_ext))
         if not os.path.isfile(file_path):
             raise FileNotFoundError("File {} not found!".format(file_path))
+            
         self.excel_file = pd.ExcelFile(self.file_path)
 
     @property

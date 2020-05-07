@@ -3,3 +3,5 @@ from .accredia import Accredia
 from .rating_legalita import RatingLegalita
 from .modefinance import Modefinance
 from .brevetti_ita import BrevettiIta
+from .infocamere import (
+    Infocamere, AnagraficaInfocamere, BilanciInfocamere, AtecoInfocamere)

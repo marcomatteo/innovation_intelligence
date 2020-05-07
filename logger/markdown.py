@@ -1,9 +1,3 @@
-import sys
-ROOT = r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence"
-if ROOT not in sys.path:
-    sys.path.append(ROOT)
-
-import os
 import logging
 import pandas as pd
 import numpy as np
@@ -13,73 +7,77 @@ from io import StringIO
 from logger import TestOutput
 
 class TestMarkdown(TestOutput):
+
+    path = TestOutput.root_dir + r"markdowns/"
     separator_line = "-".join(["-"]*10)
 
-    def __init__(self, logger_name: str):
-        """
-        TestMarkdown is a class for logging markdown documents
-        while running tests in the innovation intelligence app
-        
-        Arguments:
-            logger_name {str} -- Test topic to be logged
-        """
-        self.root_dir = super().root_dir + r"/markdowns/"
-        super().__init__(logger_name)
-        self.add_file_handler()
+    def __init__(self, logger_name):
+        self.logger_name = logger_name
+        self.logger = self.setup_custom_logger(self.logger_name)
 
-    def add_file_handler(self, 
-                         level = logging.DEBUG, 
-                         msg_format = "%(asctime)s %(levelname)-8s %(message)s",
-                         *args, **kwargs):
-        """
-        Add a file Handler to log a markdown file 
-        for formatted output messages
-        
-        Arguments:
-
-            level {int} -- Debug level (default)
-
-            msg_format {str} -- Only the message (default)
-        """
+    @staticmethod
+    def setup_custom_logger(logger_name: str) -> logging.Logger:
         file_name = datetime.today().strftime("%Y-%m-%d_%H-%M-%S") + ".md"
-        super().add_file_handler(file_name, level=level, msg_format="%(message)s")
+        file_path = TestMarkdown.path + logger_name + r"/" + file_name
+
+        fh = TestOutput.get_file_handler(file_path)
+        ch = TestOutput.get_console_handler()
+        
+        logger = logging.getLogger(logger_name)
+
+        logger.addHandler(fh)
+        logger.addHandler(ch)
+
+        return logger
 
     def log_title(self, title: str):
-        self.logger.debug("# {}\n{}\n".format(
+        logger = self.logger #logging.getLogger(self.logger_name)
+        logger.debug("# {}\n{}\n".format(
             title,
             self.separator_line
         ))
 
-    def log_separator_line(self):
-        self.logger.info("\n\n{}".format(self.separator_line))
+    @staticmethod
+    def log_separator_line():
+        logger = logging.getLogger()
+        logger.info("\n\n{}".format(TestMarkdown.separator_line))
 
-    def log_series(self, s: pd.Series, message: str=None):
+    @staticmethod
+    def log_series(s: pd.Series, message: str=None):
+    
         if not isinstance(s, pd.Series):
             raise TypeError("Argument must be a pandas.Series")
         
-        self.logger.debug("{}\n\n{}\n".format(
+        logger = logging.getLogger()
+        logger.debug("{}\n\n{}\n".format(
             message if message else "",
             s.to_frame().to_markdown()
         ))
 
-    def log_dataframe(self, df: pd.DataFrame, message: str=None):
+    @staticmethod
+    def log_dataframe(df: pd.DataFrame, message: str=None):
+
         if not isinstance(df, pd.DataFrame):
             raise TypeError("Argument must be a pandas.DataFrame")
         
-        self.logger.debug("{}\n\n{}\n".format(
+        logger = logging.getLogger()
+        logger.debug("{}\n\n{}\n".format(
             message if message else "",
             df.to_markdown()))
 
-    def log_dataframe_info(self, df: pd.DataFrame):
+    @staticmethod
+    def log_dataframe_info(df: pd.DataFrame):
         """
         Log the StringIO buffer from pd.DataFrame.info() method
         """
+        logger = logging.getLogger()
         buf = StringIO()
         df.info(buf=buf)
         stream = buf.getvalue().encode().decode('utf-8')
-        self.logger.debug("\n\n```\n{}\n```\n".format(stream))
+        logger.debug("\n\n```\n{}\n```\n".format(stream))
 
-    def log_array(self, obj, message: str=None):
+    @staticmethod
+    def log_array(obj, message: str=None):
         """
         Log some array object into file like:
         - list
@@ -89,12 +87,13 @@ class TestMarkdown(TestOutput):
         Arguments:
             obj {list/set/np.array} -- Log this object into markdown
         """
+        logger = logging.getLogger()
         cond1 = not isinstance(obj, list)
         cond2 = not isinstance(obj, set)
         cond3 = not isinstance(obj, np.ndarray)
         if cond1 and cond2 and cond3:
             raise TypeError("Argument must be list/set/np.array")
 
-        self.logger.debug("{}\n\n```\n{}\n```\n".format(
-            message if message else "",
-            obj))
+        logger.debug("{}\n\n```\n{}\n```\n".format(
+                    message if message else "", obj)
+                )

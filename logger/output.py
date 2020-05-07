@@ -3,9 +3,8 @@ import os
 from io import StringIO
 
 class TestOutput:
-    log_new_line = "-".join(["-"]*10)
-    root_dir = r"/mnt/c/Users/buzzulini/Documents/GitHub/I2FVG_scripts/"\
-        + r"innovation_intelligence/logs/"
+    
+    root_dir = r"logs/"
 
     def __init__(self, logger_name: str):
         """
@@ -19,41 +18,61 @@ class TestOutput:
         self.logger = logging.getLogger(logger_name)
         self.path = self.root_dir + self.name
 
-        ch = logging.StreamHandler()   
-        ch.setLevel(logging.INFO)
+        ch = self.get_console_handler()
+        self.logger.addHandler(ch)
+        
+    @staticmethod
+    def get_console_handler(
+            level = logging.INFO,
+            msg_format = "%(asctime)s %(levelname)-8s %(message)s",
+            *args, **kwargs) -> logging.StreamHandler:
+        """
+        Add a Console Handler to the Logger
 
-        ch_format = logging.Formatter("%(asctime)s %(levelname)-8s %(message)s")
+        Keyword Arguments:
+            level {int} -- (default: {logging.INFO})
+            msg_format {str} -- (default: {"%(asctime)s %(levelname)-8s %(message)s"})
+
+        Returns:
+            logging.StreamHandler
+        """
+        ch = logging.StreamHandler()   
+        ch.setLevel(level)
+
+        ch_format = logging.Formatter(msg_format)
         ch.setFormatter(ch_format)
 
-        self.logger.addHandler(ch)
+        return ch
 
-    def add_file_handler(self, 
-                         file_name: str, 
-                         level = logging.DEBUG, 
-                         msg_format = "%(asctime)s %(levelname)-8s %(message)s",
-                         *args, **kwargs):
+    @staticmethod
+    def get_file_handler( 
+            file_path: str, 
+            level = logging.DEBUG, 
+            msg_format = "%(asctime)s %(levelname)-8s %(message)s",
+            *args, **kwargs) -> logging.FileHandler:
         """
         Add a file Handler to log messages in DEBUG (default)
         
         Arguments:
-            file_name {str} -- file name to be written with extension
+            file_path {str} -- file name to be written with extension
 
             level {int} -- Debug level (default)
 
             msg_format {str} -- Only the message (default)
         """
-        if not os.path.isdir(self.path):
-            os.makedirs(self.path)
+        directory = file_path.rsplit('/', maxsplit=1)[0]
 
-        path = self.path + r"/{}".format(file_name)
-        if not os.path.isfile(path):
-            with open(path, 'w'):
+        if not os.path.isdir(directory):
+            os.makedirs(directory)
+
+        if not os.path.isfile(file_path):
+            with open(file_path, 'w'):
                 pass
 
-        fh = logging.FileHandler(path, encoding="utf-8", *args, **kwargs)    
+        fh = logging.FileHandler(file_path, encoding="utf-8", *args, **kwargs)    
         fh.setLevel(level)
 
         fh_format = logging.Formatter(msg_format)
         fh.setFormatter(fh_format)
 
-        self.logger.addHandler(fh)
+        return fh

@@ -19,6 +19,11 @@ class DataProvider(metaclass = abc.ABCMeta):
     column_types = NotImplemented       # type: defaultdict(str)
     column_constraints = NotImplemented # type: defaultdict(bool)
 
+    def __init__(self, df, column_types, column_constraints):
+        self.df = df
+        self.column_types = column_types
+        self.column_constraints = column_constraints
+
     @staticmethod
     def get_casted_column_for_type(s: pd.Series, col_type: str) -> pd.DataFrame:
         df = s.to_frame()
@@ -95,6 +100,13 @@ class DataProvider(metaclass = abc.ABCMeta):
         if not self.df is NotImplemented:
             cond = self.df.iloc[:, cf_column].isin(cf_list)
             self.df = self.df.loc[cond].copy()
+
+    def get_column_number(self) -> int:
+        """
+        Metodo che ritorna il numero delle colonne del Data Provider
+        """
+        if not self.df is NotImplemented:
+            return self.df.shape[1]
         
     def get_column_names(self) -> list:
         """
@@ -110,12 +122,19 @@ class DataProvider(metaclass = abc.ABCMeta):
         """
         if ((not self.df is NotImplemented) and
             (not self.column_types is NotImplemented)):
-            columns_casted = defaultdict(pd.DataFrame)
-            for num, col_type in self.column_types.items():
-                columns_casted[num] = DataProvider.get_casted_column_for_type(
-                    self.df.iloc[:, num], col_type
-                )
-            return pd.concat(columns_casted, axis=1)
+
+            columns_casted_to_concat = defaultdict(pd.DataFrame)
+
+            for num, _ in enumerate(self.df.columns):
+                col_type = self.column_types.get(num)
+
+                columns_casted_to_concat[num] = DataProvider \
+                    .get_casted_column_for_type(
+                        self.df.iloc[:, num], 
+                        col_type
+                    )
+                
+            return pd.concat(columns_casted_to_concat, axis=1)
     
     def get_column_types(self) -> list:
         """
@@ -124,18 +143,22 @@ class DataProvider(metaclass = abc.ABCMeta):
         """
         if ((not self.df is NotImplemented) and
             (not self.column_types is NotImplemented)):
+
             return self.get_casted_dataframe().dtypes.tolist()
 
     def get_columns_max_length(self) -> dict:
         """
         Metodo che ritorna la lunghezza massima nelle colonne di un pd.DataFrame
         """    
-        column_is_max_length_respected_dict = defaultdict(bool)
-        for num, _ in enumerate(self.df.columns):
-            column_is_max_length_respected_dict[num] = DataProvider \
-                .get_column_max_length_is_respected(
-                    self.df.iloc[:, num]
-                )
+        if not self.df is NotImplemented:
+
+            column_is_max_length_respected_dict = defaultdict(int)
+
+            for num, _ in enumerate(self.df.columns):
+                column_is_max_length_respected_dict[num] = DataProvider \
+                    .get_column_max_length_is_respected(
+                        self.df.iloc[:, num]
+                    )
 
         return column_is_max_length_respected_dict
 
@@ -147,20 +170,26 @@ class DataProvider(metaclass = abc.ABCMeta):
         def get_column_nullable(s: pd.Series) -> bool:
             return s.isna().any()
 
-        column_is_nullable = defaultdict(bool)
-        for num, _ in enumerate(self.df.columns):
-            column_is_nullable[num] = get_column_nullable(
-                    self.df.iloc[:, num]
-                )
+        if not self.df is NotImplemented:
 
-        return column_is_nullable
+            column_is_nullable = defaultdict(bool)
+
+            for num, _ in enumerate(self.df.columns):
+                column_is_nullable[num] = get_column_nullable(
+                        self.df.iloc[:, num]
+                    )
+
+            return column_is_nullable
 
     def get_column_constraints_is_respected(self) -> int:
         """
         Metodo che ritorna il numero di duplicati (se presenti)
         """
-        columns = [
-            col for i, col in enumerate(self.get_column_names())
-            if self.column_constraints[i] ]
-            
-        return self.df.duplicated(subset = columns).sum() #.shape[0]
+        if ((not self.df is NotImplemented) and
+            (not self.column_constraints is NotImplemented)):
+
+            columns = [
+                col for i, col in enumerate(self.get_column_names())
+                if self.column_constraints[i] ]
+                
+            return self.df.duplicated(subset = columns).sum() #.shape[0]

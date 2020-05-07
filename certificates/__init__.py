@@ -4,3 +4,7 @@ from .certificazioni import Certificazioni
 from .cert_accredia import CertificazioniAccredia
 from .cert_modefinance import CertificazioniModefinance
 from .cert_rating_legalita import CertificazioniRatingLegalita
+from .cert_infocamere import CertificazioneInfocamere
+from .cert_Infocamere_anagrafica import CertificazioneAnagrafica
+from .cert_Infocamere_ateco import CertificazioneAteco
+from .cert_Infocamere_bilanci import CertificazioneBilanci

@@ -15,7 +15,38 @@ class Certificazioni(metaclass = CertificazioniMeta):
     da utilizzare per controllare un file fonte
     da un Data Provider
     """
-    dp = NotImplemented             # type: DataProvider
+    dp = NotImplemented                 # type: DataProvider
+    dp_file_extension = NotImplemented  # type: str
+    column_number = NotImplemented      # type: int
+    column_types = NotImplemented       # type: list
+    column_max_length = NotImplemented  # type: dict
+    column_nullables = NotImplemented   # type: dict
+
+    @staticmethod
+    def get_log_list_from_list(elements: list) -> list:
+        """
+        Method to format list for logging purposes
+
+        Arguments:
+            elements {list} -- list to be printed into a logger
+
+        Returns:
+            list
+        """
+        return [f"{num} : {value}" for num, value in enumerate(elements)]
+
+    @staticmethod
+    def get_log_list_from_dict(elements: dict) -> list:
+        """
+        Method to format dict for logging purposes
+
+        Arguments:
+            elements {dict} -- dict to be printed into a logger
+
+        Returns:
+            list
+        """
+        return [f"{num} : {value}" for num, value in elements.items()]
     
     def check_required_attributes(self):
         if self.dp is NotImplemented:
@@ -28,9 +59,9 @@ class Certificazioni(metaclass = CertificazioniMeta):
             return self.dp.file_parser.file_ext
         pass
 
-    def check_column_number(self) -> list:
+    def check_column_number(self) -> int:
         if not self.dp is NotImplemented:
-            return len(self.dp.get_column_names())
+            return self.dp.get_column_number()
 
     def check_column_types(self) -> list:
         if not self.dp is NotImplemented:

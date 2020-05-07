@@ -10,8 +10,9 @@ class Test_TestMarkdown(test.TestCase):
     
     @classmethod
     def setUpClass(cls):
-        cls.test_logger = TestMarkdown("test_log")
-        cls.test_logger.add_file_handler()
+        cls.name = "test_log"
+        cls.log_class = TestMarkdown(cls.name)
+        # cls.test_logger = TestMarkdown.setup_custom_logger(cls.name)
 
     def setUp(self):
         pass
@@ -21,15 +22,15 @@ class Test_TestMarkdown(test.TestCase):
 
     def test_log_debug_message(self):
         with self.assertLogs("test_log", level="DEBUG") as cm:
-            self.test_logger.logger.debug("First message")
+            self.log_class.logger.debug("First message")
         
         self.assertEqual(cm.output, ["DEBUG:test_log:First message"])
 
     def test_log_title(self):
-        with self.assertLogs("test_log", level="DEBUG") as cm:
-            self.test_logger.log_title("First message")
+        with self.assertLogs("test_log", level="INFO") as cm:
+            self.log_class.log_title("First message")
         
         self.assertEqual(cm.output, 
-                         ["DEBUG:test_log:# First message\n{}\n".format(
-                             self.test_logger.log_new_line)]
+                         ["INFO:test_log:# First message\n{}\n".format(
+                             TestMarkdown.separator_line)]
                         )
