@@ -5,11 +5,12 @@ import pandas as pd
 
 class Accredia(DataProvider):
 
-    def __init__(self):
+    def __init__(self, inTest = False):
+        self.inTest = inTest
         self.file_parser_sep = "|"
         self.file_path = self.root_path + r"Accredia/"
         self.file_parser = ParserCsv(self.file_path + "Accredia2020.csv")
-        self.df = self.file_parser.open_file(sep=self.file_parser_sep)
+        self.df = self.file_parser.open_file(sep = self.file_parser_sep)
         self.column_types = {
             0: 'object',
             1: 'object',

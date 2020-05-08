@@ -11,8 +11,11 @@ class DataProviderMeta(type):
 
 class DataProvider(metaclass = abc.ABCMeta):
 
-    root_path = r"data/"
-    # root_path = r"/mnt/c/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence/data/"
+    data_dir = r"data/"
+
+    test_path = data_dir + r"data_tests/"
+
+    inTest = NotImplemented             # type: bool
     file_path = NotImplemented          # type: str
     file_parser = NotImplemented        # type: IParser
     df = NotImplemented                 # type: pandas.DataFrame
@@ -23,6 +26,13 @@ class DataProvider(metaclass = abc.ABCMeta):
         self.df = df
         self.column_types = column_types
         self.column_constraints = column_constraints
+
+    @property
+    def root_path(self):
+        if self.inTest:
+            return self.test_path
+        else:
+            return self.data_dir
 
     @staticmethod
     def get_casted_column_for_type(s: pd.Series, col_type: str) -> pd.DataFrame:

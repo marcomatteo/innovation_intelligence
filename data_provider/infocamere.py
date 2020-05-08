@@ -3,14 +3,15 @@ from file_parser import ParserXls
 
 class Infocamere(DataProvider):
 
-    def __init__(self):
+    def __init__(self, inTest = False):
+        self.inTest = inTest
         self.file_path = self.root_path + r"Infocamere/"
         self.file_parser = ParserXls(self.file_path + "Infocamere2020.xlsx")
 
 class AnagraficaInfocamere(Infocamere):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inTest = False):
+        super().__init__(inTest = inTest)
         self.df = self.file_parser.open_file(sheet_name=0)
         self.column_types = {
             0: "object",        
@@ -67,8 +68,8 @@ class AnagraficaInfocamere(Infocamere):
 
 class BilanciInfocamere(Infocamere):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inTest = False):
+        super().__init__(inTest = inTest)
         self.df = self.file_parser.open_file(sheet_name=1)
         self.column_types = {
             0: 'object',
@@ -88,13 +89,16 @@ class BilanciInfocamere(Infocamere):
             14: 'float',
             15: 'float'
         }
-        # self.column_constraints
+        self.column_constraints = {i: False for i in range(16)}
+        self.column_constraints[0] = True
+        self.column_constraints[1] = True
+        self.column_constraints[3] = True
 
 
 class AtecoInfocamere(Infocamere):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inTest = False):
+        super().__init__(inTest = inTest)
         self.df = self.file_parser.open_file(sheet_name=2)
         self.column_types = {
             0: "object",        

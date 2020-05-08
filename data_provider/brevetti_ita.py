@@ -5,7 +5,8 @@ import pandas as pd
 
 class BrevettiIta(DataProvider):
     
-    def __init__(self):
+    def __init__(self, inTest = False):
+        self.inTest = inTest
         self.file_path = self.root_path + r"UIBM/"
         self.file_parser = ParserXls(self.file_path + "UIBMSourceSample.xlsx")
         last_sheet_to_open = self.file_parser.get_sheet_names[-1]

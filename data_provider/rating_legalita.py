@@ -5,7 +5,8 @@ import pandas as pd
 
 class RatingLegalita(DataProvider):
 
-    def __init__(self):
+    def __init__(self, inTest = False):
+        self.inTest = inTest
         self.file_path = self.root_path + r"RatingLegalita/"
         self.file_parser = ParserXls(self.file_path + "27mar2020.xlsx")
         self.df = self.file_parser.open_file(skiprows=1)

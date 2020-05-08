@@ -3,7 +3,8 @@ from file_parser import ParserCsv
 
 class Modefinance(DataProvider):
 
-    def __init__(self):
+    def __init__(self, inTest = False):
+        self.inTest = inTest
         self.file_parser_sep = ";"
         self.file_path = self.root_path + r"Modefinance/"
         self.file_parser = ParserCsv(self.file_path + "modefinance_09_04_2020.csv")
