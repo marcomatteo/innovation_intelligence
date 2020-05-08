@@ -10,6 +10,8 @@ class Test_BrevettiIta(TestDataProviderBaseClass):
     @classmethod
     def setUpClass(cls):
         cls.dp = BrevettiIta(inTest=True)
+        cls.file_parser = ParserXls
+        cls.file_path = r"data/data_tests/UIBM/"
         cls.columns = [
             'ID_APPLICATION',
             'NUMERO_DOMANDA',
@@ -44,7 +46,6 @@ class Test_BrevettiIta(TestDataProviderBaseClass):
             'D',
             0
         ]
-        cls.file_path = r"data/data_tests/UIBM/"
         cls.column_types = {
             0: 'int',
             1: 'object',
@@ -66,4 +67,3 @@ class Test_BrevettiIta(TestDataProviderBaseClass):
         cls.column_constraints = {
             i: False for i in range(16)
         }
-        cls.file_parser = ParserXls
