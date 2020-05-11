@@ -22,11 +22,6 @@ class DataProvider(metaclass = abc.ABCMeta):
     column_types = NotImplemented       # type: defaultdict(str)
     column_constraints = NotImplemented # type: defaultdict(bool)
 
-    def __init__(self, df, column_types, column_constraints):
-        self.df = df
-        self.column_types = column_types
-        self.column_constraints = column_constraints
-
     @property
     def root_path(self):
         if self.inTest:
@@ -34,49 +29,11 @@ class DataProvider(metaclass = abc.ABCMeta):
         else:
             return self.data_dir
 
-    @staticmethod
-    def get_casted_column_for_type(s: pd.Series, col_type: str) -> pd.DataFrame:
-        df = s.to_frame()
-        df_casted = None
-        if col_type == "int":
-            try:
-                df_casted = df.fillna(0).astype('int64')
-            except:
-                df_casted = df
-        elif col_type == "float":
-            try:
-                df_casted = df.astype('float64')
-            except:
-                df_casted = df
-        elif col_type == "date":
-            try:
-                df_casted = pd.to_datetime(s).to_frame()
-            except:
-                df_casted = df
-        else:
-            df_casted = df
-        
-        return df_casted
-
-    @staticmethod
-    def get_column_max_length_is_respected(s: pd.Series) -> int:
-        
-        def get_trimmed_length(x) -> int:
-            try:
-                cond = np.isnan(x)
-            except TypeError:
-                cond = False # No Not a number
-
-            if cond:
-                return 0
-            
-            s = str(x).strip()
-            return len(s)
-        
-        length = s.map(lambda values: get_trimmed_length(values))
-        return length.max(axis=0)
-
     def check_required_attributes(self):
+        if self.inTest is NotImplemented:
+            raise NotImplementedError("Subclass must define self.inTest attribute. \n"\
+                + "This attribute should define the DataProvider root directory for files to parse.")
+
         if self.file_path is NotImplemented:
             raise NotImplementedError("Subclass must define self.file_path attribute. \n"\
                 + "This attribute should define the DataProvider directory for files to parse.")
@@ -97,14 +54,21 @@ class DataProvider(metaclass = abc.ABCMeta):
             raise NotImplementedError("Subclass must define self.column_constraints attribute. \n"\
                 + "This attribute should define the DataProvider column constraints for the certificate class.")
 
-    def get_filtred_fiscal_codes_dataframe(self, cf_column: int, cf_list: list) -> pd.DataFrame:
+    def __init__(self, df, column_types, column_constraints):
+        self.df = df
+        self.column_types = column_types
+        self.column_constraints = column_constraints
+
+    def get_filtred_fiscal_codes_dataframe(self, 
+            cf_column: int, cf_list: list) -> pd.DataFrame:
         """Metodo che ritorna una copia del dataframe
         solo per i codici fiscali passati in cf_list"""
         if not self.df is NotImplemented:
             cond = self.df.iloc[:, cf_column].isin(cf_list)
             return self.df.loc[cond].copy()
     
-    def set_filtred_fiscal_codes_dataframe(self, cf_column: int, cf_list: list):
+    def set_filtred_fiscal_codes_dataframe(self, 
+            cf_column: int, cf_list: list) -> None:
         """Metodo che filtra le righe del dataframe
         solo per i codici fiscali passati in cf_list"""
         if not self.df is NotImplemented:
@@ -146,6 +110,30 @@ class DataProvider(metaclass = abc.ABCMeta):
                 
             return pd.concat(columns_casted_to_concat, axis=1)
     
+    @staticmethod
+    def get_casted_column_for_type(s: pd.Series, col_type: str) -> pd.DataFrame:
+        df = s.to_frame()
+        df_casted = None
+        if col_type == "int":
+            try:
+                df_casted = df.fillna(0).astype('int64')
+            except:
+                df_casted = df
+        elif col_type == "float":
+            try:
+                df_casted = df.astype('float64')
+            except:
+                df_casted = df
+        elif col_type == "date":
+            try:
+                df_casted = pd.to_datetime(s).to_frame()
+            except:
+                df_casted = df
+        else:
+            df_casted = df
+        
+        return df_casted
+    
     def get_column_types(self) -> list:
         """
         Metodo che ritorna la tipologia delle colonne convertite
@@ -171,6 +159,32 @@ class DataProvider(metaclass = abc.ABCMeta):
                     )
 
         return column_is_max_length_respected_dict
+
+    @staticmethod
+    def get_column_max_length_is_respected(s: pd.Series) -> int:
+        length = s.map(lambda values: DataProvider.get_trimmed_length(values))
+        return length.max(axis=0)
+
+    @staticmethod
+    def get_trimmed_length(x) -> int:
+            
+            cond = DataProvider.catch_null_length(np.isnan, x) | \
+                    DataProvider.catch_null_length(pd.isnull, x)
+
+            if cond:
+                return 0
+            else:
+                s = str(x).strip()
+                
+            return len(s)
+
+    @staticmethod
+    def catch_null_length(func, x) -> bool:
+        try:
+            cond = func(x)
+        except TypeError:
+            cond = False         
+        return cond
 
     def get_column_nullables(self) -> dict:
         """

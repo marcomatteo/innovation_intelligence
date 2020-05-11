@@ -34,7 +34,6 @@ class Test_DataProvider(unittest.TestCase):
             3: False,
             4: False
         }
-
         cls.dp = DataProvider(df, col_types, col_constraints)
 
     def test_get_column_number(self):
@@ -107,5 +106,107 @@ class Test_DataProvider(unittest.TestCase):
 
         self.assertEqual(casted_df.dtypes.tolist(),
                             self.dp.df.dtypes.tolist())
+
+    def test_get_trimmed_length_int(self):
+        self.assertEqual(self.dp.get_trimmed_length(234), 3,
+                                "Integer 234 must have length 3!")
+    
+    def test_get_trimmed_length_float(self):
+        self.assertEqual(self.dp.get_trimmed_length(234.02), 6,
+                                "Float 234.02 must have length 6!")
+    
+    def test_get_trimmed_length_string_with_left_and_right_spaces(self):
+        self.assertEqual(self.dp.get_trimmed_length(" Ciao ciao "), 9,
+                                "String 'Ciao ciao ' must have length 9!")
+    
+    def test_get_trimmed_length_string_with_left_spaces(self):
+        self.assertEqual(self.dp.get_trimmed_length(" Ciao ciao"), 9,
+                                "String 'Ciao ciao ' must have length 9!")
+    
+    def test_get_trimmed_length_string_with_right_spaces(self):
+        self.assertEqual(self.dp.get_trimmed_length("Ciao ciao "), 9,
+                                "String 'Ciao ciao ' must have length 9!")
+    
+    def test_get_trimmed_length_nan(self):
+        self.assertFalse(self.dp.get_trimmed_length(np.nan), 
+                                "Nan Length must be 0!")
+    
+    def test_get_trimmed_length_NaT(self):
+        self.assertFalse(self.dp.get_trimmed_length(pd.NaT), 
+                                "NaT Length must be 0!")
+
+    def test_catch_null_length_isnan(self):
+        self.assertTrue(self.dp.catch_null_length(np.isnan, np.nan))
+
+    def test_catch_null_length_isnat_pd_NaT(self):
+        self.assertTrue(self.dp.catch_null_length(pd.isnull, pd.NaT))
+    
+    def test_catch_null_length_isnat_np_datetime(self):
+        self.assertTrue(self.dp.catch_null_length(np.isnat, 
+                                                np.datetime64("NaT")))
+    
+    def test_get_column_max_length_is_respected_int_positives(self):
+        # Integer values between [0, 200)
+        series_obj = pd.Series(
+            data = np.random.randint(0, 200, size=(100,)),
+            index = range(0,100)
+        )
+        self.assertEqual(
+            DataProvider.get_column_max_length_is_respected(series_obj), 3,
+            "Positive integer Series from 0 to 200 must have max length 3!"
+        )
+    
+    def test_get_column_max_length_is_respected_int_negatives(self):
+        # Integer values between [-200, 0)
+        series_obj = pd.Series(
+            data = np.random.randint(-200, 0, size=(100,)),
+            index = range(0,100)
+        )
+        self.assertEqual(
+            DataProvider.get_column_max_length_is_respected(series_obj), 4,
+            "Negative integer Series from -200 to 0 must have max length 4!"
+        )
+    
+    def test_get_column_max_length_is_respected_float_positives(self):
+        # Float values between [0, 200)
+        series_obj = pd.Series(
+            data = np.around((np.random.random_sample((100,)) * 200)), 
+            index = range(0,100)
+        )
+        self.assertEqual(
+            DataProvider.get_column_max_length_is_respected(series_obj), 5,
+            "Positive float Series from 0 to 200 (123.45) must have max length 5!"
+        )
+   
+    def test_get_column_max_length_is_respected_float_negatives(self):
+        # Float values between [0, 200)
+        series_obj = pd.Series(
+            data = np.around((np.random.random_sample((100,)) * (- 200))), 
+            index = range(0,100)
+        )
+        self.assertEqual(
+            DataProvider.get_column_max_length_is_respected(series_obj), 6,
+            "Positive float Series from 0 to 200 (123.45) must have max length 5!"
+        )
+    
+    def test_get_column_max_length_is_respected_str(self):
+        # Values between [1, 6)
+        rand_int_array = np.random.randint(1,6,size=(100,))
+        sample_string = "a"
+        # Values from 'a' to 'aaaaa'
+        composed_string_list = [
+            sample_string * val
+            for val in rand_int_array
+        ]
+        series_obj = pd.Series(
+            data = composed_string_list, 
+            index = range(0,100)
+        )
+        self.assertEqual(
+            DataProvider.get_column_max_length_is_respected(series_obj), 5,
+            "String Series from 'a' to 'aaaaa' must have max length 5!"
+        )
+    
+
 
         

@@ -15,9 +15,6 @@ from data_providers import (
         isValidDateFormat
     )
 
-
-from tests import LogCaptureRunner, BaseTestCase
-
 class Test_DataProviderUtil(test.TestCase):
 
     def test_getNumerateDictFromList_right(self):
