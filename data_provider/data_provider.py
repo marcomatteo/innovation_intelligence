@@ -3,13 +3,15 @@ import numpy as np
 import pandas as pd
 from collections import defaultdict
 
+
 class DataProviderMeta(type):
     def __call__(cls, *args, **kwargs):
         class_object = type.__call__(cls, *args, **kwargs)
         class_object.check_required_attributes()
         return class_object
 
-class DataProvider(metaclass = abc.ABCMeta):
+
+class DataProvider(metaclass=abc.ABCMeta):
 
     data_dir = r"data/"
 
@@ -20,7 +22,7 @@ class DataProvider(metaclass = abc.ABCMeta):
     file_parser = NotImplemented        # type: IParser
     df = NotImplemented                 # type: pandas.DataFrame
     column_types = NotImplemented       # type: defaultdict(str)
-    column_constraints = NotImplemented # type: defaultdict(bool)
+    column_constraints = NotImplemented  # type: defaultdict(bool)
 
     @property
     def root_path(self):
@@ -31,49 +33,66 @@ class DataProvider(metaclass = abc.ABCMeta):
 
     def check_required_attributes(self):
         if self.inTest is NotImplemented:
-            raise NotImplementedError("Subclass must define self.inTest attribute. \n"\
-                + "This attribute should define the DataProvider root directory for files to parse.")
+            raise NotImplementedError("Subclass must define self.inTest attribute. \n"
+                                      + "This attribute should define the DataProvider root directory for files to parse.")
 
         if self.file_path is NotImplemented:
-            raise NotImplementedError("Subclass must define self.file_path attribute. \n"\
-                + "This attribute should define the DataProvider directory for files to parse.")
-        
+            raise NotImplementedError("Subclass must define self.file_path attribute. \n"
+                                      + "This attribute should define the DataProvider directory for files to parse.")
+
         if self.file_parser is NotImplemented:
-            raise NotImplementedError("Subclass must define self.file_parser attribute. \n"\
-                + "This attribute should define the DataProvider file parser.")
+            raise NotImplementedError("Subclass must define self.file_parser attribute. \n"
+                                      + "This attribute should define the DataProvider file parser.")
 
         if self.df is NotImplemented:
-            raise NotImplementedError("Subclass must define self.df attribute. \n"\
-                + "This attribute should define the DataProvider pandas.DataFrame.")
+            raise NotImplementedError("Subclass must define self.df attribute. \n"
+                                      + "This attribute should define the DataProvider pandas.DataFrame.")
 
         if self.column_types is NotImplemented:
-            raise NotImplementedError("Subclass must define self.column_types attribute. \n"\
-                + "This attribute should define the DataProvider column types for the certificate class.")
-        
+            raise NotImplementedError("Subclass must define self.column_types attribute. \n"
+                                      + "This attribute should define the DataProvider column types for the certificate class.")
+
         if self.column_constraints is NotImplemented:
-            raise NotImplementedError("Subclass must define self.column_constraints attribute. \n"\
-                + "This attribute should define the DataProvider column constraints for the certificate class.")
+            raise NotImplementedError("Subclass must define self.column_constraints attribute. \n"
+                                      + "This attribute should define the DataProvider column constraints for the certificate class.")
 
     def __init__(self, df, column_types, column_constraints):
         self.df = df
         self.column_types = column_types
         self.column_constraints = column_constraints
 
-    def get_filtred_fiscal_codes_dataframe(self, 
-            cf_column: int, cf_list: list) -> pd.DataFrame:
+    def get_filtred_fiscal_codes_dataframe(self,
+                                           cf_column: int) -> pd.DataFrame:
         """Metodo che ritorna una copia del dataframe
         solo per i codici fiscali passati in cf_list"""
+
         if not self.df is NotImplemented:
+            cf_list = self.get_fiscalcode_list_from_Anagrafica()
+
             cond = self.df.iloc[:, cf_column].isin(cf_list)
             return self.df.loc[cond].copy()
-    
-    def set_filtred_fiscal_codes_dataframe(self, 
-            cf_column: int, cf_list: list) -> None:
+
+    def set_filtred_fiscal_codes_dataframe(self,
+                                           cf_column: int) -> None:
         """Metodo che filtra le righe del dataframe
         solo per i codici fiscali passati in cf_list"""
+
         if not self.df is NotImplemented:
+            cf_list = self.get_fiscalcode_list_from_Anagrafica()
+
             cond = self.df.iloc[:, cf_column].isin(cf_list)
             self.df = self.df.loc[cond].copy()
+
+    def get_fiscalcode_list_from_Anagrafica(self) -> list:
+        """Metodo che recupera la lista dei codici fiscali nel DB"""
+        try:
+            from idb import Anagrafica
+        except:
+            print("Non è possibile importare Anagrafica")
+        else:
+            cf_list = Anagrafica().get_fiscalcode_list()
+
+        return cf_list
 
     def get_column_number(self) -> int:
         """
@@ -81,7 +100,7 @@ class DataProvider(metaclass = abc.ABCMeta):
         """
         if not self.df is NotImplemented:
             return self.df.shape[1]
-        
+
     def get_column_names(self) -> list:
         """
         Metodo che ritorna il nome delle colonne del Data Provider
@@ -89,13 +108,23 @@ class DataProvider(metaclass = abc.ABCMeta):
         if not self.df is NotImplemented:
             return self.df.columns.tolist()
 
+    def get_column_types(self) -> list:
+        """
+        Metodo che ritorna la tipologia delle colonne convertite
+        da self.get_casted_dataframe()
+        """
+        if ((not self.df is NotImplemented) and
+                (not self.column_types is NotImplemented)):
+
+            return self.get_casted_dataframe().dtypes.tolist()
+
     def get_casted_dataframe(self) -> pd.DataFrame:
         """
         Metodo che effettua la conversione del file fonte
         secondo indicazione delle colonne per il Data Provider specifico
         """
         if ((not self.df is NotImplemented) and
-            (not self.column_types is NotImplemented)):
+                (not self.column_types is NotImplemented)):
 
             columns_casted_to_concat = defaultdict(pd.DataFrame)
 
@@ -104,12 +133,12 @@ class DataProvider(metaclass = abc.ABCMeta):
 
                 columns_casted_to_concat[num] = DataProvider \
                     .get_casted_column_for_type(
-                        self.df.iloc[:, num], 
+                        self.df.iloc[:, num],
                         col_type
-                    )
-                
+                )
+
             return pd.concat(columns_casted_to_concat, axis=1)
-    
+
     @staticmethod
     def get_casted_column_for_type(s: pd.Series, col_type: str) -> pd.DataFrame:
         df = s.to_frame()
@@ -131,23 +160,13 @@ class DataProvider(metaclass = abc.ABCMeta):
                 df_casted = df
         else:
             df_casted = df
-        
-        return df_casted
-    
-    def get_column_types(self) -> list:
-        """
-        Metodo che ritorna la tipologia delle colonne convertite
-        da self.get_casted_dataframe()
-        """
-        if ((not self.df is NotImplemented) and
-            (not self.column_types is NotImplemented)):
 
-            return self.get_casted_dataframe().dtypes.tolist()
+        return df_casted
 
     def get_columns_max_length(self) -> dict:
         """
         Metodo che ritorna la lunghezza massima nelle colonne di un pd.DataFrame
-        """    
+        """
         if not self.df is NotImplemented:
 
             column_is_max_length_respected_dict = defaultdict(int)
@@ -156,7 +175,7 @@ class DataProvider(metaclass = abc.ABCMeta):
                 column_is_max_length_respected_dict[num] = DataProvider \
                     .get_column_max_length_is_respected(
                         self.df.iloc[:, num]
-                    )
+                )
 
         return column_is_max_length_respected_dict
 
@@ -167,23 +186,23 @@ class DataProvider(metaclass = abc.ABCMeta):
 
     @staticmethod
     def get_trimmed_length(x) -> int:
-            
-            cond = DataProvider.catch_null_length(np.isnan, x) | \
-                    DataProvider.catch_null_length(pd.isnull, x)
 
-            if cond:
-                return 0
-            else:
-                s = str(x).strip()
-                
-            return len(s)
+        cond = DataProvider.catch_null_length(np.isnan, x) | \
+            DataProvider.catch_null_length(pd.isnull, x)
+
+        if cond:
+            return 0
+        else:
+            s = str(x).strip()
+
+        return len(s)
 
     @staticmethod
     def catch_null_length(func, x) -> bool:
         try:
             cond = func(x)
         except TypeError:
-            cond = False         
+            cond = False
         return cond
 
     def get_column_nullables(self) -> dict:
@@ -200,8 +219,8 @@ class DataProvider(metaclass = abc.ABCMeta):
 
             for num, _ in enumerate(self.df.columns):
                 column_is_nullable[num] = get_column_nullable(
-                        self.df.iloc[:, num]
-                    )
+                    self.df.iloc[:, num]
+                )
 
             return column_is_nullable
 
@@ -210,10 +229,10 @@ class DataProvider(metaclass = abc.ABCMeta):
         Metodo che ritorna il numero di duplicati (se presenti)
         """
         if ((not self.df is NotImplemented) and
-            (not self.column_constraints is NotImplemented)):
+                (not self.column_constraints is NotImplemented)):
 
             columns = [
                 col for i, col in enumerate(self.get_column_names())
-                if self.column_constraints[i] ]
-                
-            return self.df.duplicated(subset = columns).sum() #.shape[0]
+                if self.column_constraints[i]]
+
+            return self.df.duplicated(subset=columns).sum()  # .shape[0]

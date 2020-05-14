@@ -4,7 +4,7 @@ dei "Contratti di rete" in Innovation Intelligence
 """
 import pandas as pd
 import numpy as np
-
+ 
 from data_providers import DataProvider
 from file_parser import ParserXls
 

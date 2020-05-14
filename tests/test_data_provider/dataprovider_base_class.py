@@ -5,6 +5,8 @@ import pandas as pd
 
 class TestDataProviderBaseClass(unittest.TestCase):
 
+    maxDiff = None
+
     dp = NotImplemented
     columns = NotImplemented
     file_path = NotImplemented

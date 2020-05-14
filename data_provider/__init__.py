@@ -5,3 +5,4 @@ from .modefinance import Modefinance
 from .brevetti_ita import BrevettiIta
 from .infocamere import (
     Infocamere, AnagraficaInfocamere, BilanciInfocamere, AtecoInfocamere)
+from .contratti_rete import ContrattiRete

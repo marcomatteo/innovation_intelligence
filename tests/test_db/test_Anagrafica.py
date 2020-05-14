@@ -43,8 +43,8 @@ class Test_Anagrafica(unittest.TestCase):
 
     def test_get_sedi_imprese_return_DataFrame(self):
         import pandas as pd        
-        table_name = "DATA_Impresa"
+
         self.assertEqual(
             pd.DataFrame,
-            type(self.anagrafica.open_table(table_name))
+            type(self.anagrafica.get_sedi_imprese())
         )

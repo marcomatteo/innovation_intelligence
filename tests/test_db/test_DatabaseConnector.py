@@ -34,13 +34,13 @@ class Test_DatabaseConnector(unittest.TestCase):
         table_name = "SYSTEM_DataProviderInfo"
         self.assertEqual(
             pd.DataFrame,
-            type(self.ii.open_table(table_name))
+            type(self.ii.get_dataframe_from_table(table_name))
         )
 
     def test_open_table_exception_raised(self):
         table_name = "TABLE_TEST"
         with self.assertRaises(KeyError) as cm:
-            df = self.ii.open_table(table_name)
+            df = self.ii.get_dataframe_from_table(table_name)
 
         the_exception = cm.exception
         self.assertEqual(

@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 from idb import DatabaseConnector
-from certificates import trim_columns_spaces
+from utilities import trim_columns_spaces
 
 class Anagrafica(DatabaseConnector):
 

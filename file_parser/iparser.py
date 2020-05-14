@@ -16,7 +16,7 @@ class IParser(metaclass = abc.ABCMeta):
         raise NotImplementedError
 
     @property
-    def file_ext(self):
+    def file_ext(self) -> str:
         """
         Return the file_name extension after the '.'
         """

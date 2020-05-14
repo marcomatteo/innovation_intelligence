@@ -1,5 +1,3 @@
-from .utilities import dataframe_index_differences
-from .utilities import trim_columns_spaces
 from .certificazioni import Certificazioni
 from .cert_accredia import CertificazioniAccredia
 from .cert_modefinance import CertificazioniModefinance
@@ -8,3 +6,4 @@ from .cert_infocamere import CertificazioneInfocamere
 from .cert_Infocamere_anagrafica import CertificazioneAnagrafica
 from .cert_Infocamere_ateco import CertificazioneAteco
 from .cert_Infocamere_bilanci import CertificazioneBilanci
+from .cert_contratti_rete import CertificazioniContrattiRete
