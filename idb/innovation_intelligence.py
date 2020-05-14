@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 from idb import Anagrafica, Certificazioni
+from idb import DatabaseConnector
 
 # from utilities import Singleton
 

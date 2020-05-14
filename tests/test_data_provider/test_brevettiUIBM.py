@@ -5,8 +5,9 @@ from data_provider import BrevettiIta
 import pandas as pd
 import numpy as np
 
+
 class Test_BrevettiIta(TestDataProviderBaseClass):
-    
+
     @classmethod
     def setUpClass(cls):
         cls.dp = BrevettiIta(inTest=True)
@@ -30,20 +31,20 @@ class Test_BrevettiIta(TestDataProviderBaseClass):
             'UNDER_WRAPS'
         ]
         cls.first_row = [
-            10479772,
-            '102018000000176',
-            pd.Timestamp('2018-01-02 00:00:00'),
-            'EVERY WAVE S.R.L.',
+            10005475,
+            '102015000005436',
+            pd.Timestamp('2015-02-04 00:00:00'),
+            'Aisico S.r.l.',
             np.nan,
-            '05064670283',
-            'Via Martiri delle Foibe',
-            '2/1',
-            'Vigonza',
-            'Padova',
-            'DISPOSITIVO DI PULIZIA E SBLOCCO DI STRUTTURE MECCANICHE',
-            'B',
-            '29',
-            'D',
+            '10186871009',
+            np.nan,
+            np.nan,
+            np.nan,
+            np.nan,
+            'SISTEMA DI MISURA AD ALTO RENDIMENTO DELLA VISIBILITÀ NOTTURNA DELLA SEGNALETICA STRADALE VERTICALE.',
+            'G',
+            '06',
+            'K',
             0
         ]
         cls.column_types = {

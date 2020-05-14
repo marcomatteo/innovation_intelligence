@@ -3,14 +3,14 @@ from data_provider import DataProvider
 
 import pandas as pd
 
+
 class BrevettiIta(DataProvider):
-    
-    def __init__(self, inTest = False):
+
+    def __init__(self, inTest=False):
         self.inTest = inTest
         self.file_path = self.root_path + r"UIBM/"
         self.file_parser = ParserXls(self.file_path + "UIBMSourceSample.xlsx")
-        last_sheet_to_open = self.file_parser.get_sheet_names[-1]
-        self.df = self.file_parser.open_file(sheet_name=last_sheet_to_open)
+        self.df = self.get_dataframe_merged()
         self.column_types = {
             0: 'int',
             1: 'object',
@@ -32,3 +32,15 @@ class BrevettiIta(DataProvider):
         self.column_constraints = {
             i: False for i in range(16)
         }
+
+    def get_dataframe_merged(self) -> pd.DataFrame:
+        """
+        Metodo che apre tutti i fogli del file excel e li ritorna in un unico DataFrame
+        """
+        df_to_concat = []
+        for sheet in self.file_parser.get_sheet_names:
+            df_temp = self.file_parser.open_file(sheet_name=sheet)
+            #df_temp["Sheet"] = sheet
+            df_to_concat.append(df_temp)
+
+        return pd.concat(df_to_concat, ignore_index=True, verify_integrity=True)
