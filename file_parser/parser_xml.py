@@ -7,30 +7,71 @@ import os
 from collections import defaultdict
 from collections import Counter
 
+
+class IXMLObj:
+    """
+    XMLObj interface
+
+    xml_objs: lista che contiene gli oggetti XML
+    """
+    xml_objs: list = NotImplemented  # type: list
+    mark: str = NotImplemented       # type: str
+
+    def add_content_to_xml_objs(self, tag: str, content: str):
+
+        for num, xml_obj in enumerate(self.xml_objs):
+
+            if tag in xml_obj.tags:
+                foreign_index = None
+                if num > 0:
+                    foreign_index = self.xml_objs[num - 1].primary_index
+
+                xml_obj.add_value_to_tag_column(
+                    tag=tag,
+                    content=content,
+                    foreign_index=foreign_index
+                )
+
+    def get_DataFrame(self):
+        df_list = list()
+
+        for xml_obj in self.xml_objs:
+            df_list.append(xml_obj.get_DataFrame())
+
+        obj_number = len(df_list)
+
+        if obj_number == 1:
+            return df_list.pop(0)
+
+        max_merge_operations = obj_number - 1
+        merge_iterator = range(max_merge_operations)
+        df_merged = list(merge_iterator)
+
+        for merge_operation in merge_iterator:
+            if merge_operation == 0:
+                first_df = df_list[obj_number]
+            else:
+                first_df = df_merged[merge_operation - 1]
+
+            second_num = obj_number - merge_operation
+            second_df = df_list[second_num]
+
+            df_merged[merge_operation] = first_df.merge(
+                second_df,
+                left_on=self.xml_objs[second_num].fk_key,
+                right_index=True
+            ).drop(columns=self.xml_objs[second_num].fk_key)
+
+        return df_merged.pop(max_merge_operations)
+
+
 class XMLObj:
     """
-    Classe di Data Provider per gli Aiuti di Stato disponibili dagli OPEN DATA.
+    XMLObj rappresenta un oggetto presente in un file XML
 
-    Negli OPEN DATA sono disponibili le informazioni 
-    sui finanziamenti rivolti alle imprese, espressi come aiuti individuali
-
-    Gli AIUTI sono memorizzati in un file XML, con diversi tag.
-    I tag sono stati raggruppati in 3 dizionari definiti come:
-
-        1. Aiuti: Informazioni sul bando o legge per il finanziamento
-
-        2. Componenti: regolamento e tipologia (ex notifica, esenzione, de minimis)
-
-        3. Strumenti: informazioni sull'aiuto erogato (importo, forma finanziamento)
-
-    I dizionari vengono poi convertiti in un pandas.DataFrame
-
-    Relazioni tra i vari dizionari:
-
-        - Aiuti [1]->[N] Componenti
-
-        - Componenti [1]->[N] Strumenti
+    tags: lista di tag da leggere nel file XML
     """
+
     tags = list()
 
     def __init__(self, tags=None):
@@ -41,20 +82,38 @@ class XMLObj:
         if tags:
             self.tags = tags
 
+    @property
+    def pk_key(self):
+        """
+        Ritorna la chiave primaria dell'oggetto
+        """
+        return "pk_" + str(self.tags[0]).lower()
+
+    @property
+    def fk_key(self):
+        """
+        Ritorna la chiave esterna dell'oggetto, se presente
+        """
+        for column in self.columns_dict.keys():
+            if str(column).startswith("fk_"):
+                return column
+
+        return None
+
     @staticmethod
     def check_dict_counter(
         data: dict, counter: int
     ) -> list:
         """
-        Metodo che permette di controllare se \
-        ci sono disallineamenti nel dict contatore. \
-        Ritorna le keys nel dict che hanno un numero di \
+        Metodo che permette di controllare se 
+        ci sono disallineamenti nel dict contatore. 
+        Ritorna le keys nel dict che hanno un numero di 
         campi inferiore a counter.
 
         Attributes:
         -----------
             data: dict
-            dizionario che associa le informazioni in coppia \
+            dizionario che associa le informazioni in coppia 
             di (key, value) che identificano le informazioni sugli aiuti 
 
                 - key: tag del file XML
@@ -78,7 +137,7 @@ class XMLObj:
         """
         Metodo che controlla che tutti i valori
         abbiano lo stesso conteggio per integrità dei dati
-        e conversione in pandas.DataFrame
+        e per permette di convertire il dict in pandas.DataFrame
 
         Attributes:
         -----------
@@ -135,8 +194,17 @@ class XMLObj:
             self.counter_dict[tag] += 1
 
     def get_counter_values(self):
+        """
+        Stampa i valori e il conteggio dei dati nel dict dell'oggetto XML
+        """
         for num, (key, val) in enumerate(self.columns_dict.items()):
             print(num, key, len(val))
+
+    def get_DataFrame(self):
+        """
+        Ritorna un pandas.DataFrame dell'oggetto XML
+        """
+        return pd.DataFrame(self.columns_dict).set_index(self.pk_key)
 
 
 class Aiuti(XMLObj):
@@ -157,8 +225,8 @@ class Aiuti(XMLObj):
         'DES_TIPO_BENEFICIARIO', 'REGIONE_BENEFICIARIO'
     ]
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, tags=None):
+        super().__init__(tags=tags)
 
 
 class Componenti(XMLObj):
@@ -196,111 +264,73 @@ class Strumenti(XMLObj):
     def __init__(self):
         super().__init__()
 
-class XMLParser:
-    #TODO: da completare per mandare ad Alessio
-    def __init__(self, file_name):
-        pass
 
-class ParserAiutoDiStato:
+class AiutiDiStato(IXMLObj):
+    """
+    Classe per gli Aiuti di Stato di tipo XMLObj.
+
+    GLi Aiuti di Stato sono disponibili dagli OPEN DATA e rappresentano 
+    i finanziamenti rivolti alle imprese, espressi come aiuti individuali
+
+    Gli Aiuti di Stato sono memorizzati in un file XML, con diversi tag.
+
+    All'interno del file XML è possibile distinguere 3 diverse tipologie di informazioni, 
+    descritti dalle seguenti classi:
+
+        1. Aiuti: Informazioni sul bando o legge per il finanziamento
+
+        2. Componenti: regolamento e tipologia (ex notifica, esenzione, de minimis)
+
+        3. Strumenti: informazioni sull'aiuto erogato (importo, forma finanziamento)
+
+    Relazioni tra le classi:
+
+        - Aiuti [1]->[N] Componenti
+
+        - Componenti [1]->[N] Strumenti
+
+    Il pandas.DataFrame da ottenere conterrà quindi:
+    --------------------------------
+    |Strumenti | Componenti | Aiuti|
+    --------------------------------
+    """
     # Default marker for xml tags
     mark = '{http://www.rna.it/RNA_aiuto/schema}'
 
-    def __init__(self, file_name):
-        self.source_file = file_name
+    def __init__(self):
+        aiuti = Aiuti()
+        componenti = Componenti()
+        strumenti = Strumenti()
 
-        self.setup_objects()
+        self.xml_objs = [aiuti, componenti, strumenti]
 
-        try:
-            self.parse_xml()
-        except ET.ParseError:
-            print("ERROR: can't read the XML file, try removing special characters")
-            exit()
-        except FileNotFoundError:
-            print("File not found!")
-        else:
-            print(".", end=" ")
 
-        self.df = self.get_dataframe_from_objs()
+class XMLParser:
 
-    def setup_objects(self):
-        self.aiuto = Aiuti()
-        self.componenti = Componenti()
-        self.strumenti = Strumenti()
+    def __init__(self, file_name: str, xml_interface: IXMLObj):
+        self.file_name = file_name
+        self.xml_interface = xml_interface
 
-        print(".", end=" ")
-
-    def parse_xml(self):
-        '''
-        XML Parser for OpenData_Aiuti_YEAR_MONTH.xml
-        '''
-        if not os.path.isfile(self.source_file):
+        if not os.path.isfile(self.file_name):
             raise FileNotFoundError("The file not exist")
         else:
             print("Trying to parse the file: {}".format(
-                self.source_file), end="\t")
+                self.file_name), end="\t")
 
+    def parse_xml(self) -> pd.DataFrame:
+        """
+        Parse a XML file and return a pandas.DataFrame
+        """
         # parse XML file
-        tree = ET.parse(self.source_file)
+        tree = ET.parse(self.file_name)
 
         # Reading the XML tree
         root = tree.getroot()
 
         for elem in root.iter():
-            tag = elem.tag[len(self.mark):]
+            tag = elem.tag[len(self.xml_interface.mark):]
             content = elem.text
 
-            self.add_xlm_content_to_objs(tag, content)
+            self.xml_interface.add_content_to_xml_objs(tag, content)
 
-    def add_xlm_content_to_objs(self, tag: str, content: str):
-        # AIUTI
-        if tag in self.aiuto.tags:
-            self.aiuto.add_value_to_tag_column(
-                tag=tag,
-                content=content
-            )
-        
-        # COMPONENTI
-        elif tag in self.componenti.tags:
-            self.componenti.add_value_to_tag_column(
-                tag=tag,
-                content=content,
-                foreign_index=self.aiuto.primary_index
-            )
-        
-        # STRUMENTI
-        elif tag in self.strumenti.tags:
-            self.strumenti.add_value_to_tag_column(
-                tag=tag,
-                content=content,
-                foreign_index=self.componenti.primary_index
-            )
-
-    def get_dataframe_from_objs(self) -> pd.DataFrame:
-        """
-        Building a pandas.DataFrame
-        """
-        
-        aiuti_df = pd.DataFrame(self.aiuto.columns_dict).set_index('pk_aiuto')
-        componenti_df = pd.DataFrame(
-            self.componenti.columns_dict).set_index('pk_componente_aiuto')
-        strumenti_df = pd.DataFrame(
-            self.strumenti.columns_dict).set_index('pk_strumento_aiuto')
-
-        # Merge all
-        df = strumenti_df.merge(
-            componenti_df.merge(
-                aiuti_df,
-                left_on="fk_componente_aiuto",
-                right_index=True
-            ),
-            left_on="fk_strumento_aiuto",
-            right_index=True
-        )
-
-        # Data cleaning
-        df.drop(columns="fk_componente_aiuto", inplace=True)
-        df.drop(columns="fk_strumento_aiuto", inplace=True)
-
-        print(". OK")
-
-        return df
+        return self.xml_interface.get_DataFrame()
