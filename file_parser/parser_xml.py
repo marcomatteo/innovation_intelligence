@@ -65,6 +65,46 @@ class IXMLObj:
         return df_merged.pop(max_merge_operations)
 
 
+class AiutiDiStato(IXMLObj):
+    """
+    Classe per gli Aiuti di Stato di tipo XMLObj.
+
+    GLi Aiuti di Stato sono disponibili dagli OPEN DATA e rappresentano 
+    i finanziamenti rivolti alle imprese, espressi come aiuti individuali
+
+    Gli Aiuti di Stato sono memorizzati in un file XML, con diversi tag.
+
+    All'interno del file XML è possibile distinguere 3 diverse tipologie di informazioni, 
+    descritti dalle seguenti classi:
+
+        1. Aiuti: Informazioni sul bando o legge per il finanziamento
+
+        2. Componenti: regolamento e tipologia (ex notifica, esenzione, de minimis)
+
+        3. Strumenti: informazioni sull'aiuto erogato (importo, forma finanziamento)
+
+    Relazioni tra le classi:
+
+        - Aiuti [1]->[N] Componenti
+
+        - Componenti [1]->[N] Strumenti
+
+    Il pandas.DataFrame da ottenere conterrà quindi:
+    --------------------------------
+    |Strumenti | Componenti | Aiuti|
+    --------------------------------
+    """
+    # Default marker for xml tags
+    mark = '{http://www.rna.it/RNA_aiuto/schema}'
+
+    def __init__(self):
+        aiuti = Aiuti()
+        componenti = Componenti()
+        strumenti = Strumenti()
+
+        self.xml_objs = [aiuti, componenti, strumenti]
+
+
 class XMLObj:
     """
     XMLObj rappresenta un oggetto presente in un file XML
@@ -263,46 +303,6 @@ class Strumenti(XMLObj):
 
     def __init__(self):
         super().__init__()
-
-
-class AiutiDiStato(IXMLObj):
-    """
-    Classe per gli Aiuti di Stato di tipo XMLObj.
-
-    GLi Aiuti di Stato sono disponibili dagli OPEN DATA e rappresentano 
-    i finanziamenti rivolti alle imprese, espressi come aiuti individuali
-
-    Gli Aiuti di Stato sono memorizzati in un file XML, con diversi tag.
-
-    All'interno del file XML è possibile distinguere 3 diverse tipologie di informazioni, 
-    descritti dalle seguenti classi:
-
-        1. Aiuti: Informazioni sul bando o legge per il finanziamento
-
-        2. Componenti: regolamento e tipologia (ex notifica, esenzione, de minimis)
-
-        3. Strumenti: informazioni sull'aiuto erogato (importo, forma finanziamento)
-
-    Relazioni tra le classi:
-
-        - Aiuti [1]->[N] Componenti
-
-        - Componenti [1]->[N] Strumenti
-
-    Il pandas.DataFrame da ottenere conterrà quindi:
-    --------------------------------
-    |Strumenti | Componenti | Aiuti|
-    --------------------------------
-    """
-    # Default marker for xml tags
-    mark = '{http://www.rna.it/RNA_aiuto/schema}'
-
-    def __init__(self):
-        aiuti = Aiuti()
-        componenti = Componenti()
-        strumenti = Strumenti()
-
-        self.xml_objs = [aiuti, componenti, strumenti]
 
 
 class XMLParser:
