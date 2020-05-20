@@ -7,7 +7,7 @@ import os
 from collections import defaultdict
 from collections import Counter
 
-class AiutoDiStato:
+class XMLObj:
     """
     Classe di Data Provider per gli Aiuti di Stato disponibili dagli OPEN DATA.
 
@@ -33,10 +33,13 @@ class AiutoDiStato:
     """
     tags = list()
 
-    def __init__(self):
+    def __init__(self, tags=None):
         self.columns_dict = defaultdict(list)
         self.counter_dict = defaultdict(int)
         self.primary_index = 0
+
+        if tags:
+            self.tags = tags
 
     @staticmethod
     def check_dict_counter(
@@ -97,7 +100,7 @@ class AiutoDiStato:
                                 foreign_index: int = None):
         """
         Metodo che aggiunge un nuovo valore al tag
-        della fattispecie di AiutoDiStato che richiama 
+        della fattispecie di XMLObj che richiama 
         il metodo (se presente).
 
         Attributes:
@@ -110,7 +113,7 @@ class AiutoDiStato:
 
             foreign_index: int, Default=None
             La chiave esterna per rispettare la relazione
-            esistente tra gli oggetti di AiutoDiStato
+            esistente tra gli oggetti di XMLObj
         """
         # Nuova riga
         if tag == self.tags[0]:
@@ -136,7 +139,7 @@ class AiutoDiStato:
             print(num, key, len(val))
 
 
-class Aiuti(AiutoDiStato):
+class Aiuti(XMLObj):
 
     tags = [
         # Tag di nuovo record
@@ -158,7 +161,7 @@ class Aiuti(AiutoDiStato):
         super().__init__()
 
 
-class Componenti(AiutoDiStato):
+class Componenti(XMLObj):
 
     tags = [
         # Tag di nuovo record
@@ -177,7 +180,7 @@ class Componenti(AiutoDiStato):
         super().__init__()
 
 
-class Strumenti(AiutoDiStato):
+class Strumenti(XMLObj):
 
     tags = [
         # Tag di nuovo record
@@ -192,6 +195,11 @@ class Strumenti(AiutoDiStato):
 
     def __init__(self):
         super().__init__()
+
+class XMLParser:
+    #TODO: da completare per mandare ad Alessio
+    def __init__(self, file_name):
+        pass
 
 class ParserAiutoDiStato:
     # Default marker for xml tags
