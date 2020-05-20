@@ -14,56 +14,112 @@ class IXMLObj:
 
     xml_objs: lista che contiene gli oggetti XML
     """
-    xml_objs: list = NotImplemented  # type: list
-    mark: str = NotImplemented       # type: str
+    xml_objs = NotImplemented   # type: list[XMLObj]
+    mark = NotImplemented       # type: str
 
     def add_content_to_xml_objs(self, tag: str, content: str):
+        """
+        Metodo che aggiunge il valore content nella colonna tag
 
-        for num, xml_obj in enumerate(self.xml_objs):
+        Arguments:
+            tag: str 
+            nome della colonna
 
-            if tag in xml_obj.tags:
-                foreign_index = None
-                if num > 0:
-                    foreign_index = self.xml_objs[num - 1].primary_index
+            content: str
+            contenuto della colonna            
+       """
+        if not (self.xml_objs is NotImplemented):
+            for num, xml_obj in enumerate(self.xml_objs):
 
-                xml_obj.add_value_to_tag_column(
-                    tag=tag,
-                    content=content,
-                    foreign_index=foreign_index
-                )
+                if tag in xml_obj.tags:
+                    foreign_index = None
+
+                    if num > 0:
+                        foreign_index = self.xml_objs[num - 1].primary_index
+
+                    xml_obj.add_value_to_tag_column(
+                        tag=tag,
+                        content=content,
+                        foreign_index=foreign_index
+                    )
+
+    def get_merged_dataframes(self):
+        if not (self.xml_objs is NotImplemented):
+            xml_objs_len = len(self.xml_objs)
+
+            if xml_objs_len == 1:
+                return self.xml_objs.pop(0).get_DataFrame()
+
+            merged_list = list()
+
+            for num in range(xml_objs_len - 1):
+                # first df to merge for N -> 1 relationship 
+                first_xml_obj = self.xml_objs[num + 1]
+                first_df = first_xml_obj.get_DataFrame()
+                first_fk_to_drop = first_xml_obj.fk_key
+
+                # second df can change
+                if num == 0:
+                    # first merge
+                    second_df = self.xml_objs[num].get_DataFrame()
+                else: 
+                    # already merged df
+                    second_df = merged_list[num - 1]
+                
+                df = first_df.merge(
+                    second_df,
+                    left_on=first_fk_to_drop,
+                    right_index=True
+                ).drop(columns=first_fk_to_drop)
+
+                merged_list.append(df)
+            
+            return merged_list[-1]
 
     def get_DataFrame(self):
-        df_list = list()
+        if not (self.xml_objs is NotImplemented):
+            df_list = self.get_xml_objs_dataframes()
 
-        for xml_obj in self.xml_objs:
-            df_list.append(xml_obj.get_DataFrame())
+            df_len = len(df_list)
 
-        obj_number = len(df_list)
+            if df_len == 1:
+                return df_list.pop(0)
 
-        if obj_number == 1:
-            return df_list.pop(0)
+            max_merge_operations = df_len - 1
+            merge_iterator = range(max_merge_operations)
+            
+            df_merged = list(merge_iterator)
 
-        max_merge_operations = obj_number - 1
-        merge_iterator = range(max_merge_operations)
-        df_merged = list(merge_iterator)
+            for merge_operation in merge_iterator:
+                first_df = df_list[merge_operation + 1]
 
-        for merge_operation in merge_iterator:
-            if merge_operation == 0:
-                first_df = df_list[obj_number]
-            else:
-                first_df = df_merged[merge_operation - 1]
+                if merge_operation == 0:
+                    second_df = df_list[merge_operation]
+                else:
+                    second_df = df_merged[merge_operation - 1]
 
-            second_num = obj_number - merge_operation
-            second_df = df_list[second_num]
+                second_num = merge_operation
+                second_df = df_list[second_num]
 
-            df_merged[merge_operation] = first_df.merge(
-                second_df,
-                left_on=self.xml_objs[second_num].fk_key,
-                right_index=True
-            ).drop(columns=self.xml_objs[second_num].fk_key)
+                df_merged[merge_operation] = first_df.merge(
+                    second_df,
+                    left_on=self.xml_objs[second_num + 1].fk_key,
+                    right_index=True
+                ).drop(columns=self.xml_objs[second_num].fk_key)
 
-        return df_merged.pop(max_merge_operations)
+            return df_merged.pop(max_merge_operations)
 
+    def get_xml_objs_dataframes(self) -> list:
+        if not (self.xml_objs is NotImplemented):
+            df_list = list()
+
+            for xml_obj in self.xml_objs:
+                df_xml_obj = xml_obj.get_DataFrame()
+                df_list.append(df_xml_obj)
+            
+            return df_list
+        
+        return None
 
 class AiutiDiStato(IXMLObj):
     """
@@ -127,7 +183,11 @@ class XMLObj:
         """
         Ritorna la chiave primaria dell'oggetto
         """
-        return "pk_" + str(self.tags[0]).lower()
+        for column in self.columns_dict.keys():
+            if str(column).startswith("pk_"):
+                return column
+
+        return None
 
     @property
     def fk_key(self):
@@ -240,7 +300,7 @@ class XMLObj:
         for num, (key, val) in enumerate(self.columns_dict.items()):
             print(num, key, len(val))
 
-    def get_DataFrame(self):
+    def get_DataFrame(self) -> pd.DataFrame:
         """
         Ritorna un pandas.DataFrame dell'oggetto XML
         """
@@ -317,15 +377,16 @@ class XMLParser:
             print("Trying to parse the file: {}".format(
                 self.file_name), end="\t")
 
+        # parse XML file
+        self.tree = ET.parse(self.file_name)
+
     def parse_xml(self) -> pd.DataFrame:
         """
         Parse a XML file and return a pandas.DataFrame
         """
-        # parse XML file
-        tree = ET.parse(self.file_name)
 
         # Reading the XML tree
-        root = tree.getroot()
+        root = self.tree.getroot()
 
         for elem in root.iter():
             tag = elem.tag[len(self.xml_interface.mark):]
@@ -333,4 +394,5 @@ class XMLParser:
 
             self.xml_interface.add_content_to_xml_objs(tag, content)
 
-        return self.xml_interface.get_DataFrame()
+        return self.xml_interface.get_merged_dataframes()
+        # return self.xml_interface.get_xml_objs_dataframes()
