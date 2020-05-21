@@ -3,13 +3,15 @@ import numpy as np
 from collections import Counter, defaultdict
 from data_provider import DataProvider
 
+
 class CertificazioniMeta(type):
     def __call__(cls, *args, **kwargs):
         class_object = type.__call__(cls, *args, **kwargs)
         class_object.check_required_attributes()
         return class_object
 
-class Certificazioni(metaclass = CertificazioniMeta):
+
+class Certificazioni(metaclass=CertificazioniMeta):
     """
     Super classe che implementa tutte le funzioni
     da utilizzare per controllare un file fonte
@@ -33,7 +35,10 @@ class Certificazioni(metaclass = CertificazioniMeta):
         Returns:
             list
         """
-        return [f"{num} : {value}" for num, value in enumerate(elements)]
+        result = [f"{num} : {value}" for num, value in enumerate(elements)]
+        result.append("\n")
+
+        return result
 
     @staticmethod
     def get_log_list_from_dict(elements: dict) -> list:
@@ -46,14 +51,17 @@ class Certificazioni(metaclass = CertificazioniMeta):
         Returns:
             list
         """
-        return [f"{num} : {value}" for num, value in elements.items()]
-    
+        result = [f"{num} : {value}" for num, value in elements.items()]
+        result.append("\n")
+
+        return result
+
     def check_required_attributes(self):
         if self.dp is NotImplemented:
-            raise NotImplementedError("Subclass must define self.dp attribute. \n"\
-                + "This attribute should define the DataProvider obj of the certificate.")
+            raise NotImplementedError("Subclass must define self.dp attribute. \n"
+                                      + "This attribute should define the DataProvider obj of the certificate.")
         pass
-    
+
     def check_file_extension(self) -> str:
         if not self.dp is NotImplemented:
             return self.dp.file_parser.file_ext
@@ -82,4 +90,3 @@ class Certificazioni(metaclass = CertificazioniMeta):
         if not self.dp is NotImplemented:
             return self.dp.get_column_constraints_is_respected()
         pass
-    

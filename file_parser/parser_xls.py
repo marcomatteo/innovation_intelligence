@@ -46,7 +46,9 @@ class ParserXls(IParser):
         Write into the existing xls file a new sheet
         
         Arguments:
+        ----------
             df {pd.DataFrame} -- Dataframe to save
+            
             sheet_name {str} -- Sheet name to be added
         """
         with pd.ExcelWriter(self.file_path, 

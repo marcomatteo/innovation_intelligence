@@ -1,20 +1,33 @@
 from data_provider import DataProvider
 from file_parser import ParserXls
 
+import logging
+import pandas as pd
+import numpy as np
+
+# logging.basicConfig(
+#     level=logging.DEBUG,
+#     format="%(asctime)s %(levelname)-5s %(name)-8s (%(funcName)s) %(message)s",
+#     datefmt="%d-%m-%Y %H:%M:%S"
+# )
+
+logger = logging.getLogger(__name__)
+
+
 class Infocamere(DataProvider):
 
-    def __init__(self, inTest = False):
+    def __init__(self, inTest=False):
         self.inTest = inTest
         self.file_path = self.root_path + r"Infocamere/"
         self.file_parser = ParserXls(self.file_path + "Infocamere2020.xlsx")
 
+
 class AnagraficaInfocamere(Infocamere):
 
-    def __init__(self, inTest = False):
-        super().__init__(inTest = inTest)
-        self.df = self.file_parser.open_file(sheet_name=0)
+    def __init__(self, inTest=False):
+        super().__init__(inTest=inTest)
         self.column_types = {
-            0: "object",        
+            0: "object",
             1: "object",
             2: "object",
             3: "object",
@@ -32,44 +45,157 @@ class AnagraficaInfocamere(Infocamere):
             15: "date",
             16: "date",
             17: "date",
-            18: "object",        
-            19: "object",        
-            20: "object",        
-            21: "object",        
-            22: "object",        
-            23: "object",        
-            24: "object",        
-            25: "object",        
-            26: "int",        
-            27: "object",        
-            28: "int",        
-            29: "object",        
-            30: "object",        
-            31: "float",        
-            32: "object",        
-            33: "object",        
-            34: "object",        
-            35: "object",        
-            36: "object",        
-            37: "object",        
-            38: "object",        
-            39: "object",        
-            40: "object",        
-            41: "object",        
-            42: "object",        
-            43: "object",        
-            44: "object",        
-            45: "object",        
-            46: "object",        
-            47: "object",        
-            48: "object",        
+            18: "object",
+            19: "object",
+            20: "object",
+            21: "object",
+            22: "object",
+            23: "object",
+            24: "object",
+            25: "object",
+            26: "int",
+            27: "object",
+            28: "int",
+            29: "object",
+            30: "object",
+            31: "float",
+            32: "object",
+            33: "object",
+            34: "object",
+            35: "object",
+            36: "object",
+            37: "object",
+            38: "object",
+            39: "object",
+            40: "object",
+            41: "object",
+            42: "object",
+            43: "object",
+            44: "object",
+            45: "object",
+            46: "object",
+            47: "object",
+            48: "object",
         }
-        # self.column_constraints
+        self.column_constraints = {i: False for i in range(48)}
+        self.column_constraints[0] = True
+        self.column_constraints[1] = True
+        self.column_constraints[4] = True
+        
+        self.df = self.file_parser.open_file(sheet_name=0)
+        self.check_file_is_preprocessed()
+
+    def check_file_is_preprocessed(self):
+        """
+        Metodo per controllare se il file necessita di una pre-elaborazione.
+        La pre-elaborazione consiste nel controllare la presenza della colonna
+        'Cessazione artigiana' come ultima colonna. 
+
+        Più semplicemente se l'ultima colonna non è 'pec'
+        """
+        last_column = self.df.columns[-1]
+
+        if last_column != 'pec':
+            logger.debug("Pre-elaborazione file di Infocamere...")
+            self.preprocessing_anagrafica(cess_artigiana_column=last_column)
+            self.save_new_anagrafica_into_file()
+        else:
+            pass
+
+    def preprocessing_anagrafica(self, cess_artigiana_column):
+        """
+        Metodo che permette di preparare il file di Infocamere
+        per poterlo inserire all'interno di Innovation Intelligence.
+
+        Campi aggiornati:
+        -----------------
+
+            - "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane"
+
+            - "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane"
+
+        Campi eliminati:
+        ----------------
+
+            - "Cessazione artigiana"
+        """
+        working_columns = [
+            "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane",
+            "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane"
+        ]
+
+        # Setup
+        cess_artigiana_filter = self.get_cessazione_artigiana_filter(
+            cess_artigiana_column, working_columns)
+
+        # Preprocessing
+        self.df.loc[cess_artigiana_filter, working_columns] = np.nan
+
+        # Cleaning
+        self.clean_column_cess_artigiana(cess_artigiana_column)
+
+    def get_cessazione_artigiana_filter(self,
+                                        cess_artigiana_column: str, working_columns: list) -> pd.Series:
+        """
+        Metodo per rendicontare il numero di elementi che la pre-elaborazione
+        andrà a modificare
+
+        Arguments:
+        ----------
+            working_columns {list} 
+            Colonne da modificare
+
+            cess_artigiana_filter {pd.Series} 
+            Serie bool per identificare le righe da aggiornare
+        """
+        cess_artigiana_filter = self.df[cess_artigiana_column].notna()
+        first_column_notna_filter = self.df[working_columns[0]].notna()
+        second_column_notna_filter = self.df[working_columns[1]].notna()
+
+        first_column_to_update_filter = first_column_notna_filter & cess_artigiana_filter
+        second_column_to_update_filter = second_column_notna_filter & cess_artigiana_filter
+
+        # Logs
+        logger.debug("Elaborazione colonne {}".format(
+            [cess_artigiana_column] + working_columns))
+        logger.debug("Elementi dalla colonna '{}' da modificare: {}".format(
+            cess_artigiana_column, self.df[cess_artigiana_filter].shape[0]))
+        logger.debug("Elementi dalla colonna '{}' da modificare: {}".format(
+            working_columns[0], self.df[first_column_to_update_filter].shape[0]))
+        logger.debug("Elementi dalla colonna '{}' da modificare: {}".format(
+            working_columns[1], self.df[second_column_to_update_filter].shape[0]))
+
+        return cess_artigiana_filter
+
+    def clean_column_cess_artigiana(self, cess_artigiana_column: str):
+        """
+        Metodo per rimuovere la colonna 'Cessazione artigiana'
+
+        Arguments:
+            cess_artigiana_column {str} --- nome della colonna da rimuovere
+        """
+        logger.debug("Eliminazione della colonna {}".format(
+            cess_artigiana_column))
+        self.df.drop(columns=cess_artigiana_column, inplace=True)
+        logger.debug("Colonna {} eliminata".format(cess_artigiana_column))
+
+    def save_new_anagrafica_into_file(self):
+        """
+        Metodo per salvare il nuovo file anagrafica aggiornato in un nuovo
+        foglio del file fonte
+        """
+        new_sheet = "nFRIULI Anagrafica"
+        logger.debug(
+            "Salvataggio dell'anagrafica aggiornata nel foglio '{}'".format(new_sheet))
+
+        self.file_parser.write_new_sheet_into_file(
+            self.df, sheet_name=new_sheet, datetime_format="DD/MM/YYYY")
+
 
 class BilanciInfocamere(Infocamere):
 
-    def __init__(self, inTest = False):
-        super().__init__(inTest = inTest)
+    def __init__(self, inTest=False):
+        super().__init__(inTest=inTest)
         self.df = self.file_parser.open_file(sheet_name=1)
         self.column_types = {
             0: 'object',
@@ -97,11 +223,11 @@ class BilanciInfocamere(Infocamere):
 
 class AtecoInfocamere(Infocamere):
 
-    def __init__(self, inTest = False):
-        super().__init__(inTest = inTest)
+    def __init__(self, inTest=False):
+        super().__init__(inTest=inTest)
         self.df = self.file_parser.open_file(sheet_name=2)
         self.column_types = {
-            0: "object",        
+            0: "object",
             1: "object",
             2: "object",
             3: "int",

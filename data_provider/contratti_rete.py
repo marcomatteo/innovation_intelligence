@@ -13,8 +13,6 @@ class ContrattiRete(DataProvider):
 
         Keyword Arguments:
             inTest {bool} -- opening test file (default: {False})
-            preprocessed {bool} -- appending "Sogg. Giu." sheet
-                into the "Elenco" DataFrame (default: {True})
         """
         self.inTest = inTest
         self.file_path = self.root_path + r"ContrattiRete/"

@@ -42,8 +42,6 @@ class ParserAiutoDiStato:
         self.componenti = Componenti()
         self.strumenti = Strumenti()
 
-        print(".", end=" ")
-
     def parse_xml(self):
         '''
         XML Parser for OpenData_Aiuti_YEAR_MONTH.xml

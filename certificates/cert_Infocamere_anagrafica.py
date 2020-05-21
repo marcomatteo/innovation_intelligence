@@ -2,10 +2,15 @@ from certificates import Certificazioni
 from data_provider import AnagraficaInfocamere
 
 import numpy as np
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class CertificazioneAnagrafica(Certificazioni):
-    
+
     def __init__(self):
+        logger.debug("Apertura Data Provider AnagraficaInfocamere... ")
         self.dp = AnagraficaInfocamere()
         self.dp_file_extension = "xlsx"
         self.column_number = 48
@@ -18,12 +23,13 @@ class CertificazioneAnagrafica(Certificazioni):
         self.column_types[15] = np.dtype('<M8[ns]')
         self.column_types[16] = np.dtype('<M8[ns]')
         self.column_types[17] = np.dtype('<M8[ns]')
+        self.column_types[18] = np.dtype('<M8[ns]')
         self.column_types[26] = np.dtype('int64')
         self.column_types[28] = np.dtype('int64')
         self.column_types[31] = np.dtype('float64')
         self.column_max_length = {
             0: 11,
-            1: 2,
+            1: 6,
             2: 20,
             3: 10,
             4: 10,

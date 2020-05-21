@@ -18,7 +18,7 @@ class CertificazioneBilanci(Certificazioni):
             
         self.column_max_length = {i: None for i in range(self.column_number)}
         self.column_max_length[0] = 11
-        self.column_max_length[1] = 2
+        self.column_max_length[1] = 6
         self.column_max_length[2] = 10
 
         self.column_nullables = {i: True for i in range(self.column_number)}

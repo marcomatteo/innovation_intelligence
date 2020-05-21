@@ -53,7 +53,7 @@ class IXMLObj:
             merged_list = list()
 
             for num in range(xml_objs_len - 1):
-                # first df to merge for N -> 1 relationship 
+                # first df to merge for N -> 1 relationship
                 first_xml_obj = self.xml_objs[num + 1]
                 first_df = first_xml_obj.get_DataFrame()
                 first_fk_to_drop = first_xml_obj.fk_key
@@ -62,10 +62,10 @@ class IXMLObj:
                 if num == 0:
                     # first merge
                     second_df = self.xml_objs[num].get_DataFrame()
-                else: 
+                else:
                     # already merged df
                     second_df = merged_list[num - 1]
-                
+
                 df = first_df.merge(
                     second_df,
                     left_on=first_fk_to_drop,
@@ -73,41 +73,8 @@ class IXMLObj:
                 ).drop(columns=first_fk_to_drop)
 
                 merged_list.append(df)
-            
+
             return merged_list[-1]
-
-    def get_DataFrame(self):
-        if not (self.xml_objs is NotImplemented):
-            df_list = self.get_xml_objs_dataframes()
-
-            df_len = len(df_list)
-
-            if df_len == 1:
-                return df_list.pop(0)
-
-            max_merge_operations = df_len - 1
-            merge_iterator = range(max_merge_operations)
-            
-            df_merged = list(merge_iterator)
-
-            for merge_operation in merge_iterator:
-                first_df = df_list[merge_operation + 1]
-
-                if merge_operation == 0:
-                    second_df = df_list[merge_operation]
-                else:
-                    second_df = df_merged[merge_operation - 1]
-
-                second_num = merge_operation
-                second_df = df_list[second_num]
-
-                df_merged[merge_operation] = first_df.merge(
-                    second_df,
-                    left_on=self.xml_objs[second_num + 1].fk_key,
-                    right_index=True
-                ).drop(columns=self.xml_objs[second_num].fk_key)
-
-            return df_merged.pop(max_merge_operations)
 
     def get_xml_objs_dataframes(self) -> list:
         if not (self.xml_objs is NotImplemented):
@@ -116,10 +83,11 @@ class IXMLObj:
             for xml_obj in self.xml_objs:
                 df_xml_obj = xml_obj.get_DataFrame()
                 df_list.append(df_xml_obj)
-            
+
             return df_list
-        
+
         return None
+
 
 class AiutiDiStato(IXMLObj):
     """
