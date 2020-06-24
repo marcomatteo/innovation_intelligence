@@ -160,7 +160,7 @@ projects_i2fvg_df.info()
 topics = projects_i2fvg_df["topics"].drop_duplicates()
 fundingScheme = projects_i2fvg_df["fundingScheme"].drop_duplicates()
 
-# %% Pulizia di campi non previsti
+# %% Pulizia di campi non previsti del DB
 
 
 def cleaning_series(series: pd.Series) -> pd.Series:
@@ -173,14 +173,19 @@ def cleaning_series(series: pd.Series) -> pd.Series:
 topics = cleaning_series(topics)
 fundingScheme = cleaning_series(fundingScheme)
 
-# %% Apro file temi scaricati
-TOPICS_I2FVG_FILE = r"../data/FinanziamentiUE/input/topics.xlsx"
+# %% Apro file temi scaricati (da DB e non da file)
 
-topics_i2fvg_df = ParserXls(TOPICS_I2FVG_FILE).open_file()
-topics_i2fvg_df.info()
+# TOPICS_I2FVG_FILE = r"../data/FinanziamentiUE/input/storico_temi_conosciuti.xlsx"
+# topics_i2fvg_df = ParserXls(TOPICS_I2FVG_FILE).open_file()
+# topics_i2fvg_df.info()
+
+TOPICS_QUERY = "SELECT DISTINCT SchemaFinanziamento FROM SVC_FinanziamentiUE_Schema"
+topics_i2fvg_df = DatabaseConnector().get_dataframe_from_query(TOPICS_QUERY)
 
 # %% Creo liste per effettuare il filtro
-topics_i2fvg_list = topics_i2fvg_df.iloc[:, 1].drop_duplicates().tolist()
+topics_i2fvg = topics_i2fvg_df["SchemaFinanziamento"].drop_duplicates()
+topics_i2fvg = cleaning_series(topics_i2fvg)
+topics_i2fvg_list = topics_i2fvg.tolist()
 
 topics_filter = topics.isin(topics_i2fvg_list)
 topics_missing = topics.loc[~topics_filter]
@@ -188,14 +193,18 @@ topics_missing = topics.loc[~topics_filter]
 topics_missing.describe()
 
 # %% Apro file schemi scaricati
-FUNDING_I2FVG_FILE = r"../data/FinanziamentiUE/input/fundingScheme.xlsx"
 
-fundingScheme_i2fvg_df = ParserXls(FUNDING_I2FVG_FILE).open_file()
-fundingScheme_i2fvg_df.info()
+# FUNDING_I2FVG_FILE = r"../data/FinanziamentiUE/input/storico_schemi_conosciuti.xlsx"
+# fundingScheme_i2fvg_df = ParserXls(FUNDING_I2FVG_FILE).open_file()
+# fundingScheme_i2fvg_df.info()
+
+FUNDING_QUERY = "SELECT DISTINCT Topic FROM SVC_FinanziamentiUETema"
+fundingScheme_i2fvg_df = DatabaseConnector().get_dataframe_from_query(FUNDING_QUERY)
 
 # %% Creo liste ed effettuo il filtro
-fundingScheme_i2fvg_list = fundingScheme_i2fvg_df.iloc[:, 1].drop_duplicates(
-).tolist()
+fundingScheme_i2fvg = fundingScheme_i2fvg_df["Topic"].drop_duplicates()
+fundingScheme_i2fvg = cleaning_series(fundingScheme_i2fvg)
+fundingScheme_i2fvg_list = fundingScheme_i2fvg.tolist()
 
 funding_filter = fundingScheme.isin(fundingScheme_i2fvg_list)
 fundingScheme_missing = fundingScheme.loc[~funding_filter]
