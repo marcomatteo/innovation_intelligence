@@ -165,6 +165,9 @@ class TestAcceptanceBaseClass(unittest.TestCase):
                 self.assertEqual(0, constraints)
             except Exception as e:
                 logger.debug("Found duplicates for column_constraints")
+                duplicates = self.cert.dp.get_column_constraints_is_respected()
+                condition = duplicates == True
+                logger.debug("\n\n{}\n".format(duplicates.loc[condition]))
                 raise e
             else:
                 logger.debug("Test OK\n")

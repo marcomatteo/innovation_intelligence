@@ -37,24 +37,24 @@ class Test_ContrattiRete(TestDataProviderBaseClass):
             ,"SoggettoGiuridico"
         ]
 
-        cls.first_row = [ 1
-            ,"Olonetwork Companies"
-            ,"20/04/2010"
-            ,"16682/10487"
+        cls.first_row = [ 3
+            ,"MECNET"
+            ,"10/09/2010"
+            ,"199466/46658"
             , np.nan
-            ,"Attività relative alle commesse, alle società partecipanti assegnate in conformità al contratto, al fine di svolgere in comune lattività di offerta al mercato e di realizzazione di prodotti finiti che compo"
-            , "216888"
-            ,"01133080364"
-            ,"TRAIMEC S.R.L."
+            ,"Svolgimento nellambito della rete delle attività che le singole imprese non sono in grado di gestire al proprio interno, attività comuni finalizzate allaumento della qualità dei prodotti e alla loro certificazione, par"
+            , 151153
+            ,"00963010301"
+            ,"B  T OFFICINE MECCANICHE S.R.L."
             , np.nan
-            ,"FORMIGINE"
-            , "8"
-            ,"MO"
+            ,"POVOLETTO"
+            , 6
+            ,"UD"
             ,"SR"
-            , "28299"
+            , "2562"
             ,"INDUSTRIA/ARTIGIANATO"
             ,"C ATTIVITA' MANIFATTURIERE"
-            ,"C 28 FABBRICAZIONE DI MACCHINARI ED APPARECCHIATURE NCA"
+            ,"C 25 FABBRICAZIONE DI PRODOTTI IN METALLO (ESCLUSI MACCHINARI E A"
             ,"NO"
         ]
         

@@ -2,7 +2,7 @@ import abc
 import numpy as np
 import pandas as pd
 from collections import defaultdict
-
+import typing
 
 class DataProviderMeta(type):
     def __call__(cls, *args, **kwargs):
@@ -69,19 +69,15 @@ class DataProvider(metaclass=abc.ABCMeta):
         if not self.df is NotImplemented:
             cf_list = self.get_fiscalcode_list_from_Anagrafica()
 
-            cond = self.df.iloc[:, cf_column].isin(cf_list)
+            if isinstance(cf_column, int):
+                cond = self.df.iloc[:, cf_column].isin(cf_list)
+            elif isinstance(cf_column, str) & (cf_column in self.df.columns):
+                cond = self.df.loc[:, cf_column].isin(cf_list)
+            else:
+                raise KeyError(
+                    "Invalid cf_column with value {}".format(cf_column))
+
             return self.df.loc[cond].copy()
-
-    def set_filtred_fiscal_codes_dataframe(self,
-                                           cf_column: int) -> None:
-        """Metodo che filtra le righe del dataframe
-        solo per i codici fiscali passati in cf_list"""
-
-        if not self.df is NotImplemented:
-            cf_list = self.get_fiscalcode_list_from_Anagrafica()
-
-            cond = self.df.iloc[:, cf_column].isin(cf_list)
-            self.df = self.df.loc[cond].copy()
 
     def get_fiscalcode_list_from_Anagrafica(self) -> list:
         """Metodo che recupera la lista dei codici fiscali nel DB"""
@@ -93,6 +89,14 @@ class DataProvider(metaclass=abc.ABCMeta):
             cf_list = Anagrafica().get_fiscalcode_list()
 
         return cf_list
+    
+    def set_filtred_fiscal_codes_dataframe(self,
+                                           cf_column: typing.Union[int, str]) -> None:
+        """Metodo che filtra le righe del dataframe
+        solo per i codici fiscali passati in cf_list"""
+
+        if not self.df is NotImplemented:
+            self.df = self.get_filtred_fiscal_codes_dataframe(cf_column)
 
     def get_column_number(self) -> int:
         """
@@ -226,7 +230,8 @@ class DataProvider(metaclass=abc.ABCMeta):
 
     def get_column_constraints_is_respected(self) -> int:
         """
-        Metodo che ritorna il numero di duplicati (se presenti)
+        Metodo che ritorna i duplicati (se presenti) nelle colonne indicate
+        dal dizionario in self.column_constraints
         """
         if ((not self.df is NotImplemented) and
                 (not self.column_constraints is NotImplemented)):
@@ -235,7 +240,7 @@ class DataProvider(metaclass=abc.ABCMeta):
                 col for i, col in enumerate(self.get_column_names())
                 if self.column_constraints[i]]
 
-            return self.df.duplicated(subset=columns).sum()  # .shape[0]
-        
+            return self.df.duplicated(subset=columns)  # .sum()  # .shape[0]
+
         else:
             return 0

@@ -26,6 +26,7 @@ class AnagraficaInfocamere(Infocamere):
 
     def __init__(self, inTest=False):
         super().__init__(inTest=inTest)
+        
         self.column_types = {
             0: "object",
             1: "object",
@@ -45,7 +46,7 @@ class AnagraficaInfocamere(Infocamere):
             15: "date",
             16: "date",
             17: "date",
-            18: "object",
+            18: "date",
             19: "object",
             20: "object",
             21: "object",
@@ -77,6 +78,7 @@ class AnagraficaInfocamere(Infocamere):
             47: "object",
             48: "object",
         }
+
         self.column_constraints = {i: False for i in range(48)}
         self.column_constraints[0] = True
         self.column_constraints[1] = True

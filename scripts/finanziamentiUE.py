@@ -126,19 +126,25 @@ it_organizations.to_excel(
 PROJ_PATH = r"../data/FinanziamentiUE/input/cordis-h2020projects.csv"
 proj_parser = ParserCsv(PROJ_PATH)
 proj_data = proj_parser.open_file(sep=';')
+it_organizations = ParserXls(r"data/FinanziamentiUE/org_matched_it.xlsx").open_file()
 
-# %% Esamino il file dei progetti
-proj_data.info()
+# %% 07/2020: Leggo il file passato ai tecnici
+FILE_PATH = r"../data/FinanziamentiUE/FinanziamentiUE_08_05_2020_aggiornato_colonne.xlsx"
+file_fonte_parser = ParserXls(FILE_PATH)
+projects_df = file_fonte_parser.open_file(sheet_name="projects")
+org_df = file_fonte_parser.open_file(sheet_name="organizations")
+
+# %% Cast delle colonne per il merge
+projects_df = projects_df.astype({"id": 'int64'})
+org_df = org_df.astype({'projectID': 'int64'})
 
 # %% Effettuo il merge tra il dataset dei progetti e quello delle organizations
-projects_df = proj_data.merge(
-    it_organizations,
+finUE_df = projects_df.merge(
+    org_df,
     left_on="id", right_on="projectID",
     how="inner",
     suffixes=("_projects", "_organizations")
 )
-
-projects_df.info()
 
 # %% Ottengo i codici fiscali dal Database e li salvo in una lista
 CF_QUERY = "SELECT DISTINCT CF FROM DATA_Impresa"
@@ -147,8 +153,26 @@ cf_from_db = DatabaseConnector().get_dataframe_from_query(CF_QUERY)
 cf_list = cf_from_db["CF"].tolist()
 
 # %% Pulizia campo vatNumber
-projects_df.loc[:, "vatNumber"] = projects_df["vatNumber"].map(
+df = finUE_df.loc[finUE_df["vatNumber"].notna()]
+df.loc[:, "CF"] = df["vatNumber"].map(
     lambda cf: str(cf)[2:])
+
+# projects_df.loc[:, "vatNumber"] = projects_df["vatNumber"].map(
+#     lambda cf: str(cf)[2:])
+
+# %% Filtro i finanziamenti che hanno una organization collegata
+org_filter = finUE_df["vatNumber"].notna()
+finUE_org = finUE_df.loc[org_filter]
+
+# %% Filtro i finanziamenti con un project
+proj_filter = finUE_org["id_projects"].notna()
+finUE_selected = finUE_org.loc[proj_filter]
+
+# %% Filtro le imprese presenti nel DB
+cf_from_db_filter = df["CF"].isin(cf_list)
+
+df_i2fvg = df.loc[cf_from_db_filter]
+df_i2fvg.info()
 
 # %% Filtro le imprese presenti nel DB
 cf_from_db_filter = projects_df["vatNumber"].isin(cf_list)
@@ -157,8 +181,8 @@ projects_i2fvg_df = projects_df.loc[cf_from_db_filter]
 projects_i2fvg_df.info()
 
 # %% Ottengo topics e fundingScheme
-topics = projects_i2fvg_df["topics"].drop_duplicates()
-fundingScheme = projects_i2fvg_df["fundingScheme"].drop_duplicates()
+topics = df_i2fvg["topics"].drop_duplicates()
+fundingScheme = df_i2fvg["fundingScheme"].drop_duplicates()
 
 # %% Pulizia di campi non previsti del DB
 
@@ -179,12 +203,12 @@ fundingScheme = cleaning_series(fundingScheme)
 # topics_i2fvg_df = ParserXls(TOPICS_I2FVG_FILE).open_file()
 # topics_i2fvg_df.info()
 
-TOPICS_QUERY = "SELECT DISTINCT SchemaFinanziamento FROM SVC_FinanziamentiUE_Schema"
+TOPICS_QUERY ="SELECT DISTINCT Topic FROM SVC_FinanziamentiUETema"
 topics_i2fvg_df = DatabaseConnector().get_dataframe_from_query(TOPICS_QUERY)
 
 # %% Creo liste per effettuare il filtro
-topics_i2fvg = topics_i2fvg_df["SchemaFinanziamento"].drop_duplicates()
-topics_i2fvg = cleaning_series(topics_i2fvg)
+topics_i2fvg = topics_i2fvg_df["Topic"].drop_duplicates()
+# topics_i2fvg = cleaning_series(topics_i2fvg)
 topics_i2fvg_list = topics_i2fvg.tolist()
 
 topics_filter = topics.isin(topics_i2fvg_list)
@@ -198,12 +222,12 @@ topics_missing.describe()
 # fundingScheme_i2fvg_df = ParserXls(FUNDING_I2FVG_FILE).open_file()
 # fundingScheme_i2fvg_df.info()
 
-FUNDING_QUERY = "SELECT DISTINCT Topic FROM SVC_FinanziamentiUETema"
+FUNDING_QUERY =  "SELECT DISTINCT SchemaFinanziamento FROM SVC_FinanziamentiUE_Schema"
 fundingScheme_i2fvg_df = DatabaseConnector().get_dataframe_from_query(FUNDING_QUERY)
 
 # %% Creo liste ed effettuo il filtro
-fundingScheme_i2fvg = fundingScheme_i2fvg_df["Topic"].drop_duplicates()
-fundingScheme_i2fvg = cleaning_series(fundingScheme_i2fvg)
+fundingScheme_i2fvg = fundingScheme_i2fvg_df["SchemaFinanziamento"].drop_duplicates()
+# fundingScheme_i2fvg = cleaning_series(fundingScheme_i2fvg)
 fundingScheme_i2fvg_list = fundingScheme_i2fvg.tolist()
 
 funding_filter = fundingScheme.isin(fundingScheme_i2fvg_list)
@@ -212,10 +236,10 @@ fundingScheme_missing = fundingScheme.loc[~funding_filter]
 fundingScheme_missing.describe()
 
 # %% Salvo i risultati dell'ispezione nella cartella output
-topics_missing.to_frame().to_excel(r"../data/FinanziamentiUE/output/topics_mancanti.xlsx",
+topics_missing.to_frame().to_excel(r"../data/FinanziamentiUE/output/topics_mancanti_new.xlsx",
                                    index=False)
 
-fundingScheme_missing.to_frame().to_excel(r"../data/FinanziamentiUE/output/fundingScheme_mancanti.xlsx",
+fundingScheme_missing.to_frame().to_excel(r"../data/FinanziamentiUE/output/fundingScheme_mancanti_new.xlsx",
                                           index=False)
 
 

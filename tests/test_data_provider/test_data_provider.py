@@ -1,18 +1,21 @@
-from data_provider import DataProvider
-
 import unittest
+from unittest.mock import Mock, MagicMock, patch
+
 import pandas as pd
+from pandas import util
 import numpy as np
 import datetime
+
+from data_provider import DataProvider
 
 
 class Test_DataProvider(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        from data_provider import DataProvider
         data = {
-            'col1': ['    min    ', 'asdasdasd0',
-                     '          ciao', 'ciao          '],
+            'col1': ['    min    ', 'asdasdasd0', '          ciao', 'ciao          '],
             'col2': ['UD', '   O', 'P   ', '   TS    '],
             'col3': [0, 1, 1, 1],
             'col4': ([np.nan] * 3) + [0.24],
@@ -20,27 +23,13 @@ class Test_DataProvider(unittest.TestCase):
         }
         df = pd.DataFrame(data)
 
-        col_types = {
-            0: 'object',
-            1: 'object',
-            2: 'int',
-            3: 'float',
-            4: 'date'
-        }
+        col_types = {0: 'object', 1: 'object', 2: 'int', 3: 'float', 4: 'date'}
 
-        col_constraints = {
-            0: False,
-            1: False,
-            2: True,
-            3: False,
-            4: False
-        }
+        col_constraints = {0: False, 1: False, 2: True, 3: False, 4: False}
         cls.dp = DataProvider(df, col_types, col_constraints)
 
     def test_get_column_number(self):
         self.assertEqual(5, self.dp.get_column_number())
-
-    def test_get_column_number_wrong_number(self):
         self.assertNotEqual(10, self.dp.get_column_number())
 
     def test_get_column_names(self):
@@ -58,9 +47,6 @@ class Test_DataProvider(unittest.TestCase):
         ]
         self.assertEqual(column_types,
                          self.dp.get_column_types())
-
-    def test_column_constraints_is_respected(self):
-        self.assertEqual(2, self.dp.get_column_constraints_is_respected())
 
     def test_get_column_nullables(self):
         column_nullables = {
@@ -85,6 +71,7 @@ class Test_DataProvider(unittest.TestCase):
                          self.dp.get_columns_max_length())
 
     def test_get_casted_dataframe(self):
+        from data_provider import DataProvider
         date_column = pd.date_range(start=datetime.datetime.today(), periods=4)
 
         # Creo dataframe di test, uguale al self.dp.df solo con stringhe
@@ -108,45 +95,30 @@ class Test_DataProvider(unittest.TestCase):
         self.assertEqual(casted_df.dtypes.tolist(),
                          self.dp.df.dtypes.tolist())
 
-    def test_get_trimmed_length_int(self):
+    def test_get_trimmed_length(self):
         self.assertEqual(self.dp.get_trimmed_length(234), 3,
                          "Integer 234 must have length 3!")
-
-    def test_get_trimmed_length_float(self):
         self.assertEqual(self.dp.get_trimmed_length(234.02), 6,
                          "Float 234.02 must have length 6!")
-
-    def test_get_trimmed_length_string_with_left_and_right_spaces(self):
         self.assertEqual(self.dp.get_trimmed_length(" Ciao ciao "), 9,
                          "String 'Ciao ciao ' must have length 9!")
-
-    def test_get_trimmed_length_string_with_left_spaces(self):
         self.assertEqual(self.dp.get_trimmed_length(" Ciao ciao"), 9,
                          "String 'Ciao ciao ' must have length 9!")
-
-    def test_get_trimmed_length_string_with_right_spaces(self):
         self.assertEqual(self.dp.get_trimmed_length("Ciao ciao "), 9,
                          "String 'Ciao ciao ' must have length 9!")
-
-    def test_get_trimmed_length_nan(self):
         self.assertFalse(self.dp.get_trimmed_length(np.nan),
                          "Nan Length must be 0!")
-
-    def test_get_trimmed_length_NaT(self):
         self.assertFalse(self.dp.get_trimmed_length(pd.NaT),
                          "NaT Length must be 0!")
 
     def test_catch_null_length_isnan(self):
         self.assertTrue(self.dp.catch_null_length(np.isnan, np.nan))
-
-    def test_catch_null_length_isnat_pd_NaT(self):
         self.assertTrue(self.dp.catch_null_length(pd.isnull, pd.NaT))
-
-    def test_catch_null_length_isnat_np_datetime(self):
         self.assertTrue(self.dp.catch_null_length(np.isnat,
                                                   np.datetime64("NaT")))
 
     def test_get_column_max_length_is_respected_int_positives(self):
+        from data_provider import DataProvider
         # Integer values between [0, 200)
         series_obj = pd.Series(
             data=np.random.randint(0, 200, size=(100,)),
@@ -158,6 +130,7 @@ class Test_DataProvider(unittest.TestCase):
         )
 
     def test_get_column_max_length_is_respected_int_negatives(self):
+        from data_provider import DataProvider
         # Integer values between [-200, 0)
         series_obj = pd.Series(
             data=np.random.randint(-200, 0, size=(100,)),
@@ -169,6 +142,7 @@ class Test_DataProvider(unittest.TestCase):
         )
 
     def test_get_column_max_length_is_respected_float_positives(self):
+        from data_provider import DataProvider
         # Float values between [0, 200)
         series_obj = pd.Series(
             data=np.around((np.random.random_sample((100,)) * 200)),
@@ -180,6 +154,7 @@ class Test_DataProvider(unittest.TestCase):
         )
 
     def test_get_column_max_length_is_respected_float_negatives(self):
+        from data_provider import DataProvider
         # Float values between [0, 200)
         series_obj = pd.Series(
             data=np.around((np.random.random_sample((100,)) * (- 200))),
@@ -191,6 +166,7 @@ class Test_DataProvider(unittest.TestCase):
         )
 
     def test_get_column_max_length_is_respected_str(self):
+        from data_provider import DataProvider
         # Values between [1, 6)
         rand_int_array = np.random.randint(1, 6, size=(100,))
         sample_string = "a"
@@ -207,3 +183,81 @@ class Test_DataProvider(unittest.TestCase):
             DataProvider.get_column_max_length_is_respected(series_obj), 5,
             "String Series from 'a' to 'aaaaa' must have max length 5!"
         )
+
+    @patch("data_provider.DataProvider.get_fiscalcode_list_from_Anagrafica")
+    def test_set_filtred_fiscal_codes_dataframe_int(self, mock_method):
+        # Creo lista di codici fiscali fittizzi, solo i primi 2 corrispondono
+        cf_list = ['08587760961', '02538160033', '10536370017',
+                   'MRCNTN63H03G942C']  
+        mock_method.return_value = cf_list
+        
+        # Creo DataProvider di Test
+        data = {
+            'col1': ['08587760961', '02538160033', '05903120631', '02643150168'],
+            'col2': ['UD', 'O', 'P', 'TS']
+        }
+        df = pd.DataFrame(data)
+        col_types = {0: 'object', 1: 'object'}
+        col_constraints = {0: True, 1: False}
+        dp = DataProvider(df, col_types, col_constraints)
+        
+        # Richiamo il metodo da testare
+        dp.set_filtred_fiscal_codes_dataframe(0)
+        
+        # Mi assicuro che il metodo mockato venga chiamato
+        mock_method.assert_called_once_with()
+        
+        # Effettuo il test
+        pd.testing.assert_frame_equal(dp.df, pd.DataFrame(
+            {'col1': ['08587760961', '02538160033'], 'col2': ['UD', 'O']}))
+
+    @patch("data_provider.DataProvider.get_fiscalcode_list_from_Anagrafica")
+    def test_set_filtred_fiscal_codes_dataframe_str(self, mock_method):
+        # Creo lista di codici fiscali fittizzi, solo i primi 2 corrispondono
+        cf_list = ['08587760961', '02538160033', '10536370017',
+                   'MRCNTN63H03G942C']  
+        mock_method.return_value = cf_list
+        
+        # Creo DataProvider di Test
+        data = {
+            'col1': ['08587760961', '02538160033', '05903120631', '02643150168'],
+            'col2': ['UD', 'O', 'P', 'TS']
+        }
+        df = pd.DataFrame(data)
+        col_types = {0: 'object', 1: 'object'}
+        col_constraints = {0: True, 1: False}
+        dp = DataProvider(df, col_types, col_constraints)
+        
+        # Richiamo il metodo da testare
+        dp.set_filtred_fiscal_codes_dataframe('col1')
+        
+        # Mi assicuro che il metodo mockato venga chiamato
+        mock_method.assert_called_once_with()
+        
+        # Effettuo il test
+        pd.testing.assert_frame_equal(dp.df, pd.DataFrame(
+            {'col1': ['08587760961', '02538160033'], 'col2': ['UD', 'O']}))
+
+    def test_get_column_constraints_is_respected(self):
+        from data_provider import DataProvider
+        # Test su colonna di interi
+        self.assertEqual(
+            2, self.dp.get_column_constraints_is_respected().sum())
+
+        # Test su una colonna di stringhe
+        # Creo istanza di Data Provider
+        data = {
+            # duplicato il secondo valore
+            'col1': ['222365896', '522559845', '333652214', '522559845'],
+            'col2': ['UD', '   O', 'P   ', '   TS    ']
+        }
+        df = pd.DataFrame(data)
+        col_types = {0: 'object', 1: 'object'}
+        col_constraints = {0: True, 1: False}
+        dp = DataProvider(df, col_types, col_constraints)
+        # Test valore corrispondente
+        self.assertEqual(1, dp.get_column_constraints_is_respected().sum(),
+                         "E' presente un duplicato nella colonna!")
+        # Test valore non corrispondente
+        self.assertNotEqual(0, dp.get_column_constraints_is_respected().sum(),
+                            "E' presente un duplicato nella colonna!")

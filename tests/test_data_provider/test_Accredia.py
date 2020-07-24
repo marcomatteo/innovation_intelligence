@@ -14,6 +14,7 @@ class Test_Accredia(TestDataProviderBaseClass):
         cls.file_parser = ParserCsv
         cls.file_path = r"data/data_tests/Accredia/"
         cls.file_parser_separator = "|"
+        
         cls.first_row = [
             "08587760961",
             "201910",
@@ -21,6 +22,7 @@ class Test_Accredia(TestDataProviderBaseClass):
             "53",
             "PI"
         ]
+        
         cls.column_types = {
             0: 'object',
             1: 'object',
@@ -28,6 +30,7 @@ class Test_Accredia(TestDataProviderBaseClass):
             3: 'int',
             4: 'object'
         }
+        
         cls.columns = [
             "fiscalcode",
             "annomese",
@@ -35,6 +38,7 @@ class Test_Accredia(TestDataProviderBaseClass):
             "id_istat_province",
             "istat_province_prcode"
         ]
+        
         cls.column_constraints = {
             0: True,
             1: False,
@@ -42,3 +46,5 @@ class Test_Accredia(TestDataProviderBaseClass):
             3: False,
             4: True
         }
+
+    

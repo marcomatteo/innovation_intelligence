@@ -20,6 +20,7 @@ class ParserXls(IParser):
             
         self.excel_file = pd.ExcelFile(self.file_path)
 
+    #TODO: rename in sheet_names
     @property
     def get_sheet_names(self) -> list:
         return self.excel_file.sheet_names

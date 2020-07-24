@@ -36,8 +36,11 @@ def get_set_differences(*args) -> set:
     diff = set()
     for elements in args:
         if isinstance(elements, list):
+            # print("Recurse!")
             diff = get_set_differences(diff, *elements)
         if isinstance(elements, set):
+            # print("Set to elements: {}".format(elements))
+            # print("Set diff: {}".format(diff))
             diff = elements.difference(diff)
 
     return diff
@@ -100,7 +103,7 @@ NOT_FOUNDED = set()
 for _, _, file_names in os.walk(FILES_PATH):
     pass
 
-# %% Get the 
+# %% Get the laws
 laws_not_in_progetti = []
 for file_name in file_names:
     laws_not_in_progetti.append(get_laws_from_file(FILES_PATH + file_name))
@@ -110,5 +113,50 @@ NOT_FOUNDED = get_set_differences(DB_LAWS, laws_not_in_progetti)
 
 # %%
 NOT_FOUNDED
+
+# %%
+laws_per_file = []
+for file_name in file_names:
+    laws_per_file.append(get_laws_from_file(FILES_PATH + file_name))
+
+# %%
+new = []
+for laws in laws_per_file:
+    laws_progetti = laws[0]
+    laws_imprese = laws[1]
+
+    new.append(laws_imprese.difference(laws_progetti))
+
+# %%
+very_new = []
+
+for law in new:
+    very_new.append(law.difference(DB_LAWS))
+
+# %%
+very_new
+
+# %%
+sets = []
+for file_list in laws_not_in_progetti:
+    sets.append(file_list[0].union(file_list[1])) 
+
+# %%
+true_sets = []
+for file_list in sets:
+    for el in file_list:
+        true_sets.append(el) 
+
+# %%
+true_sets
+
+# %%
+unique_sets = set(true_sets)
+unique_sets
+# %%
+DB_LAWS.difference(unique_sets)
+
+# %%
+unique_sets.difference(DB_LAWS)
 
 # %%

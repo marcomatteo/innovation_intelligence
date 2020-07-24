@@ -88,5 +88,5 @@ class Certificazioni(metaclass=CertificazioniMeta):
 
     def check_column_constraints(self) -> int:
         if not self.dp is NotImplemented:
-            return self.dp.get_column_constraints_is_respected()
+            return self.dp.get_column_constraints_is_respected().sum()
         pass

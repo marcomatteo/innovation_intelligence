@@ -14,6 +14,7 @@ class Test_BilanciInfocamere(TestDataProviderBaseClass):
         cls.dp = BilanciInfocamere(inTest=True)
         cls.file_path = r"data/data_tests/Infocamere/"
         cls.file_parser = ParserXls
+        
         cls.columns = [
             "c fiscale",                
             "cia",                                             
@@ -34,6 +35,7 @@ class Test_BilanciInfocamere(TestDataProviderBaseClass):
             "tot.aam.acc.svalutazioni",                        
             "(ron) reddito operativo netto"            
         ]
+        
         cls.first_row = [
             "00002070324",
             "TS",
@@ -54,6 +56,7 @@ class Test_BilanciInfocamere(TestDataProviderBaseClass):
             14689,
             539200
         ]
+        
         cls.column_types = {
             0: 'object',
             1: 'object',
@@ -73,6 +76,6 @@ class Test_BilanciInfocamere(TestDataProviderBaseClass):
             15: 'float'
         }
         cls.column_constraints = {i: False for i in range(16)}
-        cls.column_constraints[0] = True
-        cls.column_constraints[1] = True
-        cls.column_constraints[3] = True
+        cls.column_constraints[0] = True    # c.f.
+        cls.column_constraints[1] = True    # pv
+        cls.column_constraints[3] = True    # sede/ul

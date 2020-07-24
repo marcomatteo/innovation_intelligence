@@ -26,12 +26,12 @@ class Accredia(DataProvider):
             4: True
         }
 
-    def get_filtred_fiscal_codes_dataframe(self, cf_list: list) -> pd.DataFrame:
+    def get_filtred_fiscal_codes_dataframe(self) -> pd.DataFrame:
         """Metodo che ritorna una copia del dataframe
         solo per i codici fiscali passati in cf_list"""
-        return super().get_filtred_fiscal_codes_dataframe(0, cf_list)
+        return super().get_filtred_fiscal_codes_dataframe(0)
     
-    def set_filtred_fiscal_codes_dataframe(self, cf_list: list):
+    def set_filtred_fiscal_codes_dataframe(self):
         """Metodo che filtra le righe del dataframe
         solo per i codici fiscali passati in cf_list"""
-        super().set_filtred_fiscal_codes_dataframe(0, cf_list)
+        super().set_filtred_fiscal_codes_dataframe(0)

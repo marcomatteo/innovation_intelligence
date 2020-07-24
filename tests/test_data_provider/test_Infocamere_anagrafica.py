@@ -1,5 +1,5 @@
 from tests import TestDataProviderBaseClass
-from data_provider import AnagraficaInfocamere, DataProvider
+from data_provider import AnagraficaInfocamere
 from file_parser import ParserXls
 
 import unittest
@@ -65,6 +65,7 @@ class Test_AnagraficaInfocamere(TestDataProviderBaseClass):
             "Impr Straniera"                                                  ,
             "pec"                                                             
         ]
+        
         cls.first_row = [
             "00002070324"
             ,"TS"
@@ -80,11 +81,11 @@ class Test_AnagraficaInfocamere(TestDataProviderBaseClass):
             ,pd.Timestamp('1969-01-30 00:00:00')
             ,pd.NaT         # Non è np.nan perché la colonna è tipo data
             ,pd.NaT         # e non tipo 'object' come le altre
-            ,pd.NaT
-            ,pd.Timestamp('1969-01-30 00:00:00')
-            ,pd.NaT
-            ,pd.NaT
             ,np.nan
+            ,pd.Timestamp('1969-01-30 00:00:00')
+            ,np.nan
+            ,pd.NaT
+            ,pd.NaT
             ,"B.F.B. - CASA DI SPEDIZIONI S.R.L."
             ,"VIA CORTI 2"
             ,np.nan
@@ -115,6 +116,7 @@ class Test_AnagraficaInfocamere(TestDataProviderBaseClass):
             ,"NO"
             ,"claudio.brosch@pec.bfbtrieste.com"
         ]
+        
         cls.column_types = {
             0: "object",        
             1: "object",
@@ -142,12 +144,12 @@ class Test_AnagraficaInfocamere(TestDataProviderBaseClass):
             23: "object",        
             24: "object",        
             25: "object",        
-            26: "object",        
+            26: "int",        
             27: "object",        
-            28: "object",        
+            28: "int",        
             29: "object",        
             30: "object",        
-            31: "object",        
+            31: "float",        
             32: "object",        
             33: "object",        
             34: "object",        
@@ -166,3 +168,8 @@ class Test_AnagraficaInfocamere(TestDataProviderBaseClass):
             47: "object",        
             48: "object",        
         }
+
+        cls.column_constraints = {i: False for i in range(len(cls.columns))}
+        cls.column_constraints[0] = True    # c.f.
+        cls.column_constraints[1] = True    # provincia
+        cls.column_constraints[4] = True    # sede/ul
