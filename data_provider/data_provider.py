@@ -1,8 +1,9 @@
 import abc
+from file_parser.iparser import IParser
 import numpy as np
 import pandas as pd
 from collections import defaultdict
-import typing
+from typing import Union
 
 
 class DataProviderMeta(type):
@@ -21,9 +22,14 @@ class DataProvider(metaclass=abc.ABCMeta):
     inTest = NotImplemented             # type: bool
     file_path = NotImplemented          # type: str
     file_parser = NotImplemented        # type: IParser
-    df = NotImplemented                 # type: pandas.DataFrame
+    df = NotImplemented                 # type: pd.DataFrame
     column_types = NotImplemented       # type: defaultdict(str)
     column_constraints = NotImplemented  # type: defaultdict(bool)
+
+    def __init__(self, df, column_types, column_constraints):
+        self.df = df
+        self.column_types = column_types
+        self.column_constraints = column_constraints
 
     @property
     def root_path(self):
@@ -57,15 +63,25 @@ class DataProvider(metaclass=abc.ABCMeta):
             raise NotImplementedError("Subclass must define self.column_constraints attribute. \n"
                                       + "This attribute should define the DataProvider column constraints for the certificate class.")
 
-    def __init__(self, df, column_types, column_constraints):
-        self.df = df
-        self.column_types = column_types
-        self.column_constraints = column_constraints
-
-    def filter_fiscalcodes_dataframe(self, cf_column: typing.Union[int, str], inplace=False) -> typing.Union[None, pd.DataFrame]:
+    def filter_fiscalcodes_dataframe(self, cf_column: Union[int, str], inplace=False) -> Union[None, pd.DataFrame]:
         """
         Metodo che filtra il dataframe
         solo per i codici fiscali estratti da Innovation Intelligence
+
+        Parameters:
+        ----------
+
+        cf_column : Union[int, str]
+            Colonna in cui applicare il filtro, può essere:
+            il numero della colonna da filtrare (`int`)
+            il nome della colonna da filtrare (`str`)
+
+        inplace : bool, default False
+            Se `True` effettua il filtro senza ritornare il DataFrame
+
+        Return:
+        -------
+        pandas.DataFrame or None 
         """
 
         if not self.df is NotImplemented:
@@ -77,7 +93,8 @@ class DataProvider(metaclass=abc.ABCMeta):
                 if cf_column in self.df.columns:
                     cond = self.df.loc[:, cf_column].isin(cf_list)
                 else:
-                    raise KeyError("Column {} not in self.df.columns".format(cf_column))
+                    raise KeyError(
+                        "Column {} not in self.df.columns".format(cf_column))
             else:
                 raise ValueError(
                     "Invalid value for cf_column: {}".format(cf_column))
@@ -87,9 +104,12 @@ class DataProvider(metaclass=abc.ABCMeta):
                 self.df = df
             else:
                 return df
-        
+
     def get_fiscalcode_list_from_Anagrafica(self) -> list:
-        """Metodo che recupera la lista dei codici fiscali nel DB"""
+        """
+        Estrae la lista dei codici fiscali del DB di Innovation Intelligence
+        e li ritorna sotto forma di lista
+        """
         try:
             from idb import Anagrafica
         except Exception:
@@ -180,7 +200,9 @@ class DataProvider(metaclass=abc.ABCMeta):
                         self.df.iloc[:, num]
                 )
 
-        return column_is_max_length_respected_dict
+            return column_is_max_length_respected_dict
+
+        return {}
 
     @staticmethod
     def get_column_max_length_is_respected(s: pd.Series) -> int:
@@ -217,17 +239,17 @@ class DataProvider(metaclass=abc.ABCMeta):
             return s.isna().any()
 
         if not self.df is NotImplemented:
-
             column_is_nullable = defaultdict(bool)
 
             for num, _ in enumerate(self.df.columns):
                 column_is_nullable[num] = get_column_nullable(
-                    self.df.iloc[:, num]
-                )
+                    self.df.iloc[:, num])
 
             return column_is_nullable
+        
+        return {}
 
-    def get_column_constraints_is_respected(self) -> int:
+    def get_column_constraints_is_respected(self) -> pd.Series:
         """
         Metodo che ritorna i duplicati (se presenti) nelle colonne indicate
         dal dizionario in self.column_constraints
@@ -242,4 +264,4 @@ class DataProvider(metaclass=abc.ABCMeta):
             return self.df.duplicated(subset=columns)  # .sum()  # .shape[0]
 
         else:
-            return 0
+            return pd.Series([])

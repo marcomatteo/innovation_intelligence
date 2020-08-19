@@ -15,7 +15,7 @@ logging.basicConfig(
     filemode = "w"
 )
 
-class Test_CertificazioniAccredia(TestAcceptanceBaseClass):
+class Test_AcceptanceAccredia(TestAcceptanceBaseClass):
 
     @classmethod
     def setUpClass(cls):
