@@ -13,7 +13,6 @@ class Test_DataProvider(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        from data_provider import DataProvider
         data = {
             'col1': ['    min    ', 'asdasdasd0', '          ciao', 'ciao          '],
             'col2': ['UD', '   O', 'P   ', '   TS    '],
@@ -28,14 +27,19 @@ class Test_DataProvider(unittest.TestCase):
         col_constraints = {0: False, 1: False, 2: True, 3: False, 4: False}
         cls.dp = DataProvider(df, col_types, col_constraints)
 
+    def test_root_path(self):
+        self.dp.inTest = True
+        self.assertEqual(self.dp.root_path, r"data/data_tests/")
+        self.dp.inTest = False
+        self.assertEqual(self.dp.root_path, r"data/")
+
     def test_get_column_number(self):
-        self.assertEqual(5, self.dp.get_column_number())
-        self.assertNotEqual(10, self.dp.get_column_number())
+        self.assertEqual(self.dp.get_column_number(), 5)
+        self.assertNotEqual(self.dp.get_column_number(), 10)
 
     def test_get_column_names(self):
-        column_names = ['col1', 'col2', 'col3', 'col4', 'col5']
-        self.assertEqual(column_names,
-                         self.dp.get_column_names())
+        self.assertEqual(self.dp.get_column_names(), 
+                        ['col1', 'col2', 'col3', 'col4', 'col5'])
 
     def test_get_column_types(self):
         column_types = [
@@ -185,12 +189,12 @@ class Test_DataProvider(unittest.TestCase):
         )
 
     @patch("data_provider.DataProvider.get_fiscalcode_list_from_Anagrafica")
-    def test_set_filtred_fiscal_codes_dataframe_int(self, mock_method):
+    def test_filter_fiscalcodes_dataframe_int(self, mock_method):
         # Creo lista di codici fiscali fittizzi, solo i primi 2 corrispondono
-        cf_list = ['08587760961', '02538160033', '10536370017',
-                   'MRCNTN63H03G942C']  
-        mock_method.return_value = cf_list
-        
+        mocked_list = ['08587760961', '02538160033', 
+                   '10536370017', 'MRCNTN63H03G942C']
+        mock_method.return_value = mocked_list
+
         # Creo DataProvider di Test
         data = {
             'col1': ['08587760961', '02538160033', '05903120631', '02643150168'],
@@ -200,24 +204,28 @@ class Test_DataProvider(unittest.TestCase):
         col_types = {0: 'object', 1: 'object'}
         col_constraints = {0: True, 1: False}
         dp = DataProvider(df, col_types, col_constraints)
-        
-        # Richiamo il metodo da testare
-        dp.set_filtred_fiscal_codes_dataframe(0)
-        
-        # Mi assicuro che il metodo mockato venga chiamato
-        mock_method.assert_called_once_with()
-        
+
+        # Richiamo il metodo da testare inplace
+        dp.filter_fiscalcodes_dataframe(0, inplace=True)
+
+        # Richiamo il metodo da testare con return value
+        new_df = dp.filter_fiscalcodes_dataframe(0, inplace=False)
+
+        mock_method.assert_called()
+
         # Effettuo il test
         pd.testing.assert_frame_equal(dp.df, pd.DataFrame(
+            {'col1': ['08587760961', '02538160033'], 'col2': ['UD', 'O']}))
+        pd.testing.assert_frame_equal(new_df, pd.DataFrame(
             {'col1': ['08587760961', '02538160033'], 'col2': ['UD', 'O']}))
 
     @patch("data_provider.DataProvider.get_fiscalcode_list_from_Anagrafica")
-    def test_set_filtred_fiscal_codes_dataframe_str(self, mock_method):
+    def test_filter_fiscalcodes_dataframe_str(self, mock_method):
         # Creo lista di codici fiscali fittizzi, solo i primi 2 corrispondono
-        cf_list = ['08587760961', '02538160033', '10536370017',
-                   'MRCNTN63H03G942C']  
-        mock_method.return_value = cf_list
-        
+        mocked_list = ['08587760961', '02538160033', 
+                        '10536370017', 'MRCNTN63H03G942C']
+        mock_method.return_value = mocked_list
+
         # Creo DataProvider di Test
         data = {
             'col1': ['08587760961', '02538160033', '05903120631', '02643150168'],
@@ -227,17 +235,22 @@ class Test_DataProvider(unittest.TestCase):
         col_types = {0: 'object', 1: 'object'}
         col_constraints = {0: True, 1: False}
         dp = DataProvider(df, col_types, col_constraints)
-        
-        # Richiamo il metodo da testare
-        dp.set_filtred_fiscal_codes_dataframe('col1')
-        
+
+        # Richiamo il metodo da testare inplace
+        dp.filter_fiscalcodes_dataframe('col1', inplace=True)
+
+        # Richiamo il metodo da testare con return value
+        new_df = dp.filter_fiscalcodes_dataframe('col1', inplace=False)
+
         # Mi assicuro che il metodo mockato venga chiamato
-        mock_method.assert_called_once_with()
-        
+        mock_method.assert_called()
+
         # Effettuo il test
         pd.testing.assert_frame_equal(dp.df, pd.DataFrame(
             {'col1': ['08587760961', '02538160033'], 'col2': ['UD', 'O']}))
-
+        pd.testing.assert_frame_equal(new_df, pd.DataFrame(
+            {'col1': ['08587760961', '02538160033'], 'col2': ['UD', 'O']}))
+            
     def test_get_column_constraints_is_respected(self):
         from data_provider import DataProvider
         # Test su colonna di interi

@@ -4,6 +4,7 @@ import pandas as pd
 from collections import defaultdict
 import typing
 
+
 class DataProviderMeta(type):
     def __call__(cls, *args, **kwargs):
         class_object = type.__call__(cls, *args, **kwargs)
@@ -61,42 +62,40 @@ class DataProvider(metaclass=abc.ABCMeta):
         self.column_types = column_types
         self.column_constraints = column_constraints
 
-    def get_filtred_fiscal_codes_dataframe(self,
-                                           cf_column: int) -> pd.DataFrame:
-        """Metodo che ritorna una copia del dataframe
-        solo per i codici fiscali passati in cf_list"""
+    def filter_fiscalcodes_dataframe(self, cf_column: typing.Union[int, str], inplace=False) -> typing.Union[None, pd.DataFrame]:
+        """
+        Metodo che filtra il dataframe
+        solo per i codici fiscali estratti da Innovation Intelligence
+        """
 
         if not self.df is NotImplemented:
             cf_list = self.get_fiscalcode_list_from_Anagrafica()
 
             if isinstance(cf_column, int):
                 cond = self.df.iloc[:, cf_column].isin(cf_list)
-            elif isinstance(cf_column, str) & (cf_column in self.df.columns):
-                cond = self.df.loc[:, cf_column].isin(cf_list)
+            elif isinstance(cf_column, str):
+                if cf_column in self.df.columns:
+                    cond = self.df.loc[:, cf_column].isin(cf_list)
+                else:
+                    raise KeyError("Column {} not in self.df.columns".format(cf_column))
             else:
-                raise KeyError(
-                    "Invalid cf_column with value {}".format(cf_column))
+                raise ValueError(
+                    "Invalid value for cf_column: {}".format(cf_column))
 
-            return self.df.loc[cond].copy()
-
+            df = self.df.loc[cond].copy()
+            if inplace:
+                self.df = df
+            else:
+                return df
+        
     def get_fiscalcode_list_from_Anagrafica(self) -> list:
         """Metodo che recupera la lista dei codici fiscali nel DB"""
         try:
             from idb import Anagrafica
-        except:
-            print("Non è possibile importare Anagrafica")
-        else:
-            cf_list = Anagrafica().get_fiscalcode_list()
+        except Exception:
+            raise ImportError("Can't import Anagrafica module")
 
-        return cf_list
-    
-    def set_filtred_fiscal_codes_dataframe(self,
-                                           cf_column: typing.Union[int, str]) -> None:
-        """Metodo che filtra le righe del dataframe
-        solo per i codici fiscali passati in cf_list"""
-
-        if not self.df is NotImplemented:
-            self.df = self.get_filtred_fiscal_codes_dataframe(cf_column)
+        return Anagrafica().get_fiscalcode_list()
 
     def get_column_number(self) -> int:
         """
