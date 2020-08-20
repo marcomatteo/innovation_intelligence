@@ -1,7 +1,6 @@
-from tests import TestAcceptanceBaseClass
-from certificates import CertificazioniAccredia
+from tests.acceptance import TestAcceptanceBaseClass
+from acceptance_builder import AccrediaBuilder
 
-import unittest
 import numpy as np
 import logging
 from datetime import datetime 
@@ -15,9 +14,13 @@ logging.basicConfig(
     filemode = "w"
 )
 
-class Test_AcceptanceAccredia(TestAcceptanceBaseClass):
+class Test_AccrediaAcceptance(TestAcceptanceBaseClass):
 
     @classmethod
     def setUpClass(cls):
         cls.logger = logging.getLogger(__name__)
-        cls.cert = CertificazioniAccredia()
+        cls.cert = AccrediaBuilder()
+
+if __name__ == '__main__':
+    from unittest import main
+    main(verbosity=2)

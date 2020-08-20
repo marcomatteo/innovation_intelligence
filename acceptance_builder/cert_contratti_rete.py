@@ -1,10 +1,10 @@
 from data_provider import ContrattiRete
-from certificates import Certificazioni
+from acceptance_builder import AcceptanceBuilder
 
 import numpy as np
 
 
-class CertificazioniContrattiRete(Certificazioni):
+class ContrattiReteBuilder(AcceptanceBuilder):
 
     def __init__(self):
         self.dp = ContrattiRete()

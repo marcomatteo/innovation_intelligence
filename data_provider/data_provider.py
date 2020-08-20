@@ -261,7 +261,7 @@ class DataProvider(metaclass=abc.ABCMeta):
                 col for i, col in enumerate(self.get_column_names())
                 if self.column_constraints[i]]
 
-            return self.df.duplicated(subset=columns)  # .sum()  # .shape[0]
-
-        else:
-            return pd.Series([])
+            if len(columns) > 0:
+                return self.df.duplicated(subset=columns)  # .sum()  # .shape[0]
+        
+        return pd.Series([], dtype='object')

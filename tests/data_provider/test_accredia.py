@@ -2,10 +2,6 @@ from tests import TestDataProviderBaseClass
 from file_parser import ParserCsv
 from data_provider import Accredia
 
-import unittest
-import pandas as pd
-import numpy as np
-
 class Test_Accredia(TestDataProviderBaseClass):
 
     @classmethod
@@ -47,4 +43,6 @@ class Test_Accredia(TestDataProviderBaseClass):
             4: True
         }
 
-    
+if __name__ == '__main__':
+    from unittest import main
+    main(verbosity=2)

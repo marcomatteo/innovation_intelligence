@@ -1,4 +1,4 @@
-import unittest
+from unittest import TestCase
 from unittest.mock import call, patch
 
 import pandas as pd
@@ -8,7 +8,7 @@ import datetime
 from data_provider import DataProvider
 
 
-class Test_DataProvider(unittest.TestCase):
+class Test_DataProvider(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -287,6 +287,7 @@ class Test_DataProvider(unittest.TestCase):
         duplicated_values = self.dp.get_column_constraints_is_respected()
         # Sono segnati come duplicati gli le ultime due righe
         pd.testing.assert_series_equal(duplicated_values, pd.Series([False, False, True, True]))
+        self.assertEqual(duplicated_values.sum(), 2)
 
     def test_get_column_constraints_is_respected_strings(self):
         # Creo istanza di Data Provider
@@ -303,6 +304,24 @@ class Test_DataProvider(unittest.TestCase):
         # Test valore corrispondente
         duplicated_values = dp.get_column_constraints_is_respected()
         pd.testing.assert_series_equal(duplicated_values, pd.Series([False, False, False, True]))
+        self.assertEqual(duplicated_values.sum(), 1)
+
+    def test_get_column_constraints_is_respected_multicolumn(self):
+       # Creo istanza di Data Provider
+        data = {
+            'col1': ['222365896', '522559845', '522559845', '522559845'],
+            'col2': ['UD', 'GO', 'PN', 'GO'],
+            'col3': [1, 2, 3, 4]
+        }
+        df = pd.DataFrame(data)
+        col_types = {0: 'object', 1: 'object', 2: 'int'}
+        col_constraints = {0: True, 1: True, 2: False}
+        dp = DataProvider(df, col_types, col_constraints)
+
+        # Test valore corrispondente
+        duplicated_values = dp.get_column_constraints_is_respected()
+        pd.testing.assert_series_equal(duplicated_values, pd.Series([False, False, False, True]))
+        self.assertEqual(duplicated_values.sum(), 1)
 
     def test_get_column_constraints_is_respected_NotImplemented(self):
         # Creo istanza di Data Provider
@@ -317,4 +336,8 @@ class Test_DataProvider(unittest.TestCase):
 
         # Test valore corrispondente
         duplicated_values = dp.get_column_constraints_is_respected()
-        pd.testing.assert_series_equal(duplicated_values, pd.Series([]))
+        pd.testing.assert_series_equal(duplicated_values, pd.Series([], dtype='object'))
+
+if __name__ == '__main__':
+    from unittest import main
+    main(verbosity=2)

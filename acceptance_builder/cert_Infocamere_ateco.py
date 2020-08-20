@@ -1,9 +1,9 @@
-from certificates import Certificazioni
+from acceptance_builder import AcceptanceBuilder
 from data_provider import AtecoInfocamere
 
 import numpy as np
 
-class CertificazioneAteco(Certificazioni):
+class AtecoBuilder(AcceptanceBuilder):
     
     def __init__(self):
         self.dp = AtecoInfocamere()

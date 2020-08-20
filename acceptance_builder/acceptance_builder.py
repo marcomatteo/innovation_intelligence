@@ -1,22 +1,25 @@
 import pandas as pd
 import numpy as np
-from collections import Counter, defaultdict
+from collections import Counter, defaultdict, namedtuple
 from data_provider import DataProvider
 
 
-class CertificazioniMeta(type):
+class AcceptanceMeta(type):
     def __call__(cls, *args, **kwargs):
         class_object = type.__call__(cls, *args, **kwargs)
         class_object.check_required_attributes()
         return class_object
 
 
-class Certificazioni(metaclass=CertificazioniMeta):
+class AcceptanceBuilder(metaclass=AcceptanceMeta):
     """
     Super classe che implementa tutte le funzioni
     da utilizzare per controllare un file fonte
     da un Data Provider
     """
+    # Soluzione alternativa ai dizionari
+    Columns = namedtuple('Columns', ['nome', 'tipologia', 'lunghezza', 'nullable', 'pk'])
+
     dp = NotImplemented                 # type: DataProvider
     dp_file_extension = NotImplemented  # type: str
     column_number = NotImplemented      # type: int

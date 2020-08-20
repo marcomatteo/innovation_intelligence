@@ -1,3 +1,4 @@
+from typing import Union
 from data_provider import DataProvider
 from file_parser import ParserCsv
 
@@ -26,12 +27,5 @@ class Accredia(DataProvider):
             4: True
         }
 
-    def get_filtred_fiscal_codes_dataframe(self) -> pd.DataFrame:
-        """Metodo che ritorna una copia del dataframe
-        solo per i codici fiscali passati in cf_list"""
-        return super().get_filtred_fiscal_codes_dataframe(0)
-    
-    def set_filtred_fiscal_codes_dataframe(self):
-        """Metodo che filtra le righe del dataframe
-        solo per i codici fiscali passati in cf_list"""
-        super().set_filtred_fiscal_codes_dataframe(0)
+    def filter_fiscalcodes_dataframe(self, inplace) -> Union[None, pd.DataFrame]:
+        return super().filter_fiscalcodes_dataframe(0, inplace=inplace)

@@ -1,14 +1,13 @@
-from certificates import Certificazioni
+from acceptance_builder import AcceptanceBuilder
 from data_provider import Accredia
-from idb import Anagrafica
 
 import numpy as np
 
-class CertificazioniAccredia(Certificazioni):
+class AccrediaBuilder(AcceptanceBuilder):
 
     def __init__(self):
         self.dp = Accredia()
-        self.dp.set_filtred_fiscal_codes_dataframe()
+        self.dp.filter_fiscalcodes_dataframe(inplace=True)
 
         #TODO: Load database connection
         self.dp_file_extension = "csv"
@@ -37,4 +36,5 @@ class CertificazioniAccredia(Certificazioni):
             3: True,
             4: True
         }
-        pass
+        # Potrebbe essere una soluzione alternativa ai tre dizionari
+        # self.columns = [AcceptanceBuilder.Columns('fiscalcode', np.dtype('O'), 19, False, True)]

@@ -1,9 +1,9 @@
-from certificates import Certificazioni
+from acceptance_builder import AcceptanceBuilder
 from data_provider import BilanciInfocamere
 
 import numpy as np
 
-class CertificazioneBilanci(Certificazioni):
+class BilanciBuilder(AcceptanceBuilder):
     
     def __init__(self):
         self.dp = BilanciInfocamere()

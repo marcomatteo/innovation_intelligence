@@ -1,15 +1,14 @@
 import unittest
 import logging
-from certificates import Certificazioni
+from acceptance_builder import AcceptanceBuilder
 
 logger = logging.getLogger(__name__)
-
 
 class TestAcceptanceBaseClass(unittest.TestCase):
 
     log_new_line = "-".join(["-"]*10)
 
-    cert = NotImplemented
+    cert = NotImplemented   # type: AcceptanceBuilder
 
     def test_check_file_extension(self):
 
@@ -21,7 +20,7 @@ class TestAcceptanceBaseClass(unittest.TestCase):
                          .format(cert_file_extension))
 
             try:
-                self.assertEqual(expected_file_extension, cert_file_extension)
+                self.assertEqual(cert_file_extension, expected_file_extension)
             except Exception as e:
                 exception = "Wrong file extension: {}".format(
                     cert_file_extension)
@@ -40,7 +39,7 @@ class TestAcceptanceBaseClass(unittest.TestCase):
                          .format(cert_column_number))
 
             try:
-                self.assertEqual(expected_column_number, cert_column_number)
+                self.assertEqual(cert_column_number, expected_column_number)
             except Exception as e:
                 exception = "Wrong column number: {}".format(
                     cert_column_number)
@@ -63,7 +62,7 @@ class TestAcceptanceBaseClass(unittest.TestCase):
                          .format(",\n".join(cert_column_types_to_log)))
 
             try:
-                self.assertEqual(expected_column_types, cert_column_types)
+                self.assertEqual(cert_column_types, expected_column_types)
             except Exception as e:
                 exception = "Wrong column types:\n{}" \
                     .format(",\n".join(cert_column_types_to_log))
@@ -91,9 +90,9 @@ class TestAcceptanceBaseClass(unittest.TestCase):
 
                     with self.subTest(col=col):
                         try:
-                            self.assertGreaterEqual(
-                                expected_column_max_length[i],
-                                cert_check_length[i]
+                            self.assertLessEqual(
+                                cert_check_length[i],
+                                expected_column_max_length[i]
                             )
                         except Exception as e:
                             invalid_column_list.append(col)
@@ -162,7 +161,7 @@ class TestAcceptanceBaseClass(unittest.TestCase):
             logger.debug("Certificate column constraints... ")
             constraints = self.cert.check_column_constraints()
             try:
-                self.assertEqual(0, constraints)
+                self.assertEqual(constraints, 0)
             except Exception as e:
                 logger.debug("Found duplicates for column_constraints")
                 duplicates = self.cert.dp.get_column_constraints_is_respected()

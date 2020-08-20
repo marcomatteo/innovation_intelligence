@@ -1,4 +1,4 @@
-from certificates import Certificazioni
+from acceptance_builder import AcceptanceBuilder
 from data_provider import AnagraficaInfocamere
 
 import numpy as np
@@ -7,7 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class CertificazioneAnagrafica(Certificazioni):
+class AnagraficaBuilder(AcceptanceBuilder):
 
     def __init__(self):
         logger.debug("Apertura Data Provider AnagraficaInfocamere... ")

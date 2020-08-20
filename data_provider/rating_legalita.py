@@ -1,3 +1,4 @@
+from typing import Union
 from data_provider import DataProvider
 from file_parser import ParserXls
 
@@ -20,17 +21,20 @@ class RatingLegalita(DataProvider):
             6: 'object',
             7: 'date'
         }
-        self.column_constraints = None
+        self.column_constraints = {col: False for col in self.column_types.keys()}
 
-    def get_filtred_fiscal_codes_dataframe(self, cf_list: list) -> pd.DataFrame:
-        """Metodo che ritorna una copia del dataframe
-        solo per i codici fiscali passati in cf_list"""
-        return super().get_filtred_fiscal_codes_dataframe(1, cf_list)
+    def filter_fiscalcodes_dataframe(self, inplace=False) -> Union[None, pd.DataFrame]:
+        return super().filter_fiscalcodes_dataframe(1, inplace=inplace)
+        
+    # def get_filtred_fiscal_codes_dataframe(self, cf_list: list) -> pd.DataFrame:
+    #     """Metodo che ritorna una copia del dataframe
+    #     solo per i codici fiscali passati in cf_list"""
+    #     return super().get_filtred_fiscal_codes_dataframe(1, cf_list)
 
-    def set_filtred_fiscal_codes_dataframe(self, cf_list: list):
-        """Metodo che filtra le righe del dataframe
-        solo per i codici fiscali passati in cf_list"""
-        super().set_filtred_fiscal_codes_dataframe(1, cf_list)
+    # def set_filtred_fiscal_codes_dataframe(self, cf_list: list):
+    #     """Metodo che filtra le righe del dataframe
+    #     solo per i codici fiscali passati in cf_list"""
+    #     super().set_filtred_fiscal_codes_dataframe(1, cf_list)
 
     def update_rating_column_with_spaces(self):
         """Aggiunge uno spazio tra l'asterisco e il rating

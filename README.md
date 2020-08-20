@@ -7,25 +7,44 @@ Dev'essere tutto ristrutturato come segue:
 
 1. Per leggere i file fonte è necessario costruire una classe di interfaccia (**IParser**) che viene estesa nelle sue funzionalità da una classe specifica per i file csv (**IParserCsv**) e una per i file excel (**IParserXls**)
 
-2. Per leggere il Database è necessario costruire una classe di interfaccia (**II2FVG**) che viene estesa nelle sue funzionalità da ogni tipologia di informazione inserita nel DB. Ad esempio **ICertificazioni** per poter leggere le informazioni sulle certificazioni, **ICreditRating** per i rating di Modefinance e così via...
-
-3. Una classe astratta **DataProvider** che viene implementata nei vari Data Provider (come **Accredia**) che:
+2. Una classe astratta **DataProvider** che viene implementata nei vari Data Provider che:
     
     - apre il file fonte (grazie al Parser dedicato)
 
-    - salva le informazioni delle tabelle e dei record sul Database (grazie all'interfaccia dedicata)
+    - implementa i metodi generici per interrogare il Data Provider dai test
 
-    - implementa metodi dedicati per ogni Data Provider
+3. Una classe per ogni Data Provider (come **Accredia**) che:
 
-    - effettua le operazioni di certificazione
+    - salva le informazioni sulla tipologia di dati nelle colonne del file fonte (per convertire correttamente il DataFrame in fase di test_acceptance) 
 
-4. Due classi di Logger:
+    - implementa metodi dedicati al Data Provider (preprocessing, filtraggio dei codici fiscali)
+
+4. [Deprecated] Due classi di Logger:
 
     1. La classe di logger si chiama **TestLogger** e viene utilizzata per tenere traccia dei test delle classi realizzate con un'output in console e su file txt
 
     2. La classe **TestMarkdownOutput** che viene utilizzata per leggere i risultati dei test secondo una formattazione specifica
 
-5. Ogni classe creata avrà una sua classe di test:
+5. Ogni classe creata avrà una sua classe **AcceptanceBuilder** che riunisce le informazioni dettagliate sul file fonte con il Data Provider:
+
+    - Dev'essere creato un file Excel contenente una tabella con la configurazione per il Data Provider specifico.
+    La tabella dev'essere strutturata come segue:
+
+    - Colonne:
+        1. nome_colonna, testo : nome colonna non vincolante, utilizzata anche per definire la tipologia del file fonte nella prima riga
+        
+        2. tipologia_colonna, testo (*object*, *int*, *float*, *date*) : controllo se i valori sono compatibili
+
+        3. lunghezza_massima_valori, numero intero : controllo che rispetti la lunghezza massima possibile
+
+        4. contiene_valori_mancanti, True / False : controllo se può contenere valori mancanti
+
+        5. chiave_primaria, True / False : controllo duplicati
+
+    - Eccezione: la prima riga contiene la tipologia del file fonte nella colonna "nome colonna", il file Excel di configurazione procederà automaticamente a caricare le impostazioni di configurazione per il file fonte direttamente dalla seconda riga.
+    
+
+6. I Test:
 
     1. Test sui *parser*: **Test_IParserCsv** e **Test_IParserXls**. Utilizzando i file in ```/data/data_tests/IParsers/``` come verifica dei metodi e del funzionamento della classe
 

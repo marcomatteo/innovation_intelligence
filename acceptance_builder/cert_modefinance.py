@@ -1,9 +1,9 @@
-from certificates import Certificazioni
+from acceptance_builder import AcceptanceBuilder
 from data_provider import Modefinance
 
 import numpy as np
 
-class CertificazioniModefinance(Certificazioni):
+class ModefinanceBuilder(AcceptanceBuilder):
     
     def __init__(self):
         self.dp = Modefinance()
