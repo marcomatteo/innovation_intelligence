@@ -56,17 +56,14 @@ class Test_DataProvider(TestCase):
                                                       np.dtype('float64'),
                                                       np.dtype('<M8[ns]')])
 
-    def test_get_column_nullables(self):
-        self.assertEqual(self.dp.get_column_nullables(), {
-                         0: False, 1: False, 2: False, 3: True, 4: False})
-
     @patch("data_provider.DataProvider.get_column_max_length_is_respected")
     def test_get_column_max_length(self, mock_method):
         mock_method.side_effect = [10, 2, 1, 4, 26]
+        max_length = self.dp.get_columns_max_length()
+        self.assertEqual(max_length, [10, 2, 1, 4, 26])
 
-        dict_max_length = self.dp.get_columns_max_length()
-
-        self.assertEqual(dict_max_length, {0: 10, 1: 2, 2: 1, 3: 4, 4: 26})
+    def test_get_column_nullables(self):
+        self.assertEqual(self.dp.get_column_nullables(), [False, False, False, True, False])
 
     def test_get_casted_column_for_type_object(self):
         s = pd.Series(['ciao', '2', '12/05/2020', '4.563'], dtype='object')

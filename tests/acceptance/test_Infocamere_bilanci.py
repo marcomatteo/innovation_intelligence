@@ -1,5 +1,5 @@
 from tests import TestAcceptanceBaseClass
-from certificates import CertificazioneBilanci
+from acceptance_builder import BilanciBuilder
 
 import unittest
 import numpy as np
@@ -21,4 +21,4 @@ class Test_CertificazioniInfocamereBilanci(TestAcceptanceBaseClass):
     def setUpClass(cls):
         cls.maxDiff = None
         cls.logger = logging.getLogger(__name__)
-        cls.cert = CertificazioneBilanci()
+        cls.cert = BilanciBuilder()

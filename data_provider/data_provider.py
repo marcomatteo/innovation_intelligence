@@ -3,7 +3,7 @@ from file_parser.iparser import IParser
 import numpy as np
 import pandas as pd
 from collections import defaultdict
-from typing import Union
+from typing import List, Union
 
 
 class DataProviderMeta(type):
@@ -186,23 +186,21 @@ class DataProvider(metaclass=abc.ABCMeta):
 
         return df_casted
 
-    def get_columns_max_length(self) -> dict:
+    def get_columns_max_length(self) -> list:
         """
         Metodo che ritorna la lunghezza massima nelle colonne di un pd.DataFrame
         """
         if not self.df is NotImplemented:
+            column_is_max_length_respected_dict: List[int] = []
 
-            column_is_max_length_respected_dict = defaultdict(int)
-
-            for num, _ in enumerate(self.df.columns):
-                column_is_max_length_respected_dict[num] = DataProvider \
-                    .get_column_max_length_is_respected(
-                        self.df.iloc[:, num]
+            for col in self.df.columns:
+                column_is_max_length_respected_dict.append(
+                    DataProvider.get_column_max_length_is_respected(self.df[col])
                 )
 
             return column_is_max_length_respected_dict
 
-        return {}
+        return []
 
     @staticmethod
     def get_column_max_length_is_respected(s: pd.Series) -> int:
@@ -230,7 +228,7 @@ class DataProvider(metaclass=abc.ABCMeta):
             cond = False
         return cond
 
-    def get_column_nullables(self) -> dict:
+    def get_column_nullables(self) -> list:
         """
         Metodo che ritorna True se presenti dei valori mancanti
         False altrimenti 
@@ -239,15 +237,14 @@ class DataProvider(metaclass=abc.ABCMeta):
             return s.isna().any()
 
         if not self.df is NotImplemented:
-            column_is_nullable = defaultdict(bool)
+            column_is_nullable: List[bool] = []
 
-            for num, _ in enumerate(self.df.columns):
-                column_is_nullable[num] = get_column_nullable(
-                    self.df.iloc[:, num])
+            for col in self.df.columns:
+                column_is_nullable.append(get_column_nullable(self.df[col]))
 
             return column_is_nullable
         
-        return {}
+        return []
 
     def get_column_constraints_is_respected(self) -> pd.Series:
         """

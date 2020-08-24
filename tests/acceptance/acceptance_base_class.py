@@ -52,7 +52,8 @@ class TestAcceptanceBaseClass(unittest.TestCase):
 
         if (not self.cert is NotImplemented):
 
-            expected_column_types = self.cert.column_types
+            # expected_column_types = self.cert.column_types
+            expected_column_types = [col.tipologia for col in self.cert.columns]
             cert_column_types = self.cert.check_column_types()
 
             cert_column_types_to_log = self.cert \
@@ -75,10 +76,11 @@ class TestAcceptanceBaseClass(unittest.TestCase):
 
         if (not self.cert is NotImplemented):
 
-            expected_column_max_length = self.cert.column_max_length
+            # expected_column_max_length = self.cert.column_max_length
+            expected_column_max_length = [col.lunghezza for col in self.cert.columns]
             cert_check_length = self.cert.check_column_length()
 
-            cert_check_lenght_to_log = self.cert.get_log_list_from_dict(
+            cert_check_lenght_to_log = self.cert.get_log_list_from_list(
                 cert_check_length)
             logger.debug("Certificate column lengths:\n{}"
                          .format(",\n".join(cert_check_lenght_to_log)))
@@ -106,7 +108,7 @@ class TestAcceptanceBaseClass(unittest.TestCase):
                             logger.debug("Subtest OK")
 
             try:
-                self.assertTrue(len(invalid_column_list) == 0)
+                self.assertEqual(len(invalid_column_list), 0)
             except Exception as e:
                 logger.exception("Found wrong column lengths for {} columns"
                                  .format(", ".join(invalid_column_list)))
@@ -118,18 +120,19 @@ class TestAcceptanceBaseClass(unittest.TestCase):
 
         if (not self.cert is NotImplemented):
 
-            expected_column_nullables = self.cert.column_nullables
+            # expected_column_nullables = self.cert.column_nullables
+            expected_column_nullables = [col.nullable for col in self.cert.columns]
             cert_check_nullables = self.cert.check_column_nullables()
 
             cert_check_nullables_to_log = self.cert \
-                .get_log_list_from_dict(cert_check_nullables)
+                .get_log_list_from_list(cert_check_nullables)
             logger.debug("Certificate column nullables:\n{}"
                          .format(",\n".join(cert_check_nullables_to_log)))
 
             invalid_column_list = []
             for num, col in enumerate(self.cert.dp.df.columns):
 
-                is_nullable = expected_column_nullables.get(num)
+                is_nullable = expected_column_nullables[num]
                 # Per le colonne False (not nullable) controllo sia False
                 if not is_nullable:
 
@@ -147,7 +150,7 @@ class TestAcceptanceBaseClass(unittest.TestCase):
                             logger.debug("Subtest OK")
 
             try:
-                self.assertTrue(len(invalid_column_list) == 0)
+                self.assertEqual(len(invalid_column_list), 0)
             except Exception as e:
                 logger.exception("Found wrong column nullables for {} columns"
                                  .format(", ".join(invalid_column_list)))

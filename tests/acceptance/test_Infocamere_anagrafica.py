@@ -1,5 +1,5 @@
 from tests import TestAcceptanceBaseClass
-from certificates import CertificazioneAnagrafica
+from acceptance_builder import AnagraficaBuilder
 
 import unittest
 import numpy as np
@@ -23,7 +23,7 @@ class Test_AcceptanceInfocamereAnagrafica(TestAcceptanceBaseClass):
     def setUpClass(cls):
         cls.maxDiff = None
         logger.debug("Inizio Test_AcceptanceInfocamereAnagrafica... ")
-        cls.cert = CertificazioneAnagrafica()
+        cls.cert = AnagraficaBuilder()
 
     def test_acceptance_column_innovativa(self):
         """

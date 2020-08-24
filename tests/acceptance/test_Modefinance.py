@@ -1,5 +1,5 @@
 from tests import TestAcceptanceBaseClass
-from certificates import CertificazioniModefinance
+from acceptance_builder import ModefinanceBuilder
 
 import unittest
 import numpy as np
@@ -20,4 +20,4 @@ class Test_CertificazioniModefinance(TestAcceptanceBaseClass):
     @classmethod
     def setUpClass(cls):
         cls.logger = logging.getLogger(__name__)
-        cls.cert = CertificazioniModefinance()
+        cls.cert = ModefinanceBuilder()

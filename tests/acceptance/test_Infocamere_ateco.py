@@ -1,5 +1,5 @@
 from tests import TestAcceptanceBaseClass
-from certificates import CertificazioneAteco
+from acceptance_builder import AtecoBuilder
 
 import unittest
 import numpy as np
@@ -21,4 +21,4 @@ class Test_CertificazioniInfocamereAteco(TestAcceptanceBaseClass):
     def setUpClass(cls):
         cls.maxDiff = None
         cls.logger = logging.getLogger(__name__)
-        cls.cert = CertificazioneAteco()
+        cls.cert = AtecoBuilder()

@@ -1,6 +1,5 @@
-import pandas as pd
-import numpy as np
-from collections import Counter, defaultdict, namedtuple
+from collections import namedtuple
+from typing import List
 from data_provider import DataProvider
 
 
@@ -23,9 +22,17 @@ class AcceptanceBuilder(metaclass=AcceptanceMeta):
     dp = NotImplemented                 # type: DataProvider
     dp_file_extension = NotImplemented  # type: str
     column_number = NotImplemented      # type: int
+    columns = NotImplemented            # type: List[Columns]
+    
     column_types = NotImplemented       # type: list
-    column_max_length = NotImplemented  # type: dict
-    column_nullables = NotImplemented   # type: dict
+    column_max_length = NotImplemented  # type: list
+    column_nullables = NotImplemented   # type: list
+
+
+    def __init__(self, dp, dp_file_extension, columns):
+        self.dp = dp
+        self.dp_file_extension = dp_file_extension
+        self.columns = columns
 
     @staticmethod
     def get_log_list_from_list(elements: list) -> list:
@@ -63,6 +70,12 @@ class AcceptanceBuilder(metaclass=AcceptanceMeta):
         if self.dp is NotImplemented:
             raise NotImplementedError("Subclass must define self.dp attribute. \n"
                                       + "This attribute should define the DataProvider obj of the certificate.")
+        if self.dp_file_extension is NotImplemented:
+            raise NotImplementedError("Subclass must define self.dp_file_extension attribute. \n"
+                                      + "This attribute should define the DataProvider obj of the certificate.")
+        if self.columns is NotImplemented:
+            raise NotImplementedError("Subclass must define self.columns attribute. \n"
+                                      + "This attribute should define the DataProvider obj of the certificate.")
         pass
 
     def check_file_extension(self) -> str:
@@ -71,25 +84,33 @@ class AcceptanceBuilder(metaclass=AcceptanceMeta):
         pass
 
     def check_column_number(self) -> int:
-        if not self.dp is NotImplemented:
+        if ((not self.dp is NotImplemented) and
+                (not self.columns is NotImplemented)):
             return self.dp.get_column_number()
 
     def check_column_types(self) -> list:
-        if not self.dp is NotImplemented:
+        if ((not self.dp is NotImplemented) and
+                (not self.columns is NotImplemented)):
+            # self.column_types = [col.tipologia for col in self.columns]
             return self.dp.get_column_types()
         pass
 
-    def check_column_length(self) -> dict:
-        if not self.dp is NotImplemented:
+    def check_column_length(self) -> list:
+        if ((not self.dp is NotImplemented) and
+                (not self.columns is NotImplemented)):
+            # self.column_max_length = [col.lunghezza for col in self.columns]
             return self.dp.get_columns_max_length()
         pass
 
-    def check_column_nullables(self) -> dict:
-        if not self.dp is NotImplemented:
+    def check_column_nullables(self) -> list:
+        if ((not self.dp is NotImplemented) and
+                (not self.columns is NotImplemented)):
+            # self.column_nullables = [col.nullable for col in self.columns]
             return self.dp.get_column_nullables()
         pass
 
     def check_column_constraints(self) -> int:
-        if not self.dp is NotImplemented:
+        if ((not self.dp is NotImplemented) and
+                (not self.columns is NotImplemented)):
             return self.dp.get_column_constraints_is_respected().sum()
         pass
