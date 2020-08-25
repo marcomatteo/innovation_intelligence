@@ -10,7 +10,7 @@ logging.basicConfig(
     level = logging.DEBUG, # Only debug levels or higher
     format = "%(asctime)s %(levelname)-5s %(name)-8s (%(funcName)s) %(message)s",
     datefmt = "%d-%m-%Y %H:%M:%S",
-    filename = r"logs/txt/tests.test_acceptance.test_Accredia/" + LOG_FILE,
+    filename = r"logs/acceptance_tests/Accredia/" + LOG_FILE,
     filemode = "w"
 )
 

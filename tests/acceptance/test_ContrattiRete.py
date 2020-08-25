@@ -11,12 +11,12 @@ logging.basicConfig(
     level=logging.DEBUG,  # Only debug levels or higher
     format="%(asctime)s %(levelname)-5s %(name)-8s (%(funcName)s) \n%(message)s",
     datefmt="%d-%m-%Y %H:%M:%S",
-    filename=r"logs/txt/tests.test_acceptance.test_ContrattiRete/" + LOG_FILE,
+    filename=r"logs/acceptance_tests/ContrattiRete/" + LOG_FILE,
     filemode="w"
 )
 
 
-class Test_CertificazioniContrattiRete(TestAcceptanceBaseClass):
+class Test_ContrattiReteAcceptance(TestAcceptanceBaseClass):
 
     @classmethod
     def setUpClass(cls):

@@ -11,11 +11,11 @@ logging.basicConfig(
     level = logging.DEBUG,
     format = "%(asctime)s %(levelname)-5s %(name)-8s (%(funcName)s) %(message)s",
     datefmt = "%d-%m-%Y %H:%M:%S",
-    filename = r"logs/txt/" + __name__ + r"/" + LOG_FILE,
+    filename = r"logs/acceptance_tests/AtecoInfocamere/" + LOG_FILE,
     filemode = "w"
 )
 
-class Test_CertificazioniInfocamereAteco(TestAcceptanceBaseClass):
+class Test_InfocamereAtecoAcceptance(TestAcceptanceBaseClass):
 
     @classmethod
     def setUpClass(cls):

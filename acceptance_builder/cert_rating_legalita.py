@@ -14,36 +14,16 @@ class RatingLegalitaBuilder(AcceptanceBuilder):
         self.dp.filter_fiscalcodes_dataframe(inplace=True)
         self.dp_file_extension = "xlsx"
         self.column_number = 8
-        self.column_types = [
-            np.dtype('O'),
-            np.dtype('O'),
-            np.dtype('O'),
-            np.dtype('O'),
-            np.dtype('<M8[ns]'),
-            np.dtype('O'),
-            np.dtype('O'),
-            np.dtype('<M8[ns]')
+        self.columns = [
+            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('O'),  lunghezza=20, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('O'), lunghezza=11, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('O'), lunghezza=None, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('O'), lunghezza=None, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('O'), lunghezza=50, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('O'), lunghezza=50, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False)
         ]
-        self.column_max_length = {
-            0: 20,
-            1: 11,
-            2: None,
-            3: None,
-            4: None,
-            5: 50,
-            6: 50,
-            7: None
-        }
-        self.column_nullables = {
-            0: True,
-            1: True,
-            2: True,
-            3: True,
-            4: True,
-            5: True,
-            6: True,
-            7: True
-        }
 
     def check_column_types(self) -> list:
         """

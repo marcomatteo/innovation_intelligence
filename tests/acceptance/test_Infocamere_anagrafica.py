@@ -11,13 +11,13 @@ logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s %(levelname)-5s %(name)-8s (%(funcName)s) %(message)s",
     datefmt="%d-%m-%Y %H:%M:%S",
-    filename=r"logs/txt/" + __name__ + r"/" + LOG_FILE,
+    filename=r"logs/acceptance_tests/AnagraficaInfocamere/" + LOG_FILE,
     filemode="w"
 )
 logger = logging.getLogger(__name__)
 
 
-class Test_AcceptanceInfocamereAnagrafica(TestAcceptanceBaseClass):
+class Test_InfocamereAnagraficaAcceptance(TestAcceptanceBaseClass):
 
     @classmethod
     def setUpClass(cls):
