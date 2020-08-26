@@ -17,12 +17,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class Test_InfocamereAnagraficaAcceptance(TestAcceptanceBaseClass):
+class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
 
     @classmethod
     def setUpClass(cls):
         cls.maxDiff = None
-        logger.debug("Inizio Test_AcceptanceInfocamereAnagrafica... ")
+        logger.debug("Inizio Test_AnagraficaInfocamereAcceptance... ")
         cls.cert = AnagraficaBuilder()
 
     def test_acceptance_column_innovativa(self):
@@ -35,8 +35,8 @@ class Test_InfocamereAnagraficaAcceptance(TestAcceptanceBaseClass):
         test_values = ['NO', 'SI']
         dp_values = self.cert.dp.df.iloc[:, n_col] \
             .value_counts().sort_index().index.tolist()
-        logger.debug("Values to check: \n{}"
-                     .format("\n".join(dp_values)))
+        logger.debug("Valori da controllare: ({})"
+                     .format(", ".join(dp_values)))
 
         try:
             self.assertEqual(
@@ -47,6 +47,8 @@ class Test_InfocamereAnagraficaAcceptance(TestAcceptanceBaseClass):
         except Exception as e:
             logger.exception(e)
             raise e
+        
+        logger.debug("Test OK")
 
     def test_acceptance_column_femminile(self):
         """
@@ -59,8 +61,8 @@ class Test_InfocamereAnagraficaAcceptance(TestAcceptanceBaseClass):
 
         dp_values = self.cert.dp.df.iloc[:, n_col] \
             .value_counts().sort_index().index.tolist()
-        logger.debug("Values to check: \n{}"
-                     .format("\n".join(dp_values)))
+        logger.debug("Valori da controllare: ({})"
+                     .format(", ".join(dp_values)))
 
         try:
             self.assertEqual(
@@ -71,6 +73,8 @@ class Test_InfocamereAnagraficaAcceptance(TestAcceptanceBaseClass):
         except Exception as e:
             logger.exception(e)
             raise e
+
+        logger.debug("Test OK")
 
     def test_acceptance_column_giovanile(self):
         """
@@ -83,8 +87,8 @@ class Test_InfocamereAnagraficaAcceptance(TestAcceptanceBaseClass):
 
         dp_values = self.cert.dp.df.iloc[:, n_col] \
             .value_counts().sort_index().index.tolist()
-        logger.debug("Values to check: \n{}"
-                     .format("\n".join(dp_values)))
+        logger.debug("Valori da controllare: ({})"
+                     .format(", ".join(dp_values)))
 
         try:
             self.assertEqual(
@@ -95,6 +99,9 @@ class Test_InfocamereAnagraficaAcceptance(TestAcceptanceBaseClass):
         except Exception as e:
             logger.exception(e)
             raise e
+
+        logger.debug("Test OK")
+
 
     def test_acceptance_column_straniera(self):
         """
@@ -107,8 +114,9 @@ class Test_InfocamereAnagraficaAcceptance(TestAcceptanceBaseClass):
         
         dp_values = self.cert.dp.df.iloc[:, n_col] \
             .value_counts().sort_index().index.tolist()
-        logger.debug("Values to check: \n{}"
-                     .format("\n".join(dp_values)))
+        
+        logger.debug("Valori da controllare: ({})"
+                     .format(", ".join(dp_values)))
         
         try:
             self.assertEqual(
@@ -119,3 +127,10 @@ class Test_InfocamereAnagraficaAcceptance(TestAcceptanceBaseClass):
         except Exception as e:
             logger.exception(e)
             raise e
+
+        logger.debug("Test OK")
+
+
+if __name__ == "__main__":
+    from unittest import main
+    main(verbosity=2)

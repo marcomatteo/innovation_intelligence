@@ -15,10 +15,14 @@ logging.basicConfig(
     filemode = "w"
 )
 
-class Test_InfocamereAtecoAcceptance(TestAcceptanceBaseClass):
+class Test_AtecoInfocamereAcceptance(TestAcceptanceBaseClass):
 
     @classmethod
     def setUpClass(cls):
         cls.maxDiff = None
         cls.logger = logging.getLogger(__name__)
         cls.cert = AtecoBuilder()
+
+if __name__ == "__main__":
+    from unittest import main
+    main(verbosity=2)

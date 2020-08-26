@@ -1,5 +1,10 @@
 from collections import namedtuple
+from os import dup
 from typing import List
+
+import json
+
+import pandas as pd
 from data_provider import DataProvider
 
 
@@ -61,10 +66,10 @@ class AcceptanceBuilder(metaclass=AcceptanceMeta):
         Returns:
             list
         """
-        result = [f"{num} : {value}" for num, value in elements.items()]
-        result.append("\n")
+        # result = {i: f"{num} : {value}\n" for i, (num, value) in enumerate(elements.items())}
 
-        return result
+        # return result
+        return json.dumps(elements)
 
     def check_required_attributes(self):
         if self.dp is NotImplemented:
@@ -91,26 +96,29 @@ class AcceptanceBuilder(metaclass=AcceptanceMeta):
     def check_column_types(self) -> list:
         if ((not self.dp is NotImplemented) and
                 (not self.columns is NotImplemented)):
-            # self.column_types = [col.tipologia for col in self.columns]
             return self.dp.get_column_types()
         pass
 
     def check_column_length(self) -> list:
         if ((not self.dp is NotImplemented) and
                 (not self.columns is NotImplemented)):
-            # self.column_max_length = [col.lunghezza for col in self.columns]
             return self.dp.get_columns_max_length()
         pass
 
     def check_column_nullables(self) -> list:
         if ((not self.dp is NotImplemented) and
                 (not self.columns is NotImplemented)):
-            # self.column_nullables = [col.nullable for col in self.columns]
             return self.dp.get_column_nullables()
         pass
 
-    def check_column_constraints(self) -> int:
+    def get_duplicates(self) -> pd.Series:
         if ((not self.dp is NotImplemented) and
                 (not self.columns is NotImplemented)):
-            return self.dp.get_column_constraints_is_respected().sum()
-        pass
+            pk_cols = {col.nome: col.pk for col in self.columns}
+            duplicated_cols_list = [nome 
+                for nome, _ in filter(lambda el: el[1], pk_cols.items())]
+            
+            if len(duplicated_cols_list) > 0:
+                return self.dp.df.duplicated(subset=duplicated_cols_list)
+        
+            pd.Series([], dtype='object')

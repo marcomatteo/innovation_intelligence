@@ -15,14 +15,14 @@ class RatingLegalitaBuilder(AcceptanceBuilder):
         self.dp_file_extension = "xlsx"
         self.column_number = 8
         self.columns = [
-            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('O'),  lunghezza=20, nullable=True, pk=False),
-            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('O'), lunghezza=11, nullable=True, pk=False),
-            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('O'), lunghezza=None, nullable=True, pk=False),
-            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('O'), lunghezza=None, nullable=True, pk=False),
-            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
-            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('O'), lunghezza=50, nullable=True, pk=False),
-            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('O'), lunghezza=50, nullable=True, pk=False),
-            AcceptanceBuilder.Columns(nome='', tipologia=np.dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False)
+            AcceptanceBuilder.Columns(nome='Procedimento', tipologia=np.dtype('O'),  lunghezza=20, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='Codice fiscale', tipologia=np.dtype('O'), lunghezza=11, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='Sede Legale', tipologia=np.dtype('O'), lunghezza=None, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='Società', tipologia=np.dtype('O'), lunghezza=None, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='Data Decisione', tipologia=np.dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='Esito', tipologia=np.dtype('O'), lunghezza=50, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='Rating', tipologia=np.dtype('O'), lunghezza=50, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='Scadenza  Revoca Annullamento Sospensione', tipologia=np.dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False)
         ]
 
     def check_column_types(self) -> list:

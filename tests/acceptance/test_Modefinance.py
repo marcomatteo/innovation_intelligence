@@ -21,3 +21,7 @@ class Test_ModefinanceAcceptance(TestAcceptanceBaseClass):
     def setUpClass(cls):
         cls.logger = logging.getLogger(__name__)
         cls.cert = ModefinanceBuilder()
+
+if __name__ == '__main__':
+    from unittest import main
+    main(verbosity=2)

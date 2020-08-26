@@ -1,8 +1,6 @@
 from tests import TestAcceptanceBaseClass
 from acceptance_builder import BilanciBuilder
 
-import unittest
-import numpy as np
 import logging
 from datetime import datetime
 
@@ -15,10 +13,14 @@ logging.basicConfig(
     filemode = "w"
 )
 
-class Test_InfocamereBilanciAcceptance(TestAcceptanceBaseClass):
+class Test_BilanciInfocamereAcceptance(TestAcceptanceBaseClass):
 
     @classmethod
     def setUpClass(cls):
         cls.maxDiff = None
         cls.logger = logging.getLogger(__name__)
         cls.cert = BilanciBuilder()
+
+if __name__ == "__main__":
+    from unittest import main
+    main(verbosity=2)
