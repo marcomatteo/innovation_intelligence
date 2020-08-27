@@ -8,6 +8,7 @@ class BrevettiIta(DataProvider):
 
     def __init__(self, inTest=False):
         self.inTest = inTest
+        self.sheet_name = 0
         self.file_path = self.root_path + r"UIBM/"
         self.file_parser = ParserXls(self.file_path + "UIBMSourceSample.xlsx")
         self.df = self.get_dataframe_merged()

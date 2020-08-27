@@ -1,3 +1,4 @@
+from unittest.case import skip
 from data_provider import DataProvider
 
 import unittest
@@ -61,6 +62,7 @@ class TestDataProviderBaseClass(unittest.TestCase):
             self.assertTrue(isinstance(self.dp.column_types, dict))
             self.assertEqual(self.column_types, self.dp.column_types)
 
+    @skip
     def test_attributes_column_constraints(self):
         if ((not self.column_constraints is NotImplemented) and
             (not self.dp is NotImplemented)):

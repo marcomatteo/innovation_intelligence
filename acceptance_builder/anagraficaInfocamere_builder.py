@@ -14,7 +14,7 @@ class AnagraficaBuilder(AcceptanceBuilder):
             AcceptanceBuilder.Columns(nome='PRV - Provincia', tipologia= np.dtype('O'), lunghezza=6, nullable=False, pk=True),
             AcceptanceBuilder.Columns(nome='N-REG-IMP - Numero Registro Imprese', tipologia= np.dtype('O'), lunghezza=20, nullable=True, pk=False),
             AcceptanceBuilder.Columns(nome='rea', tipologia= np.dtype('O'), lunghezza=10, nullable=True, pk=False),
-            AcceptanceBuilder.Columns(nome='UL-SEDE - Unità Locale o sede dell\'impresa', tipologia= np.dtype('O'), lunghezza=10, nullable=False, pk=False),
+            AcceptanceBuilder.Columns(nome='UL-SEDE - Unità Locale o sede dell\'impresa', tipologia= np.dtype('O'), lunghezza=10, nullable=False, pk=True),
             AcceptanceBuilder.Columns(nome='N-ALBO-AA - Numero di iscrizione all\'Albo Imprese Artigiane', tipologia= np.dtype('O'), lunghezza=20, nullable=True, pk=False),
             AcceptanceBuilder.Columns(nome='SEZ-REG-IMP - Sezione di iscrizione dell\'impresa al Registro del', tipologia= np.dtype('O'), lunghezza=10, nullable=True, pk=False),
             AcceptanceBuilder.Columns(nome='NG - Natura Giuridica', tipologia= np.dtype('O'), lunghezza=2, nullable=True, pk=False),

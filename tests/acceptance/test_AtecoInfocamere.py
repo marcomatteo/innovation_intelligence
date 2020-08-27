@@ -22,6 +22,7 @@ class Test_AtecoInfocamereAcceptance(TestAcceptanceBaseClass):
         cls.maxDiff = None
         cls.logger = logging.getLogger(__name__)
         cls.cert = AtecoBuilder()
+        super().setUpClass()
 
 if __name__ == "__main__":
     from unittest import main

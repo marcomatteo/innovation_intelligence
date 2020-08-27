@@ -26,6 +26,7 @@ class AnagraficaInfocamere(Infocamere):
 
     def __init__(self, inTest=False):
         super().__init__(inTest=inTest)
+        self.sheet_name = 0
         
         self.column_types = {
             0: "object",
@@ -84,7 +85,7 @@ class AnagraficaInfocamere(Infocamere):
         self.column_constraints[1] = True
         self.column_constraints[4] = True
         
-        self.df = self.file_parser.open_file(sheet_name=0)
+        self.df = self.file_parser.open_file(sheet_name=self.sheet_name)
         self.check_file_is_preprocessed()
 
     def check_file_is_preprocessed(self):
@@ -198,7 +199,8 @@ class BilanciInfocamere(Infocamere):
 
     def __init__(self, inTest=False):
         super().__init__(inTest=inTest)
-        self.df = self.file_parser.open_file(sheet_name=1)
+        self.sheet_name = 1
+        self.df = self.file_parser.open_file(sheet_name=self.sheet_name)
         self.column_types = {
             0: 'object',
             1: 'object',
@@ -227,7 +229,8 @@ class AtecoInfocamere(Infocamere):
 
     def __init__(self, inTest=False):
         super().__init__(inTest=inTest)
-        self.df = self.file_parser.open_file(sheet_name=2)
+        self.sheet_name = 2
+        self.df = self.file_parser.open_file(sheet_name=self.sheet_name)
         self.column_types = {
             0: "object",
             1: "object",

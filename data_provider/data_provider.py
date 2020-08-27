@@ -1,4 +1,6 @@
 import abc
+from file_parser.parser_xls import ParserXls
+from file_parser.parser_csv import ParserCsv
 from file_parser.iparser import IParser
 import numpy as np
 import pandas as pd
@@ -25,12 +27,37 @@ class DataProvider(metaclass=abc.ABCMeta):
     df = NotImplemented                 # type: pd.DataFrame
     column_types = NotImplemented       # type: defaultdict(str)
     column_constraints = NotImplemented  # type: defaultdict(bool)
+    file_parser_sep = NotImplemented    # type: str
+    sheet_name = NotImplemented         # type: str
 
     def __init__(self, df, column_types, column_constraints):
         self.df = df
         self.column_types = column_types
         self.column_constraints = column_constraints
 
+    def __repr__(self) -> str:
+        infos = []
+        if ((not self.inTest is NotImplemented) &
+            (not self.file_path is NotImplemented) &
+            (not self.file_parser is NotImplemented) &
+            (not self.df is NotImplemented) &
+            (not self.column_types is NotImplemented)):
+            
+            if self.file_parser.file_ext == 'csv':
+                infos.append('file_parser_sep={}'.format(self.file_parser_sep))
+            elif self.file_parser.file_ext.startswith('xls'):
+                infos.append('file_sheet_name={}'.format(self.sheet_name))
+            
+            infos.append('inTest={}'.format(self.inTest))
+            infos.append('file_path={}'.format(self.file_path))
+            infos.append('file_parser={}'.format(
+                self.file_parser))
+            infos.append('df_shape={}'.format(self.df.shape))
+
+            infos.append('column_types={}'.format(self.df.dtypes.to_dict()))
+    
+        return "DataProvider({})".format(", ".join(infos))
+        
     @property
     def root_path(self):
         if self.inTest:
@@ -59,9 +86,9 @@ class DataProvider(metaclass=abc.ABCMeta):
             raise NotImplementedError("Subclass must define self.column_types attribute. \n"
                                       + "This attribute should define the DataProvider column types for the certificate class.")
 
-        if self.column_constraints is NotImplemented:
-            raise NotImplementedError("Subclass must define self.column_constraints attribute. \n"
-                                      + "This attribute should define the DataProvider column constraints for the certificate class.")
+        # if self.column_constraints is NotImplemented:
+        #     raise NotImplementedError("Subclass must define self.column_constraints attribute. \n"
+        #                               + "This attribute should define the DataProvider column constraints for the certificate class.")
 
     def filter_fiscalcodes_dataframe(self, cf_column: Union[int, str], inplace=False) -> Union[None, pd.DataFrame]:
         """
@@ -195,7 +222,8 @@ class DataProvider(metaclass=abc.ABCMeta):
 
             for col in self.df.columns:
                 column_is_max_length_respected_dict.append(
-                    DataProvider.get_column_max_length_is_respected(self.df[col])
+                    DataProvider.get_column_max_length_is_respected(
+                        self.df[col])
                 )
 
             return column_is_max_length_respected_dict
@@ -243,7 +271,7 @@ class DataProvider(metaclass=abc.ABCMeta):
                 column_is_nullable.append(get_column_nullable(self.df[col]))
 
             return column_is_nullable
-        
+
         return []
 
     def get_column_constraints_is_respected(self) -> pd.Series:
@@ -259,6 +287,7 @@ class DataProvider(metaclass=abc.ABCMeta):
                 if self.column_constraints[i]]
 
             if len(columns) > 0:
-                return self.df.duplicated(subset=columns)  # .sum()  # .shape[0]
-        
+                # .sum()  # .shape[0]
+                return self.df.duplicated(subset=columns)
+
         return pd.Series([], dtype='object')

@@ -1,12 +1,13 @@
 import abc
 import pandas as pd
 
-class IParser(metaclass = abc.ABCMeta):
+
+class IParser(metaclass=abc.ABCMeta):
     file_path = NotImplemented
 
     @classmethod
     def __subclasshook__(cls, subclass):
-        return (hasattr(subclass, "open_file") and 
+        return (hasattr(subclass, "open_file") and
                 callable(subclass.open_file) or
                 NotImplemented)
 
@@ -23,6 +24,12 @@ class IParser(metaclass = abc.ABCMeta):
         if not self.file_path is NotImplemented:
             return self.file_path.split(".")[-1]
 
+    def __repr__(self) -> str:
+        if (not self.file_path is NotImplemented):
+            return "Parser(file_path={}, file_ext={})".format(self.file_path, self.file_ext)
+        else:
+            return "Parser()"
+
+
 if __name__ == '__main__':
     print("IParser.py")
-    

@@ -20,6 +20,7 @@ class Test_AccrediaAcceptance(TestAcceptanceBaseClass):
     def setUpClass(cls):
         cls.logger = logging.getLogger(__name__)
         cls.cert = AccrediaBuilder()
+        super().setUpClass()
 
 if __name__ == '__main__':
     from unittest import main

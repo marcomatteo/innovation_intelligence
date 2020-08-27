@@ -69,7 +69,8 @@ class AcceptanceBuilder(metaclass=AcceptanceMeta):
         # result = {i: f"{num} : {value}\n" for i, (num, value) in enumerate(elements.items())}
 
         # return result
-        return json.dumps(elements)
+        result = {key: str(value) for key, value in elements.items()}
+        return json.dumps(result)
 
     def check_required_attributes(self):
         if self.dp is NotImplemented:
@@ -114,11 +115,12 @@ class AcceptanceBuilder(metaclass=AcceptanceMeta):
     def get_duplicates(self) -> pd.Series:
         if ((not self.dp is NotImplemented) and
                 (not self.columns is NotImplemented)):
-            pk_cols = {col.nome: col.pk for col in self.columns}
+            pk_cols = {col_name: col.pk for col_name, col in zip(self.dp.df.columns, self.columns)}
             duplicated_cols_list = [nome 
                 for nome, _ in filter(lambda el: el[1], pk_cols.items())]
             
             if len(duplicated_cols_list) > 0:
                 return self.dp.df.duplicated(subset=duplicated_cols_list)
         
-            pd.Series([], dtype='object')
+            return pd.Series([], dtype='object')
+        pass

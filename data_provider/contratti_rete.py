@@ -15,6 +15,7 @@ class ContrattiRete(DataProvider):
             inTest {bool} -- opening test file (default: {False})
         """
         self.inTest = inTest
+        self.sheet_name = "NuovoElenco"
         self.file_path = self.root_path + r"ContrattiRete/"
         self.file_parser = ParserXls(
             self.file_path + "ContrattiReteSourceSample.xlsx")
@@ -49,7 +50,7 @@ class ContrattiRete(DataProvider):
         self.unique_column_names = [
             'numero repertorio', 'numero atto', 'c.f.']
 
-        self.open_dataframe_from_sheet_name(sheet_name="NuovoElenco")
+        self.open_dataframe_from_sheet_name(sheet_name=self.sheet_name)
 
     def open_dataframe_from_sheet_name(self, sheet_name):
         try:

@@ -14,7 +14,6 @@ logging.basicConfig(
     filename=r"logs/acceptance_tests/AnagraficaInfocamere/" + LOG_FILE,
     filemode="w"
 )
-logger = logging.getLogger(__name__)
 
 
 class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
@@ -22,20 +21,21 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
     @classmethod
     def setUpClass(cls):
         cls.maxDiff = None
-        logger.debug("Inizio Test_AnagraficaInfocamereAcceptance... ")
+        cls.logger = logging.getLogger(__name__)
         cls.cert = AnagraficaBuilder()
+        super().setUpClass()
 
     def test_acceptance_column_innovativa(self):
         """
         Controllo valori possibili: [NO, SI]
         """
-        logger.debug("Check colonna PMI Innovativa")
+        self.logger.debug("Check colonna PMI Innovativa")
 
         n_col = 42
         test_values = ['NO', 'SI']
         dp_values = self.cert.dp.df.iloc[:, n_col] \
             .value_counts().sort_index().index.tolist()
-        logger.debug("Valori da controllare: ({})"
+        self.logger.debug("Valori da controllare: ({})"
                      .format(", ".join(dp_values)))
 
         try:
@@ -45,23 +45,23 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
                 "Valori non ammessi per la colonna {}!".format(n_col)
             )
         except Exception as e:
-            logger.exception(e)
+            self.logger.exception(e)
             raise e
         
-        logger.debug("Test OK")
+        self.logger.debug("Test OK")
 
     def test_acceptance_column_femminile(self):
         """
         Controllo valori possibili: ['NO', 'Esclusiva', 'Forte', 'Maggioritaria']
         """
-        logger.debug("Check colonna Impresa Femminile")
+        self.logger.debug("Check colonna Impresa Femminile")
 
         n_col = 44
         test_values = ['Esclusiva', 'Forte', 'Maggioritaria', 'NO']
 
         dp_values = self.cert.dp.df.iloc[:, n_col] \
             .value_counts().sort_index().index.tolist()
-        logger.debug("Valori da controllare: ({})"
+        self.logger.debug("Valori da controllare: ({})"
                      .format(", ".join(dp_values)))
 
         try:
@@ -71,23 +71,23 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
                 "Valori non ammessi per la colonna {}!".format(n_col)
             )
         except Exception as e:
-            logger.exception(e)
+            self.logger.exception(e)
             raise e
 
-        logger.debug("Test OK")
+        self.logger.debug("Test OK")
 
     def test_acceptance_column_giovanile(self):
         """
         Controllo valori possibili: ['NO', 'Esclusiva', 'Forte', 'Maggioritaria']
         """
-        logger.debug("Check colonna Impresa Giovanile")
+        self.logger.debug("Check colonna Impresa Giovanile")
 
         n_col = 45
         test_values = ['Esclusiva', 'Forte', 'Maggioritaria', 'NO']
 
         dp_values = self.cert.dp.df.iloc[:, n_col] \
             .value_counts().sort_index().index.tolist()
-        logger.debug("Valori da controllare: ({})"
+        self.logger.debug("Valori da controllare: ({})"
                      .format(", ".join(dp_values)))
 
         try:
@@ -97,17 +97,17 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
                 "Valori non ammessi per la colonna {}!".format(n_col)
             )
         except Exception as e:
-            logger.exception(e)
+            self.logger.exception(e)
             raise e
 
-        logger.debug("Test OK")
+        self.logger.debug("Test OK")
 
 
     def test_acceptance_column_straniera(self):
         """
         Controllo valori possibili: ['NO', 'Esclusiva', 'Forte', 'Maggioritaria']
         """
-        logger.debug("Check colonna Impresa Straniera")
+        self.logger.debug("Check colonna Impresa Straniera")
 
         n_col = 46
         test_values = ['Esclusiva', 'Forte', 'Maggioritaria', 'NO']
@@ -115,7 +115,7 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
         dp_values = self.cert.dp.df.iloc[:, n_col] \
             .value_counts().sort_index().index.tolist()
         
-        logger.debug("Valori da controllare: ({})"
+        self.logger.debug("Valori da controllare: ({})"
                      .format(", ".join(dp_values)))
         
         try:
@@ -125,10 +125,10 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
                 "Valori non ammessi per la colonna {}!".format(n_col)
             )
         except Exception as e:
-            logger.exception(e)
+            self.logger.exception(e)
             raise e
 
-        logger.debug("Test OK")
+        self.logger.debug("Test OK")
 
 
 if __name__ == "__main__":
