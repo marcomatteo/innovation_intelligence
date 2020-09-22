@@ -147,33 +147,33 @@ class I2FVG(object):
             >>> Info = namedtuple("Info", 
             ['name', 'unique', 'keys', 'foreign', 'columns'])
             
-            Tuple with names for the specs of the selected table, names:
+        Tuple with names for the specs of the selected table, names:
+        
+        - name: the table name
+        
+        - unique: return index information as a list of dicts with these keys:
+            - name: the index’s name
+            - column_names: list of column names in order
+            - unique: boolean
+            - dialect_options: dict of dialect-specific index options. May not be present for all dialects.
+        
+        - keys: return primary key information as a dictionary with these keys:
+            - constrained_columns: a list of column names that make up the primary key
+            - name: optional name of the primary key constraint.
             
-            - name: the table name
+        - foreign: return foreign key information as a list of dicts with these keys:
+            - constrained_columns: a list of column names that make up the foreign key
+            - referred_schema: the name of the referred schema
+            - referred_table: the name of the referred table
+            - referred_columns: a list of column names in the referred table that correspond to constrained_columns
+            - name: optional name of the foreign key constraint.
             
-            - unique: return index information as a list of dicts with these keys:
-                - name: the index’s name
-                - column_names: list of column names in order
-                - unique: boolean
-                - dialect_options: dict of dialect-specific index options. May not be present for all dialects.
-            
-            - keys: return primary key information as a dictionary with these keys:
-                - constrained_columns: a list of column names that make up the primary key
-                - name: optional name of the primary key constraint.
-                
-            - foreign: return foreign key information as a list of dicts with these keys:
-                - constrained_columns: a list of column names that make up the foreign key
-                - referred_schema: the name of the referred schema
-                - referred_table: the name of the referred table
-                - referred_columns: a list of column names in the referred table that correspond to constrained_columns
-                - name: optional name of the foreign key constraint.
-                
-            - columns: return column information as a list of dicts with these keys:
-                - name: the column’s name
-                - type: TypeEngine
-                - nullable: boolean
-                - default: the column’s default value
-                - attrs: dict containing optional column attributes
+        - columns: return column information as a list of dicts with these keys:
+            - name: the column’s name
+            - type: TypeEngine
+            - nullable: boolean
+            - default: the column’s default value
+            - attrs: dict containing optional column attributes
 
         Raise
         -----

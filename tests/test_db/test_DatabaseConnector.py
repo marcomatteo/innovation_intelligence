@@ -1,8 +1,12 @@
 import unittest
+from unittest import main
 from unittest.mock import patch
 from idb import DatabaseConnector
 
+
 class Test_DatabaseConnector(unittest.TestCase):
+
+    maxDiff = None
 
     def setUp(self):
         self.ii = DatabaseConnector()
@@ -16,13 +20,13 @@ class Test_DatabaseConnector(unittest.TestCase):
 
     def test_connessione_test(self):
         self.assertEqual(
-            "mssql+pyodbc://I2FVGTestReader:I2FVGTestReader@I2FVG_TEST", 
+            "mssql+pyodbc://I2FVGTestReader:I2FVGTestReader@I2FVG_TEST",
             self.ii.connection_string)
 
     def test_connessione_data(self):
         self.ii.inTest = False
         self.assertEqual(
-            "mssql+pyodbc://I2FVGDataReader:I2FVGDataReader@I2FVG_DATA_dev", 
+            "mssql+pyodbc://I2FVGDataReader:I2FVGDataReader@I2FVG_DATA_dev",
             self.ii.connection_string)
 
     def test_tables_number(self):
@@ -30,7 +34,7 @@ class Test_DatabaseConnector(unittest.TestCase):
         self.assertEqual(65, len(tables))
 
     def test_open_table_return_DataFrame(self):
-        import pandas as pd        
+        import pandas as pd
         table_name = "SYSTEM_DataProviderInfo"
         self.assertEqual(
             pd.DataFrame,
@@ -47,5 +51,30 @@ class Test_DatabaseConnector(unittest.TestCase):
             str(the_exception),
             "'Invalid table name! No TABLE_TEST in DB!'")
 
+    def test_get_stats(self):
+        table_name = "SYSTEM_DataProviderInfo"
+        stats = self.ii.get_stats(table_name)
+
+        name = "'SYSTEM_DataProviderInfo'"
+        unique = "[]"
+        keys = "{'constrained_columns': ['ID_DataProvider'], 'name': 'PK_System_DataProviderInfo'}"
+        foreign = "[]"
+        columns = "[" + \
+                r"{'name': 'ID_DataProvider', 'type': INTEGER(), 'nullable': False, 'default': None, 'autoincrement': True, 'dialect_options': {'mssql_identity_start': 1, 'mssql_identity_increment': 1}}, " + \
+                "{'name': 'Descrizione', 'type': NVARCHAR(length=255), 'nullable': True, 'default': None, 'autoincrement': False}, " + \
+                "{'name': 'EndPoint', 'type': NVARCHAR(length=255), 'nullable': True, 'default': None, 'autoincrement': False}, " + \
+                "{'name': 'UserID', 'type': NVARCHAR(length=50), 'nullable': True, 'default': None, 'autoincrement': False}, " + \
+                "{'name': 'Password', 'type': NVARCHAR(length=50), 'nullable': True, 'default': None, 'autoincrement': False}, " + \
+                "{'name': 'StoredProcedure', 'type': NVARCHAR(length=255), 'nullable': True, 'default': None, 'autoincrement': False}, " + \
+                "{'name': 'ProviderAttivo', 'type': BIT(), 'nullable': True, 'default': None, 'autoincrement': False}" + \
+            "]"
+        response = f"Info(name={name}, unique={unique}, keys={keys}, foreign={foreign}, columns={columns})"
+
+        self.assertEqual(response, str(stats))
+
     def tearDown(self):
         del self.ii
+
+
+if __name__ == "__main__":
+    main(verbosity=True)

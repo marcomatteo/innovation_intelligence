@@ -1,9 +1,12 @@
 import pandas as pd
+from collections import namedtuple
 from sqlalchemy import create_engine, inspect
 
 # from utilities import Singleton
 
 class DatabaseConnector:
+
+    Info = namedtuple("Info", ['name', 'unique', 'keys', 'foreign', 'columns'])
 
     def __init__(self, inTest=True):
         self.inTest = inTest
@@ -41,6 +44,62 @@ class DatabaseConnector:
         result = pd.read_sql_query(query, self.engine, *args, **kwargs)
         return result
 
-if __name__ == '__main__':
-    ii = DatabaseConnector()
-    print(len(ii.tables))
+    def get_stats(self, table: str) -> Info:
+        """
+        Getting info from the table.
+        
+        Attributes
+        ----------
+        table: string
+            name of the table in the DB 
+    
+        Return
+        ------
+        tbl_info: namedtuple
+            >>> Info = namedtuple("Info", 
+            ['name', 'unique', 'keys', 'foreign', 'columns'])
+            
+        Tuple with names for the specs of the selected table, names:
+        
+        - name: the table name
+        
+        - unique: return index information as a list of dicts with these keys:
+            - name: the index’s name
+            - column_names: list of column names in order
+            - unique: boolean
+            - dialect_options: dict of dialect-specific index options. May not be present for all dialects.
+        
+        - keys: return primary key information as a dictionary with these keys:
+            - constrained_columns: a list of column names that make up the primary key
+            - name: optional name of the primary key constraint.
+            
+        - foreign: return foreign key information as a list of dicts with these keys:
+            - constrained_columns: a list of column names that make up the foreign key
+            - referred_schema: the name of the referred schema
+            - referred_table: the name of the referred table
+            - referred_columns: a list of column names in the referred table that correspond to constrained_columns
+            - name: optional name of the foreign key constraint.
+            
+        - columns: return column information as a list of dicts with these keys:
+            - name: the column’s name
+            - type: TypeEngine
+            - nullable: boolean
+            - default: the column’s default value
+            - attrs: dict containing optional column attributes
+
+        Raise
+        -----
+        ValueError: if the table name is not in the DB.
+        """
+        if table not in self.tables:
+            raise ValueError("No table with this name")
+
+        inspector = inspect(self.engine)
+        tbl_info = self.Info(
+            name = table,
+            unique = inspector.get_indexes(table),
+            keys = inspector.get_pk_constraint(table),
+            foreign = inspector.get_foreign_keys(table), 
+            columns = inspector.get_columns(table)
+        )
+        return tbl_info
