@@ -2,6 +2,10 @@
 Modulo che contiene funzioni utili per certificare efficacemente
 e in modo esaustivo le US di Innovation Intelligence
 """
+from datetime import datetime
+import logging
+import sys
+import os
 import pandas as pd
 import numpy as np
 import warnings
@@ -46,3 +50,33 @@ def dataframe_index_differences(df1: pd.DataFrame, df2: pd.DataFrame, how='outer
     check = df_join.isnull().any(axis=1)
 
     return df_join.loc[check]
+
+def create_logger(dp: str):
+    LOG_DIR = os.path.dirname(__file__)
+    LOG_FILE_NAME = datetime.today().strftime("%Y-%m-%d_%H-%M-%S") + ".txt"
+    LOG_FILE = LOG_DIR + r"/../logs/acceptance_tests/{}/".format(dp) + LOG_FILE_NAME
+
+    # create logger for "Sample App"
+    logger = logging.getLogger(dp)
+    logger.setLevel(logging.DEBUG)
+
+    # create file handler which logs even debug messages
+    fh = logging.FileHandler(LOG_FILE, mode='w')
+    fh.setLevel(logging.DEBUG)
+
+    # create console handler with a higher log level
+    ch = logging.StreamHandler(stream=sys.stdout)
+    ch.setLevel(logging.INFO)
+
+    # create formatter and add it to the handlers
+    formatter = logging.Formatter(
+        "%(asctime)s %(levelname)-5s %(name)-8s (%(funcName)s) %(message)s",
+        datefmt="%d-%m-%Y %H:%M:%S")
+    fh.setFormatter(formatter)
+    ch.setFormatter(formatter)
+
+    # add the handlers to the logger
+    logger.addHandler(ch)
+    logger.addHandler(fh)
+
+    return logger

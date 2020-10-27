@@ -6,6 +6,11 @@ from sqlalchemy import create_engine, inspect
 
 class DatabaseConnector:
 
+    dialect, driver = "mssql", "pyodbc"
+    test_usr, data_usr = "I2FVGTestReader", "I2FVGDataReader"
+    test_psw, data_psw = test_usr, data_usr
+    test_db, data_db = "I2FVG_TEST", "I2FVG_DATA"
+
     Info = namedtuple("Info", ['name', 'unique', 'keys', 'foreign', 'columns'])
 
     def __init__(self, inTest=True):
@@ -22,11 +27,15 @@ class DatabaseConnector:
 
     @property
     def connection_string(self):
+        """dialect+driver://username:password@host:port/database"""
+        conn_begin = f"{self.dialect}+{self.driver}://"
         if self.inTest:
-            return "mssql+pyodbc://I2FVGTestReader:I2FVGTestReader@I2FVG_TEST"
+            return conn_begin + f"{self.test_usr}:{self.test_psw}@{self.test_db}"
+            # return "mssql+pyodbc://I2FVGTestReader:I2FVGTestReader@I2FVG_TEST"
             # return "mssql+pyodbc://I2FVGTestReader:I2FVGTestReader@SQL2005.CONSORZIO.AREA.TRIESTE.IT/MSSQL05?driver=ODBC+Driver+17+for+SQL+Server"
         else:
-            return "mssql+pyodbc://I2FVGDataReader:I2FVGDataReader@I2FVG_DATA_dev"
+            return conn_begin + f"{self.data_usr}:{self.data_psw}@{self.data_db}"
+            # return "mssql+pyodbc://I2FVGDataReader:I2FVGDataReader@I2FVG_DATA_dev"
 
     def get_dataframe_from_table(self, table_name: str, *args, **kwargs) -> pd.DataFrame:
         if table_name in self.tables:
