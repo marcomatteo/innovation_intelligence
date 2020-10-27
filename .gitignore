@@ -19,6 +19,6 @@ _*
 !__main__.py
 
 /i2fvg_test
-/data
+# /data
 
 app.py
