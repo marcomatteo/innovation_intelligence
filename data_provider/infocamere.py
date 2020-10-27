@@ -19,7 +19,7 @@ class Infocamere(DataProvider):
     def __init__(self, inTest=False):
         self.inTest = inTest
         self.file_path = self.root_path + r"Infocamere/"
-        self.file_parser = ParserXls(self.file_path + "Infocamere2020.xlsx")
+        self.file_parser = ParserXls(self.file_path + "Infocamere.xlsx")
 
 
 class AnagraficaInfocamere(Infocamere):
