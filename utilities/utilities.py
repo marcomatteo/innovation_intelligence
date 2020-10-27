@@ -65,18 +65,18 @@ def create_logger(dp: str):
     fh.setLevel(logging.DEBUG)
 
     # create console handler with a higher log level
-    ch = logging.StreamHandler(stream=sys.stdout)
-    ch.setLevel(logging.INFO)
+    # ch = logging.StreamHandler(stream=sys.stdout)
+    # ch.setLevel(logging.INFO)
 
     # create formatter and add it to the handlers
     formatter = logging.Formatter(
         "%(asctime)s %(levelname)-5s %(name)-8s (%(funcName)s) %(message)s",
         datefmt="%d-%m-%Y %H:%M:%S")
     fh.setFormatter(formatter)
-    ch.setFormatter(formatter)
+    # ch.setFormatter(formatter)
 
     # add the handlers to the logger
-    logger.addHandler(ch)
+    # logger.addHandler(ch)
     logger.addHandler(fh)
 
     return logger
