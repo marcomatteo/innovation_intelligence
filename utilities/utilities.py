@@ -4,11 +4,10 @@ e in modo esaustivo le US di Innovation Intelligence
 """
 from datetime import datetime
 import logging
-import sys
 import os
 import pandas as pd
-import numpy as np
 import warnings
+import pathlib
 
 def trim_cols(col):
     """Elimina gli spazi prima e dopo in ogni riga della colonna col"""
@@ -51,12 +50,18 @@ def dataframe_index_differences(df1: pd.DataFrame, df2: pd.DataFrame, how='outer
 
     return df_join.loc[check]
 
-def create_logger(dp: str):
-    LOG_DIR = os.path.dirname(__file__)
+def create_logger(dp: str, path=None):
     LOG_FILE_NAME = datetime.today().strftime("%Y-%m-%d_%H-%M-%S") + ".txt"
-    LOG_FILE = LOG_DIR + r"/../logs/acceptance_tests/{}/".format(dp) + LOG_FILE_NAME
+    LOG_DIR = path    
 
-    # create logger for "Sample App"
+    if not LOG_DIR:
+        LOG_DIR = os.path.dirname(__file__) + r"/../logs/"
+
+    LOG_DIR += r"acceptance_tests/{}/".format(dp)
+    pathlib.Path(LOG_DIR).mkdir(parents=True, exist_ok=True)
+    LOG_FILE = LOG_DIR + LOG_FILE_NAME
+
+    # create logger
     logger = logging.getLogger(dp)
     logger.setLevel(logging.DEBUG)
 
