@@ -37,7 +37,7 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
             self.logger.exception(e)
             raise e
         
-        self.logger.debug("Test OK")
+        self.logger.debug("Test OK\n\n")
 
     def test_acceptance_column_femminile(self):
         """
@@ -63,7 +63,7 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
             self.logger.exception(e)
             raise e
 
-        self.logger.debug("Test OK")
+        self.logger.debug("Test OK\n\n")
 
     def test_acceptance_column_giovanile(self):
         """
@@ -89,7 +89,7 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
             self.logger.exception(e)
             raise e
 
-        self.logger.debug("Test OK")
+        self.logger.debug("Test OK\n\n")
 
     def test_acceptance_column_straniera(self):
         """
@@ -116,7 +116,7 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
             self.logger.exception(e)
             raise e
 
-        self.logger.debug("Test OK")
+        self.logger.debug("Test OK\n\n")
 
 
 if __name__ == "__main__":
