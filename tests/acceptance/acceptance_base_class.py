@@ -22,27 +22,36 @@ class TestAcceptanceBaseClass(unittest.TestCase):
         data_to_log_str = self.cert.get_log_list_from_dict(data)
         data_to_dump = loads(data_to_log_str)
         data_to_log = dumps(data_to_dump, indent=4)
-        self.logger.debug("To check: \n{}".format(data_to_log))
+        self.logger.debug("To check: \n{}\n".format(data_to_log))
 
     def subtest(self, tocert: list, expected: list, func):
+        def config(i):
+            exp_value = expected[i]
+
+            if func == self.assertFalse:
+                # if nullable is False -> do the subtest
+                cond = not exp_value
+                params = [tocert[i]]
+            else:
+                # can be None for testing columns max length
+                cond = exp_value
+                params = [tocert[i], exp_value]
+            
+            return cond, params
+        
         failures = {}
 
-        # TODO: creare variabile cond per if in cui:
-        # cond = not exp_value se func è self.assertFalse e cambiare func in func(tocert[i])
-        # cond = exp_value altrimenti
-
-
         for i, col in enumerate(self.cert.dp.df.columns):
-            # can be None for testing columns max length
-            exp_value = expected[i] 
-                
-            if exp_value:
+            cond, params = config(i)
+
+            if cond:
                 with self.subTest(col=col):
                     try:
-                        func(tocert[i], exp_value)
+                        func(*params)
                     except Exception as e:
                         failures[col] = tocert[i]
-                        self.logger.exception(e)
+                        exception = 'Subtest col "{}" NOT OK, check value_counts()'.format(col)
+                        self.logger.exception(exception)
                         raise e
 
                     self.logger.debug('Subtest col "{}" OK'.format(col))
@@ -56,7 +65,7 @@ class TestAcceptanceBaseClass(unittest.TestCase):
             self.log_debug_data(failures)
             raise e
 
-        self.logger.debug("Test OK\n")
+        self.logger.debug("Test OK\n\n")
 
     def test_check_file_extension(self):
 
@@ -65,7 +74,7 @@ class TestAcceptanceBaseClass(unittest.TestCase):
 
             expected_file_extension = self.cert.dp_file_extension
             cert_file_extension = self.cert.check_file_extension()
-            self.logger.debug('Check {{"file_extension": {}}}'.format(cert_file_extension))
+            self.logger.debug('Check {{"file_extension": "{}"}}'.format(cert_file_extension))
 
             try:
                 self.assertEqual(cert_file_extension, expected_file_extension)
@@ -75,7 +84,7 @@ class TestAcceptanceBaseClass(unittest.TestCase):
                 self.logger.exception(exception)
                 raise e
             
-            self.logger.debug("Test OK\n")
+            self.logger.debug("Test OK\n\n")
 
     def test_check_column_number(self):
 
@@ -94,7 +103,7 @@ class TestAcceptanceBaseClass(unittest.TestCase):
                 self.logger.exception(exception)
                 raise e
             
-            self.logger.debug("Test OK\n")
+            self.logger.debug("Test OK\n\n")
 
     def test_check_column_types(self):
 
@@ -137,31 +146,7 @@ class TestAcceptanceBaseClass(unittest.TestCase):
 
             data_to_log_dict = {col.nome: str(col.nullable) for col in self.cert.columns}
             self.log_debug_data(data_to_log_dict)
-
-            invalid_column_dict = {}
-            for num, col in enumerate(self.cert.dp.df.columns):
-
-                is_nullable = expected_column_nullables[num]
-                # Per le colonne False (not nullable) controllo sia False
-                if not is_nullable:
-
-                    with self.subTest(col=col):
-                        try:
-                            self.assertFalse(cert_check_nullables[num])
-                        except Exception as e:
-                            invalid_column_dict[col] = cert_check_nullables[num]
-                            self.logger.exception(e)
-                            raise e
-                        
-                        self.logger.debug("Subtest {} OK".format(col))
-
-            try:
-                self.assertEqual(len(invalid_column_dict), 0)
-            except Exception as e:
-                self.log_debug_data(invalid_column_dict)
-                raise e
             
-            self.logger.debug("Test OK\n")
             self.subtest(
                 tocert=cert_check_nullables, 
                 expected=expected_column_nullables,
@@ -186,4 +171,4 @@ class TestAcceptanceBaseClass(unittest.TestCase):
                 self.logger.error("\n\n{}\n".format(data_to_log))
                 raise e
             
-            self.logger.debug("Test OK\n")
+            self.logger.debug("Test OK\n\n")
