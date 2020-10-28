@@ -86,24 +86,24 @@ class AnagraficaInfocamere(Infocamere):
         self.column_constraints[4] = True
         
         self.df = self.file_parser.open_file(sheet_name=self.sheet_name)
-        self.check_file_is_preprocessed()
+        # self.check_file_is_preprocessed()
 
-    def check_file_is_preprocessed(self):
+    def check_file_is_preprocessed(self) -> bool:
         """
         Metodo per controllare se il file necessita di una pre-elaborazione.
         La pre-elaborazione consiste nel controllare la presenza della colonna
-        'Cessazione artigiana' come ultima colonna. 
-
-        Più semplicemente se l'ultima colonna non è 'pec'
+        'Cessazione artigiana'. 
         """
         last_column = self.df.columns[-1]
 
-        if last_column != 'pec':
+        if (last_column != 'pec') | ('Cessazione artigiana' in self.df.columns):
             logger.debug("Pre-elaborazione file di Infocamere...")
             self.preprocessing_anagrafica(cess_artigiana_column=last_column)
             self.save_new_anagrafica_into_file()
+
+            return False
         else:
-            pass
+            return True
 
     def preprocessing_anagrafica(self, cess_artigiana_column):
         """
