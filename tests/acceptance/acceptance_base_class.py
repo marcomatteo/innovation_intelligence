@@ -163,12 +163,12 @@ class TestAcceptanceBaseClass(unittest.TestCase):
             except Exception as e:
                 condition = duplicates == True
                 columns = [num for num, col in enumerate(self.cert.columns) if col.pk]
-
+                # TODO: risolvere errore qui dentro
                 data_to_parse = self.cert.dp.df.loc[condition].iloc[:, columns].to_json(orient="index")
                 data_to_dump = loads(data_to_parse)
                 data_to_log = dumps(data_to_dump, indent=4)
 
-                self.logger.error("\n\n{}\n".format(data_to_log))
+                self.logger.exception("\n\n{}\n".format(data_to_log))
                 raise e
             
             self.logger.debug("Test OK\n\n")
