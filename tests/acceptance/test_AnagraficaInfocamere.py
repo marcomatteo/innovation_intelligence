@@ -1,29 +1,16 @@
+import sys
 from tests import TestAcceptanceBaseClass
 from utilities import create_logger
 from acceptance_builder import AnagraficaBuilder
 
-import unittest
-import numpy as np
-import logging
-from datetime import datetime
-
-# LOG_FILE = datetime.today().strftime("%Y-%m-%d_%H-%M-%S") + ".txt"
-# logging.basicConfig(
-#     level=logging.DEBUG,
-#     format="%(asctime)s %(levelname)-5s %(name)-8s (%(funcName)s) %(message)s",
-#     datefmt="%d-%m-%Y %H:%M:%S",
-#     filename=r"logs/acceptance_tests/AnagraficaInfocamere/" + LOG_FILE,
-#     filemode="w"
-# )
-
-
 class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
+    LOG_DIR = None
 
     @classmethod
     def setUpClass(cls):
         cls.maxDiff = None
         # cls.logger = logging.getLogger(__name__)
-        cls.logger = create_logger("AnagraficaInfocamere")
+        cls.logger = create_logger("AnagraficaInfocamere", cls.LOG_DIR)
         cls.cert = AnagraficaBuilder()
         super().setUpClass()
 
@@ -104,7 +91,6 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
 
         self.logger.debug("Test OK")
 
-
     def test_acceptance_column_straniera(self):
         """
         Controllo valori possibili: ['NO', 'Esclusiva', 'Forte', 'Maggioritaria']
@@ -135,4 +121,8 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
 
 if __name__ == "__main__":
     from unittest import main
+
+    if len(sys.argv) > 1:
+        Test_AnagraficaInfocamereAcceptance.LOG_DIR = sys.argv.pop()
+
     main(verbosity=2)
