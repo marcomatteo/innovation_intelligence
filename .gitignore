@@ -13,6 +13,9 @@ _*
 
 # Now exclude our type
 !*.py
+# !*.csv
+# !*.xlsx
+# !*.xls
 
 # Exclude __init__ and __main__
 !__init__.py

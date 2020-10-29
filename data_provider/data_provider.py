@@ -56,7 +56,7 @@ class DataProvider(metaclass=abc.ABCMeta):
 
             infos.append('column_types={}'.format(self.df.dtypes.to_dict()))
     
-        return "DataProvider({})".format(", ".join(infos))
+        return "DataProvider(\n\t{})".format(",\n\t".join(infos))
         
     @property
     def root_path(self):
