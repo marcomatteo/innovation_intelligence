@@ -1,0 +1,738 @@
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (setUpClass) Column constraints:
+	Columns(nome='c fiscale', tipologia=dtype('O'), lunghezza=11, nullable=False, pk=True),
+	Columns(nome='PRV - Provincia', tipologia=dtype('O'), lunghezza=6, nullable=False, pk=True),
+	Columns(nome='N-REG-IMP - Numero Registro Imprese', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='rea', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome="UL-SEDE - Unità Locale o sede dell'impresa", tipologia=dtype('O'), lunghezza=10, nullable=False, pk=True),
+	Columns(nome="N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane", tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome="SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del", tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome='NG - Natura Giuridica', tipologia=dtype('O'), lunghezza=2, nullable=True, pk=False),
+	Columns(nome='natura giuridica', tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='tipo impresa', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='DT-ISCR-RI - Data di iscrizione al Registro Imprese', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='DT-ISCR-RD - Data di iscrizione al Registro delle Ditte', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-APER-UL - Data di apertura dell'Unità Locale", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='cancellazione', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-INI-AT - Data di inizio attività dell'impresa", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='dt cessazione attività', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='fallimento', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-LIQUID - Data liquidazione dell'impresa", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DENOMINAZIONE - Denominazione dell'impresa", tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='INDIRIZZO', tipologia=dtype('O'), lunghezza=100, nullable=True, pk=False),
+	Columns(nome='STRAD - Via', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='CAP', tipologia=dtype('O'), lunghezza=5, nullable=True, pk=False),
+	Columns(nome='COMUNE', tipologia=dtype('O'), lunghezza=100, nullable=True, pk=False),
+	Columns(nome='FRAZIONE', tipologia=dtype('O'), lunghezza=100, nullable=True, pk=False),
+	Columns(nome="ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del", tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='AA-ADD - Anno di dichiarazione degli addetti', tipologia=dtype('int64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='IND - Numero addetti indipendenti', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome='DIP - Numero addetti dipendenti', tipologia=dtype('int64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='PARTITA IVA', tipologia=dtype('O'), lunghezza=11, nullable=True, pk=False),
+	Columns(nome='TELEFONO', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome="CAPITALE - Capitale sociale dell'impresa", tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="ATTIVITA' - Descrizione dell'attività principale dell'impresa", tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome="VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa", tipologia=dtype('O'), lunghezza=30, nullable=True, pk=False),
+	Columns(nome='stato impresa/ul', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul1', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul2', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul3', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul4', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul5', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome="Presenza di sedi secondarie all'estero", tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Impresa estera con unità locale in Friuli Venezia Giulia', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='sezione Impresa - Indicazione delle imprese che sono PMI', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='sezione Impresa - Indicazione delle imprese che sono start up', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Impr Femminile', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='Impr Giovane', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='Impr Straniera', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='pec', tipologia=dtype('O'), lunghezza=70, nullable=True, pk=False)
+
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (setUpClass) Column number constrain: 48
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (setUpClass) File type extension: xlsx
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (setUpClass) Data Provider:
+DataProvider(file_sheet_name=0, inTest=False, file_path=data/Infocamere/, file_parser=Parser(file_path=data/Infocamere/Infocamere.xlsx, file_ext=xlsx), df_shape=(43439, 48), column_types={'c fiscale': dtype('O'), 'PRV - Provincia': dtype('O'), 'N-REG-IMP - Numero Registro Imprese': dtype('O'), 'rea': dtype('O'), "UL-SEDE - Unità Locale o sede dell'impresa": dtype('O'), "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": dtype('O'), "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": dtype('O'), 'NG - Natura Giuridica': dtype('O'), 'natura giuridica': dtype('O'), 'tipo impresa': dtype('O'), 'DT-ISCR-RI - Data di iscrizione al Registro Imprese': dtype('<M8[ns]'), 'DT-ISCR-RD - Data di iscrizione al Registro delle Ditte': dtype('<M8[ns]'), "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": dtype('<M8[ns]'), "DT-APER-UL - Data di apertura dell'Unità Locale": dtype('<M8[ns]'), 'cancellazione': dtype('<M8[ns]'), "DT-INI-AT - Data di inizio attività dell'impresa": dtype('<M8[ns]'), 'dt cessazione attività': dtype('<M8[ns]'), 'fallimento': dtype('<M8[ns]'), "DT-LIQUID - Data liquidazione dell'impresa": dtype('O'), "DENOMINAZIONE - Denominazione dell'impresa": dtype('O'), 'INDIRIZZO': dtype('O'), 'STRAD - Via': dtype('O'), 'CAP': dtype('O'), 'COMUNE': dtype('O'), 'FRAZIONE': dtype('O'), "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": dtype('O'), 'AA-ADD - Anno di dichiarazione degli addetti': dtype('O'), 'IND - Numero addetti indipendenti': dtype('O'), 'DIP - Numero addetti dipendenti': dtype('O'), 'PARTITA IVA': dtype('O'), 'TELEFONO': dtype('O'), "CAPITALE - Capitale sociale dell'impresa": dtype('O'), "ATTIVITA' - Descrizione dell'attività principale dell'impresa": dtype('O'), "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": dtype('O'), 'stato impresa/ul': dtype('O'), 'tipo sede/ul1': dtype('O'), 'tipo sede/ul2': dtype('O'), 'tipo sede/ul3': dtype('O'), 'tipo sede/ul4': dtype('O'), 'tipo sede/ul5': dtype('O'), "Presenza di sedi secondarie all'estero": dtype('O'), 'Impresa estera con unità locale in Friuli Venezia Giulia': dtype('O'), 'sezione Impresa - Indicazione delle imprese che sono PMI': dtype('O'), 'sezione Impresa - Indicazione delle imprese che sono start up': dtype('O'), 'Impr Femminile': dtype('O'), 'Impr Giovane': dtype('O'), 'Impr Straniera': dtype('O'), 'pec': dtype('O')})
+
+
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (setUpClass) Begin tests:
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_acceptance_column_femminile) Check colonna Impresa Femminile
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_acceptance_column_femminile) Valori da controllare: (Esclusiva, Forte, Maggioritaria, NO)
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_acceptance_column_femminile) Test OK
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_acceptance_column_giovanile) Check colonna Impresa Giovanile
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_acceptance_column_giovanile) Valori da controllare: (Esclusiva, Forte, Maggioritaria, NO)
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_acceptance_column_giovanile) Test OK
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_acceptance_column_innovativa) Check colonna PMI Innovativa
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_acceptance_column_innovativa) Valori da controllare: (NO, SI)
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_acceptance_column_innovativa) Test OK
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_acceptance_column_straniera) Check colonna Impresa Straniera
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_acceptance_column_straniera) Valori da controllare: (Esclusiva, Forte, Maggioritaria, NO)
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_acceptance_column_straniera) Test OK
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_check_column_constraints) Test column constraints
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_check_column_constraints) Test OK
+
+27-10-2020 17:52:47 DEBUG AnagraficaInfocamere (test_check_column_length) Test columns max length
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (log_debug_data) Check {"c fiscale": "11", "PRV - Provincia": "6", "N-REG-IMP - Numero Registro Imprese": "20", "rea": "10", "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "10", "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": "20", "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": "10", "NG - Natura Giuridica": "2", "natura giuridica": "255", "tipo impresa": "50", "DT-ISCR-RI - Data di iscrizione al Registro Imprese": "None", "DT-ISCR-RD - Data di iscrizione al Registro delle Ditte": "None", "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": "None", "DT-APER-UL - Data di apertura dell'Unit\u00e0 Locale": "None", "cancellazione": "None", "DT-INI-AT - Data di inizio attivit\u00e0 dell'impresa": "None", "dt cessazione attivit\u00e0": "None", "fallimento": "None", "DT-LIQUID - Data liquidazione dell'impresa": "None", "DENOMINAZIONE - Denominazione dell'impresa": "255", "INDIRIZZO": "100", "STRAD - Via": "20", "CAP": "5", "COMUNE": "100", "FRAZIONE": "100", "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": "255", "AA-ADD - Anno di dichiarazione degli addetti": "None", "IND - Numero addetti indipendenti": "10", "DIP - Numero addetti dipendenti": "None", "PARTITA IVA": "11", "TELEFONO": "20", "CAPITALE - Capitale sociale dell'impresa": "None", "ATTIVITA' - Descrizione dell'attivit\u00e0 principale dell'impresa": "255", "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": "30", "stato impresa/ul": "20", "tipo sede/ul1": "50", "tipo sede/ul2": "50", "tipo sede/ul3": "50", "tipo sede/ul4": "50", "tipo sede/ul5": "50", "Presenza di sedi secondarie all'estero": "None", "Impresa estera con unit\u00e0 locale in Friuli Venezia Giulia": "None", "sezione Impresa - Indicazione delle imprese che sono PMI": "None", "sezione Impresa - Indicazione delle imprese che sono start up": "None", "Impr Femminile": "20", "Impr Giovane": "20", "Impr Straniera": "20", "pec": "70"}
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_length) Test OK
+
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_nullables) Test columns nullable condition
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (log_debug_data) Check {"c fiscale": "False", "PRV - Provincia": "False", "N-REG-IMP - Numero Registro Imprese": "True", "rea": "True", "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "False", "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": "True", "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": "True", "NG - Natura Giuridica": "True", "natura giuridica": "True", "tipo impresa": "True", "DT-ISCR-RI - Data di iscrizione al Registro Imprese": "True", "DT-ISCR-RD - Data di iscrizione al Registro delle Ditte": "True", "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": "True", "DT-APER-UL - Data di apertura dell'Unit\u00e0 Locale": "True", "cancellazione": "True", "DT-INI-AT - Data di inizio attivit\u00e0 dell'impresa": "True", "dt cessazione attivit\u00e0": "True", "fallimento": "True", "DT-LIQUID - Data liquidazione dell'impresa": "True", "DENOMINAZIONE - Denominazione dell'impresa": "True", "INDIRIZZO": "True", "STRAD - Via": "True", "CAP": "True", "COMUNE": "True", "FRAZIONE": "True", "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": "True", "AA-ADD - Anno di dichiarazione degli addetti": "True", "IND - Numero addetti indipendenti": "True", "DIP - Numero addetti dipendenti": "True", "PARTITA IVA": "True", "TELEFONO": "True", "CAPITALE - Capitale sociale dell'impresa": "True", "ATTIVITA' - Descrizione dell'attivit\u00e0 principale dell'impresa": "True", "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": "True", "stato impresa/ul": "True", "tipo sede/ul1": "True", "tipo sede/ul2": "True", "tipo sede/ul3": "True", "tipo sede/ul4": "True", "tipo sede/ul5": "True", "Presenza di sedi secondarie all'estero": "True", "Impresa estera con unit\u00e0 locale in Friuli Venezia Giulia": "True", "sezione Impresa - Indicazione delle imprese che sono PMI": "True", "sezione Impresa - Indicazione delle imprese che sono start up": "True", "Impr Femminile": "True", "Impr Giovane": "True", "Impr Straniera": "True", "pec": "True"}
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_nullables) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_nullables) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_nullables) Subtest OK
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_nullables) Test OK
+
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_number) Test column number
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_number) Check {'column_number': 48}
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_number) Test OK
+
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_column_types) Test column types
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (log_debug_data) Check {"c fiscale": "object", "PRV - Provincia": "object", "N-REG-IMP - Numero Registro Imprese": "object", "rea": "object", "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "object", "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": "object", "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": "object", "NG - Natura Giuridica": "object", "natura giuridica": "object", "tipo impresa": "object", "DT-ISCR-RI - Data di iscrizione al Registro Imprese": "datetime64[ns]", "DT-ISCR-RD - Data di iscrizione al Registro delle Ditte": "datetime64[ns]", "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": "datetime64[ns]", "DT-APER-UL - Data di apertura dell'Unit\u00e0 Locale": "datetime64[ns]", "cancellazione": "datetime64[ns]", "DT-INI-AT - Data di inizio attivit\u00e0 dell'impresa": "datetime64[ns]", "dt cessazione attivit\u00e0": "datetime64[ns]", "fallimento": "datetime64[ns]", "DT-LIQUID - Data liquidazione dell'impresa": "datetime64[ns]", "DENOMINAZIONE - Denominazione dell'impresa": "object", "INDIRIZZO": "object", "STRAD - Via": "object", "CAP": "object", "COMUNE": "object", "FRAZIONE": "object", "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": "object", "AA-ADD - Anno di dichiarazione degli addetti": "int64", "IND - Numero addetti indipendenti": "object", "DIP - Numero addetti dipendenti": "int64", "PARTITA IVA": "object", "TELEFONO": "object", "CAPITALE - Capitale sociale dell'impresa": "float64", "ATTIVITA' - Descrizione dell'attivit\u00e0 principale dell'impresa": "object", "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": "object", "stato impresa/ul": "object", "tipo sede/ul1": "object", "tipo sede/ul2": "object", "tipo sede/ul3": "object", "tipo sede/ul4": "object", "tipo sede/ul5": "object", "Presenza di sedi secondarie all'estero": "object", "Impresa estera con unit\u00e0 locale in Friuli Venezia Giulia": "object", "sezione Impresa - Indicazione delle imprese che sono PMI": "object", "sezione Impresa - Indicazione delle imprese che sono start up": "object", "Impr Femminile": "object", "Impr Giovane": "object", "Impr Straniera": "object", "pec": "object"}
+27-10-2020 17:52:54 ERROR AnagraficaInfocamere (test_check_column_types) Lists differ: [dtyp[262 chars]ype('O'), dtype('O'), dtype('O'), dtype('O'), [320 chars]'O')] != [dtyp[262 chars]ype('<M8[ns]'), dtype('O'), dtype('O'), dtype([326 chars]'O')]
+
+First differing element 18:
+dtype('O')
+dtype('<M8[ns]')
+
+  [dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+-  dtype('O'),
++  dtype('<M8[ns]'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('O'),
+   dtype('O'),
+   dtype('float64'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O')]
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 83, in test_check_column_types
+    self.assertEqual(cert_column_types, expected_column_types)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 852, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1058, in assertListEqual
+    self.assertSequenceEqual(list1, list2, msg, seq_type=list)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1040, in assertSequenceEqual
+    self.fail(msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: Lists differ: [dtyp[262 chars]ype('O'), dtype('O'), dtype('O'), dtype('O'), [320 chars]'O')] != [dtyp[262 chars]ype('<M8[ns]'), dtype('O'), dtype('O'), dtype([326 chars]'O')]
+
+First differing element 18:
+dtype('O')
+dtype('<M8[ns]')
+
+  [dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+-  dtype('O'),
++  dtype('<M8[ns]'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('O'),
+   dtype('O'),
+   dtype('float64'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O')]
+27-10-2020 17:52:54 DEBUG AnagraficaInfocamere (test_check_file_extension) Test file type
+27-10-2020 17:52:55 DEBUG AnagraficaInfocamere (test_check_file_extension) Check {'file_extension': xlsx}
+27-10-2020 17:52:55 DEBUG AnagraficaInfocamere (test_check_file_extension) Test OK
+
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (setUpClass) Column constraints:
+	Columns(nome='c fiscale', tipologia=dtype('O'), lunghezza=11, nullable=False, pk=True),
+	Columns(nome='PRV - Provincia', tipologia=dtype('O'), lunghezza=6, nullable=False, pk=True),
+	Columns(nome='N-REG-IMP - Numero Registro Imprese', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='rea', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome="UL-SEDE - Unità Locale o sede dell'impresa", tipologia=dtype('O'), lunghezza=10, nullable=False, pk=True),
+	Columns(nome="N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane", tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome="SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del", tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome='NG - Natura Giuridica', tipologia=dtype('O'), lunghezza=2, nullable=True, pk=False),
+	Columns(nome='natura giuridica', tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='tipo impresa', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='DT-ISCR-RI - Data di iscrizione al Registro Imprese', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='DT-ISCR-RD - Data di iscrizione al Registro delle Ditte', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-APER-UL - Data di apertura dell'Unità Locale", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='cancellazione', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-INI-AT - Data di inizio attività dell'impresa", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='dt cessazione attività', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='fallimento', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-LIQUID - Data liquidazione dell'impresa", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DENOMINAZIONE - Denominazione dell'impresa", tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='INDIRIZZO', tipologia=dtype('O'), lunghezza=100, nullable=True, pk=False),
+	Columns(nome='STRAD - Via', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='CAP', tipologia=dtype('O'), lunghezza=5, nullable=True, pk=False),
+	Columns(nome='COMUNE', tipologia=dtype('O'), lunghezza=100, nullable=True, pk=False),
+	Columns(nome='FRAZIONE', tipologia=dtype('O'), lunghezza=100, nullable=True, pk=False),
+	Columns(nome="ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del", tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='AA-ADD - Anno di dichiarazione degli addetti', tipologia=dtype('int64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='IND - Numero addetti indipendenti', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome='DIP - Numero addetti dipendenti', tipologia=dtype('int64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='PARTITA IVA', tipologia=dtype('O'), lunghezza=11, nullable=True, pk=False),
+	Columns(nome='TELEFONO', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome="CAPITALE - Capitale sociale dell'impresa", tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="ATTIVITA' - Descrizione dell'attività principale dell'impresa", tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome="VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa", tipologia=dtype('O'), lunghezza=30, nullable=True, pk=False),
+	Columns(nome='stato impresa/ul', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul1', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul2', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul3', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul4', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul5', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome="Presenza di sedi secondarie all'estero", tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Impresa estera con unità locale in Friuli Venezia Giulia', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='sezione Impresa - Indicazione delle imprese che sono PMI', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='sezione Impresa - Indicazione delle imprese che sono start up', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Impr Femminile', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='Impr Giovane', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='Impr Straniera', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='pec', tipologia=dtype('O'), lunghezza=70, nullable=True, pk=False)
+
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (setUpClass) Column number constrain: 48
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (setUpClass) File type extension: xlsx
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (setUpClass) Data Provider:
+DataProvider(file_sheet_name=0, inTest=False, file_path=data/Infocamere/, file_parser=Parser(file_path=data/Infocamere/Infocamere.xlsx, file_ext=xlsx), df_shape=(43439, 48), column_types={'c fiscale': dtype('O'), 'PRV - Provincia': dtype('O'), 'N-REG-IMP - Numero Registro Imprese': dtype('O'), 'rea': dtype('O'), "UL-SEDE - Unità Locale o sede dell'impresa": dtype('O'), "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": dtype('O'), "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": dtype('O'), 'NG - Natura Giuridica': dtype('O'), 'natura giuridica': dtype('O'), 'tipo impresa': dtype('O'), 'DT-ISCR-RI - Data di iscrizione al Registro Imprese': dtype('<M8[ns]'), 'DT-ISCR-RD - Data di iscrizione al Registro delle Ditte': dtype('<M8[ns]'), "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": dtype('<M8[ns]'), "DT-APER-UL - Data di apertura dell'Unità Locale": dtype('<M8[ns]'), 'cancellazione': dtype('<M8[ns]'), "DT-INI-AT - Data di inizio attività dell'impresa": dtype('<M8[ns]'), 'dt cessazione attività': dtype('<M8[ns]'), 'fallimento': dtype('<M8[ns]'), "DT-LIQUID - Data liquidazione dell'impresa": dtype('O'), "DENOMINAZIONE - Denominazione dell'impresa": dtype('O'), 'INDIRIZZO': dtype('O'), 'STRAD - Via': dtype('O'), 'CAP': dtype('O'), 'COMUNE': dtype('O'), 'FRAZIONE': dtype('O'), "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": dtype('O'), 'AA-ADD - Anno di dichiarazione degli addetti': dtype('O'), 'IND - Numero addetti indipendenti': dtype('O'), 'DIP - Numero addetti dipendenti': dtype('O'), 'PARTITA IVA': dtype('O'), 'TELEFONO': dtype('O'), "CAPITALE - Capitale sociale dell'impresa": dtype('O'), "ATTIVITA' - Descrizione dell'attività principale dell'impresa": dtype('O'), "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": dtype('O'), 'stato impresa/ul': dtype('O'), 'tipo sede/ul1': dtype('O'), 'tipo sede/ul2': dtype('O'), 'tipo sede/ul3': dtype('O'), 'tipo sede/ul4': dtype('O'), 'tipo sede/ul5': dtype('O'), "Presenza di sedi secondarie all'estero": dtype('O'), 'Impresa estera con unità locale in Friuli Venezia Giulia': dtype('O'), 'sezione Impresa - Indicazione delle imprese che sono PMI': dtype('O'), 'sezione Impresa - Indicazione delle imprese che sono start up': dtype('O'), 'Impr Femminile': dtype('O'), 'Impr Giovane': dtype('O'), 'Impr Straniera': dtype('O'), 'pec': dtype('O')})
+
+
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (setUpClass) Begin tests:
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_acceptance_column_femminile) Check colonna Impresa Femminile
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_acceptance_column_femminile) Valori da controllare: (Esclusiva, Forte, Maggioritaria, NO)
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_acceptance_column_femminile) Test OK
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_acceptance_column_giovanile) Check colonna Impresa Giovanile
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_acceptance_column_giovanile) Valori da controllare: (Esclusiva, Forte, Maggioritaria, NO)
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_acceptance_column_giovanile) Test OK
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_acceptance_column_innovativa) Check colonna PMI Innovativa
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_acceptance_column_innovativa) Valori da controllare: (NO, SI)
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_acceptance_column_innovativa) Test OK
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_acceptance_column_straniera) Check colonna Impresa Straniera
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_acceptance_column_straniera) Valori da controllare: (Esclusiva, Forte, Maggioritaria, NO)
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_acceptance_column_straniera) Test OK
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_check_column_constraints) Test column constraints
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_check_column_constraints) Test OK
+
+27-10-2020 17:55:47 DEBUG AnagraficaInfocamere (test_check_column_length) Test columns max length
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (log_debug_data) Check {"c fiscale": "11", "PRV - Provincia": "6", "N-REG-IMP - Numero Registro Imprese": "20", "rea": "10", "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "10", "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": "20", "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": "10", "NG - Natura Giuridica": "2", "natura giuridica": "255", "tipo impresa": "50", "DT-ISCR-RI - Data di iscrizione al Registro Imprese": "None", "DT-ISCR-RD - Data di iscrizione al Registro delle Ditte": "None", "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": "None", "DT-APER-UL - Data di apertura dell'Unit\u00e0 Locale": "None", "cancellazione": "None", "DT-INI-AT - Data di inizio attivit\u00e0 dell'impresa": "None", "dt cessazione attivit\u00e0": "None", "fallimento": "None", "DT-LIQUID - Data liquidazione dell'impresa": "None", "DENOMINAZIONE - Denominazione dell'impresa": "255", "INDIRIZZO": "100", "STRAD - Via": "20", "CAP": "5", "COMUNE": "100", "FRAZIONE": "100", "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": "255", "AA-ADD - Anno di dichiarazione degli addetti": "None", "IND - Numero addetti indipendenti": "10", "DIP - Numero addetti dipendenti": "None", "PARTITA IVA": "11", "TELEFONO": "20", "CAPITALE - Capitale sociale dell'impresa": "None", "ATTIVITA' - Descrizione dell'attivit\u00e0 principale dell'impresa": "255", "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": "30", "stato impresa/ul": "20", "tipo sede/ul1": "50", "tipo sede/ul2": "50", "tipo sede/ul3": "50", "tipo sede/ul4": "50", "tipo sede/ul5": "50", "Presenza di sedi secondarie all'estero": "None", "Impresa estera con unit\u00e0 locale in Friuli Venezia Giulia": "None", "sezione Impresa - Indicazione delle imprese che sono PMI": "None", "sezione Impresa - Indicazione delle imprese che sono start up": "None", "Impr Femminile": "20", "Impr Giovane": "20", "Impr Straniera": "20", "pec": "70"}
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_length) Test OK
+
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_nullables) Test columns nullable condition
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (log_debug_data) Check {"c fiscale": "False", "PRV - Provincia": "False", "N-REG-IMP - Numero Registro Imprese": "True", "rea": "True", "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "False", "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": "True", "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": "True", "NG - Natura Giuridica": "True", "natura giuridica": "True", "tipo impresa": "True", "DT-ISCR-RI - Data di iscrizione al Registro Imprese": "True", "DT-ISCR-RD - Data di iscrizione al Registro delle Ditte": "True", "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": "True", "DT-APER-UL - Data di apertura dell'Unit\u00e0 Locale": "True", "cancellazione": "True", "DT-INI-AT - Data di inizio attivit\u00e0 dell'impresa": "True", "dt cessazione attivit\u00e0": "True", "fallimento": "True", "DT-LIQUID - Data liquidazione dell'impresa": "True", "DENOMINAZIONE - Denominazione dell'impresa": "True", "INDIRIZZO": "True", "STRAD - Via": "True", "CAP": "True", "COMUNE": "True", "FRAZIONE": "True", "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": "True", "AA-ADD - Anno di dichiarazione degli addetti": "True", "IND - Numero addetti indipendenti": "True", "DIP - Numero addetti dipendenti": "True", "PARTITA IVA": "True", "TELEFONO": "True", "CAPITALE - Capitale sociale dell'impresa": "True", "ATTIVITA' - Descrizione dell'attivit\u00e0 principale dell'impresa": "True", "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": "True", "stato impresa/ul": "True", "tipo sede/ul1": "True", "tipo sede/ul2": "True", "tipo sede/ul3": "True", "tipo sede/ul4": "True", "tipo sede/ul5": "True", "Presenza di sedi secondarie all'estero": "True", "Impresa estera con unit\u00e0 locale in Friuli Venezia Giulia": "True", "sezione Impresa - Indicazione delle imprese che sono PMI": "True", "sezione Impresa - Indicazione delle imprese che sono start up": "True", "Impr Femminile": "True", "Impr Giovane": "True", "Impr Straniera": "True", "pec": "True"}
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_nullables) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_nullables) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_nullables) Subtest OK
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_nullables) Test OK
+
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_number) Test column number
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_number) Check {'column_number': 48}
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_number) Test OK
+
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_column_types) Test column types
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (log_debug_data) Check {"c fiscale": "object", "PRV - Provincia": "object", "N-REG-IMP - Numero Registro Imprese": "object", "rea": "object", "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "object", "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": "object", "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": "object", "NG - Natura Giuridica": "object", "natura giuridica": "object", "tipo impresa": "object", "DT-ISCR-RI - Data di iscrizione al Registro Imprese": "datetime64[ns]", "DT-ISCR-RD - Data di iscrizione al Registro delle Ditte": "datetime64[ns]", "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": "datetime64[ns]", "DT-APER-UL - Data di apertura dell'Unit\u00e0 Locale": "datetime64[ns]", "cancellazione": "datetime64[ns]", "DT-INI-AT - Data di inizio attivit\u00e0 dell'impresa": "datetime64[ns]", "dt cessazione attivit\u00e0": "datetime64[ns]", "fallimento": "datetime64[ns]", "DT-LIQUID - Data liquidazione dell'impresa": "datetime64[ns]", "DENOMINAZIONE - Denominazione dell'impresa": "object", "INDIRIZZO": "object", "STRAD - Via": "object", "CAP": "object", "COMUNE": "object", "FRAZIONE": "object", "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": "object", "AA-ADD - Anno di dichiarazione degli addetti": "int64", "IND - Numero addetti indipendenti": "object", "DIP - Numero addetti dipendenti": "int64", "PARTITA IVA": "object", "TELEFONO": "object", "CAPITALE - Capitale sociale dell'impresa": "float64", "ATTIVITA' - Descrizione dell'attivit\u00e0 principale dell'impresa": "object", "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": "object", "stato impresa/ul": "object", "tipo sede/ul1": "object", "tipo sede/ul2": "object", "tipo sede/ul3": "object", "tipo sede/ul4": "object", "tipo sede/ul5": "object", "Presenza di sedi secondarie all'estero": "object", "Impresa estera con unit\u00e0 locale in Friuli Venezia Giulia": "object", "sezione Impresa - Indicazione delle imprese che sono PMI": "object", "sezione Impresa - Indicazione delle imprese che sono start up": "object", "Impr Femminile": "object", "Impr Giovane": "object", "Impr Straniera": "object", "pec": "object"}
+27-10-2020 17:55:56 ERROR AnagraficaInfocamere (test_check_column_types) Lists differ: [dtyp[262 chars]ype('O'), dtype('O'), dtype('O'), dtype('O'), [320 chars]'O')] != [dtyp[262 chars]ype('<M8[ns]'), dtype('O'), dtype('O'), dtype([326 chars]'O')]
+
+First differing element 18:
+dtype('O')
+dtype('<M8[ns]')
+
+  [dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+-  dtype('O'),
++  dtype('<M8[ns]'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('O'),
+   dtype('O'),
+   dtype('float64'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O')]
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 83, in test_check_column_types
+    self.assertEqual(cert_column_types, expected_column_types)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 852, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1058, in assertListEqual
+    self.assertSequenceEqual(list1, list2, msg, seq_type=list)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1040, in assertSequenceEqual
+    self.fail(msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: Lists differ: [dtyp[262 chars]ype('O'), dtype('O'), dtype('O'), dtype('O'), [320 chars]'O')] != [dtyp[262 chars]ype('<M8[ns]'), dtype('O'), dtype('O'), dtype([326 chars]'O')]
+
+First differing element 18:
+dtype('O')
+dtype('<M8[ns]')
+
+  [dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+-  dtype('O'),
++  dtype('<M8[ns]'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('O'),
+   dtype('O'),
+   dtype('float64'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O')]
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_file_extension) Test file type
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_file_extension) Check {'file_extension': xlsx}
+27-10-2020 17:55:56 DEBUG AnagraficaInfocamere (test_check_file_extension) Test OK
+
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (setUpClass) Column constraints:
+	Columns(nome='c fiscale', tipologia=dtype('O'), lunghezza=11, nullable=False, pk=True),
+	Columns(nome='PRV - Provincia', tipologia=dtype('O'), lunghezza=6, nullable=False, pk=True),
+	Columns(nome='N-REG-IMP - Numero Registro Imprese', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='rea', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome="UL-SEDE - Unità Locale o sede dell'impresa", tipologia=dtype('O'), lunghezza=10, nullable=False, pk=True),
+	Columns(nome="N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane", tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome="SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del", tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome='NG - Natura Giuridica', tipologia=dtype('O'), lunghezza=2, nullable=True, pk=False),
+	Columns(nome='natura giuridica', tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='tipo impresa', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='DT-ISCR-RI - Data di iscrizione al Registro Imprese', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='DT-ISCR-RD - Data di iscrizione al Registro delle Ditte', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-APER-UL - Data di apertura dell'Unità Locale", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='cancellazione', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-INI-AT - Data di inizio attività dell'impresa", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='dt cessazione attività', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='fallimento', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-LIQUID - Data liquidazione dell'impresa", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DENOMINAZIONE - Denominazione dell'impresa", tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='INDIRIZZO', tipologia=dtype('O'), lunghezza=100, nullable=True, pk=False),
+	Columns(nome='STRAD - Via', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='CAP', tipologia=dtype('O'), lunghezza=5, nullable=True, pk=False),
+	Columns(nome='COMUNE', tipologia=dtype('O'), lunghezza=100, nullable=True, pk=False),
+	Columns(nome='FRAZIONE', tipologia=dtype('O'), lunghezza=100, nullable=True, pk=False),
+	Columns(nome="ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del", tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='AA-ADD - Anno di dichiarazione degli addetti', tipologia=dtype('int64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='IND - Numero addetti indipendenti', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome='DIP - Numero addetti dipendenti', tipologia=dtype('int64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='PARTITA IVA', tipologia=dtype('O'), lunghezza=11, nullable=True, pk=False),
+	Columns(nome='TELEFONO', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome="CAPITALE - Capitale sociale dell'impresa", tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="ATTIVITA' - Descrizione dell'attività principale dell'impresa", tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome="VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa", tipologia=dtype('O'), lunghezza=30, nullable=True, pk=False),
+	Columns(nome='stato impresa/ul', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul1', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul2', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul3', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul4', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul5', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome="Presenza di sedi secondarie all'estero", tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Impresa estera con unità locale in Friuli Venezia Giulia', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='sezione Impresa - Indicazione delle imprese che sono PMI', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='sezione Impresa - Indicazione delle imprese che sono start up', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Impr Femminile', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='Impr Giovane', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='Impr Straniera', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='pec', tipologia=dtype('O'), lunghezza=70, nullable=True, pk=False)
+
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (setUpClass) Column number constrain: 48
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (setUpClass) File type extension: xlsx
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (setUpClass) Data Provider:
+DataProvider(file_sheet_name=0, inTest=False, file_path=data/Infocamere/, file_parser=Parser(file_path=data/Infocamere/Infocamere.xlsx, file_ext=xlsx), df_shape=(43439, 48), column_types={'c fiscale': dtype('O'), 'PRV - Provincia': dtype('O'), 'N-REG-IMP - Numero Registro Imprese': dtype('O'), 'rea': dtype('O'), "UL-SEDE - Unità Locale o sede dell'impresa": dtype('O'), "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": dtype('O'), "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": dtype('O'), 'NG - Natura Giuridica': dtype('O'), 'natura giuridica': dtype('O'), 'tipo impresa': dtype('O'), 'DT-ISCR-RI - Data di iscrizione al Registro Imprese': dtype('<M8[ns]'), 'DT-ISCR-RD - Data di iscrizione al Registro delle Ditte': dtype('<M8[ns]'), "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": dtype('<M8[ns]'), "DT-APER-UL - Data di apertura dell'Unità Locale": dtype('<M8[ns]'), 'cancellazione': dtype('<M8[ns]'), "DT-INI-AT - Data di inizio attività dell'impresa": dtype('<M8[ns]'), 'dt cessazione attività': dtype('<M8[ns]'), 'fallimento': dtype('<M8[ns]'), "DT-LIQUID - Data liquidazione dell'impresa": dtype('O'), "DENOMINAZIONE - Denominazione dell'impresa": dtype('O'), 'INDIRIZZO': dtype('O'), 'STRAD - Via': dtype('O'), 'CAP': dtype('O'), 'COMUNE': dtype('O'), 'FRAZIONE': dtype('O'), "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": dtype('O'), 'AA-ADD - Anno di dichiarazione degli addetti': dtype('O'), 'IND - Numero addetti indipendenti': dtype('O'), 'DIP - Numero addetti dipendenti': dtype('O'), 'PARTITA IVA': dtype('O'), 'TELEFONO': dtype('O'), "CAPITALE - Capitale sociale dell'impresa": dtype('O'), "ATTIVITA' - Descrizione dell'attività principale dell'impresa": dtype('O'), "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": dtype('O'), 'stato impresa/ul': dtype('O'), 'tipo sede/ul1': dtype('O'), 'tipo sede/ul2': dtype('O'), 'tipo sede/ul3': dtype('O'), 'tipo sede/ul4': dtype('O'), 'tipo sede/ul5': dtype('O'), "Presenza di sedi secondarie all'estero": dtype('O'), 'Impresa estera con unità locale in Friuli Venezia Giulia': dtype('O'), 'sezione Impresa - Indicazione delle imprese che sono PMI': dtype('O'), 'sezione Impresa - Indicazione delle imprese che sono start up': dtype('O'), 'Impr Femminile': dtype('O'), 'Impr Giovane': dtype('O'), 'Impr Straniera': dtype('O'), 'pec': dtype('O')})
+
+
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (setUpClass) Begin tests:
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_acceptance_column_femminile) Check colonna Impresa Femminile
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_acceptance_column_femminile) Valori da controllare: (Esclusiva, Forte, Maggioritaria, NO)
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_acceptance_column_femminile) Test OK
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_acceptance_column_giovanile) Check colonna Impresa Giovanile
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_acceptance_column_giovanile) Valori da controllare: (Esclusiva, Forte, Maggioritaria, NO)
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_acceptance_column_giovanile) Test OK
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_acceptance_column_innovativa) Check colonna PMI Innovativa
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_acceptance_column_innovativa) Valori da controllare: (NO, SI)
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_acceptance_column_innovativa) Test OK
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_acceptance_column_straniera) Check colonna Impresa Straniera
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_acceptance_column_straniera) Valori da controllare: (Esclusiva, Forte, Maggioritaria, NO)
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_acceptance_column_straniera) Test OK
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_check_column_constraints) Test column constraints
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_check_column_constraints) Test OK
+
+27-10-2020 18:21:59 DEBUG AnagraficaInfocamere (test_check_column_length) Test columns max length
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (log_debug_data) Check {"c fiscale": "11", "PRV - Provincia": "6", "N-REG-IMP - Numero Registro Imprese": "20", "rea": "10", "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "10", "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": "20", "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": "10", "NG - Natura Giuridica": "2", "natura giuridica": "255", "tipo impresa": "50", "DT-ISCR-RI - Data di iscrizione al Registro Imprese": "None", "DT-ISCR-RD - Data di iscrizione al Registro delle Ditte": "None", "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": "None", "DT-APER-UL - Data di apertura dell'Unit\u00e0 Locale": "None", "cancellazione": "None", "DT-INI-AT - Data di inizio attivit\u00e0 dell'impresa": "None", "dt cessazione attivit\u00e0": "None", "fallimento": "None", "DT-LIQUID - Data liquidazione dell'impresa": "None", "DENOMINAZIONE - Denominazione dell'impresa": "255", "INDIRIZZO": "100", "STRAD - Via": "20", "CAP": "5", "COMUNE": "100", "FRAZIONE": "100", "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": "255", "AA-ADD - Anno di dichiarazione degli addetti": "None", "IND - Numero addetti indipendenti": "10", "DIP - Numero addetti dipendenti": "None", "PARTITA IVA": "11", "TELEFONO": "20", "CAPITALE - Capitale sociale dell'impresa": "None", "ATTIVITA' - Descrizione dell'attivit\u00e0 principale dell'impresa": "255", "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": "30", "stato impresa/ul": "20", "tipo sede/ul1": "50", "tipo sede/ul2": "50", "tipo sede/ul3": "50", "tipo sede/ul4": "50", "tipo sede/ul5": "50", "Presenza di sedi secondarie all'estero": "None", "Impresa estera con unit\u00e0 locale in Friuli Venezia Giulia": "None", "sezione Impresa - Indicazione delle imprese che sono PMI": "None", "sezione Impresa - Indicazione delle imprese che sono start up": "None", "Impr Femminile": "20", "Impr Giovane": "20", "Impr Straniera": "20", "pec": "70"}
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_length) Test OK
+
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_nullables) Test columns nullable condition
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (log_debug_data) Check {"c fiscale": "False", "PRV - Provincia": "False", "N-REG-IMP - Numero Registro Imprese": "True", "rea": "True", "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "False", "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": "True", "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": "True", "NG - Natura Giuridica": "True", "natura giuridica": "True", "tipo impresa": "True", "DT-ISCR-RI - Data di iscrizione al Registro Imprese": "True", "DT-ISCR-RD - Data di iscrizione al Registro delle Ditte": "True", "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": "True", "DT-APER-UL - Data di apertura dell'Unit\u00e0 Locale": "True", "cancellazione": "True", "DT-INI-AT - Data di inizio attivit\u00e0 dell'impresa": "True", "dt cessazione attivit\u00e0": "True", "fallimento": "True", "DT-LIQUID - Data liquidazione dell'impresa": "True", "DENOMINAZIONE - Denominazione dell'impresa": "True", "INDIRIZZO": "True", "STRAD - Via": "True", "CAP": "True", "COMUNE": "True", "FRAZIONE": "True", "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": "True", "AA-ADD - Anno di dichiarazione degli addetti": "True", "IND - Numero addetti indipendenti": "True", "DIP - Numero addetti dipendenti": "True", "PARTITA IVA": "True", "TELEFONO": "True", "CAPITALE - Capitale sociale dell'impresa": "True", "ATTIVITA' - Descrizione dell'attivit\u00e0 principale dell'impresa": "True", "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": "True", "stato impresa/ul": "True", "tipo sede/ul1": "True", "tipo sede/ul2": "True", "tipo sede/ul3": "True", "tipo sede/ul4": "True", "tipo sede/ul5": "True", "Presenza di sedi secondarie all'estero": "True", "Impresa estera con unit\u00e0 locale in Friuli Venezia Giulia": "True", "sezione Impresa - Indicazione delle imprese che sono PMI": "True", "sezione Impresa - Indicazione delle imprese che sono start up": "True", "Impr Femminile": "True", "Impr Giovane": "True", "Impr Straniera": "True", "pec": "True"}
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_nullables) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_nullables) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_nullables) Subtest OK
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_nullables) Test OK
+
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_number) Test column number
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_number) Check {'column_number': 48}
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_number) Test OK
+
+27-10-2020 18:22:07 DEBUG AnagraficaInfocamere (test_check_column_types) Test column types
+27-10-2020 18:22:08 DEBUG AnagraficaInfocamere (log_debug_data) Check {"c fiscale": "object", "PRV - Provincia": "object", "N-REG-IMP - Numero Registro Imprese": "object", "rea": "object", "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "object", "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": "object", "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": "object", "NG - Natura Giuridica": "object", "natura giuridica": "object", "tipo impresa": "object", "DT-ISCR-RI - Data di iscrizione al Registro Imprese": "datetime64[ns]", "DT-ISCR-RD - Data di iscrizione al Registro delle Ditte": "datetime64[ns]", "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": "datetime64[ns]", "DT-APER-UL - Data di apertura dell'Unit\u00e0 Locale": "datetime64[ns]", "cancellazione": "datetime64[ns]", "DT-INI-AT - Data di inizio attivit\u00e0 dell'impresa": "datetime64[ns]", "dt cessazione attivit\u00e0": "datetime64[ns]", "fallimento": "datetime64[ns]", "DT-LIQUID - Data liquidazione dell'impresa": "datetime64[ns]", "DENOMINAZIONE - Denominazione dell'impresa": "object", "INDIRIZZO": "object", "STRAD - Via": "object", "CAP": "object", "COMUNE": "object", "FRAZIONE": "object", "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": "object", "AA-ADD - Anno di dichiarazione degli addetti": "int64", "IND - Numero addetti indipendenti": "object", "DIP - Numero addetti dipendenti": "int64", "PARTITA IVA": "object", "TELEFONO": "object", "CAPITALE - Capitale sociale dell'impresa": "float64", "ATTIVITA' - Descrizione dell'attivit\u00e0 principale dell'impresa": "object", "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": "object", "stato impresa/ul": "object", "tipo sede/ul1": "object", "tipo sede/ul2": "object", "tipo sede/ul3": "object", "tipo sede/ul4": "object", "tipo sede/ul5": "object", "Presenza di sedi secondarie all'estero": "object", "Impresa estera con unit\u00e0 locale in Friuli Venezia Giulia": "object", "sezione Impresa - Indicazione delle imprese che sono PMI": "object", "sezione Impresa - Indicazione delle imprese che sono start up": "object", "Impr Femminile": "object", "Impr Giovane": "object", "Impr Straniera": "object", "pec": "object"}
+27-10-2020 18:22:08 ERROR AnagraficaInfocamere (test_check_column_types) Lists differ: [dtyp[262 chars]ype('O'), dtype('O'), dtype('O'), dtype('O'), [320 chars]'O')] != [dtyp[262 chars]ype('<M8[ns]'), dtype('O'), dtype('O'), dtype([326 chars]'O')]
+
+First differing element 18:
+dtype('O')
+dtype('<M8[ns]')
+
+  [dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+-  dtype('O'),
++  dtype('<M8[ns]'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('O'),
+   dtype('O'),
+   dtype('float64'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O')]
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 83, in test_check_column_types
+    self.assertEqual(cert_column_types, expected_column_types)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 852, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1058, in assertListEqual
+    self.assertSequenceEqual(list1, list2, msg, seq_type=list)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1040, in assertSequenceEqual
+    self.fail(msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: Lists differ: [dtyp[262 chars]ype('O'), dtype('O'), dtype('O'), dtype('O'), [320 chars]'O')] != [dtyp[262 chars]ype('<M8[ns]'), dtype('O'), dtype('O'), dtype([326 chars]'O')]
+
+First differing element 18:
+dtype('O')
+dtype('<M8[ns]')
+
+  [dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+   dtype('<M8[ns]'),
+-  dtype('O'),
++  dtype('<M8[ns]'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('O'),
+   dtype('O'),
+   dtype('float64'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O')]
+27-10-2020 18:22:08 DEBUG AnagraficaInfocamere (test_check_file_extension) Test file type
+27-10-2020 18:22:08 DEBUG AnagraficaInfocamere (test_check_file_extension) Check {'file_extension': xlsx}
+27-10-2020 18:22:08 DEBUG AnagraficaInfocamere (test_check_file_extension) Test OK
+

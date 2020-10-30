@@ -1,0 +1,8 @@
+SELECT TOP (1000) [ID_DataProvider]
+      ,[Descrizione]
+      ,[EndPoint]
+      ,[UserID]
+      ,[Password]
+      ,[StoredProcedure]
+      ,[ProviderAttivo]
+  FROM [I2FVGData_test].[dbo].[SYSTEM_DataProviderInfo]

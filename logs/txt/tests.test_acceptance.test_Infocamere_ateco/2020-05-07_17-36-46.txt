@@ -1,0 +1,79 @@
+07-05-2020 17:38:10 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 11,
+1 : 6,
+2 : 7,
+3 : 3,
+4 : 1,
+5 : 8,
+6 : 200
+07-05-2020 17:38:10 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_length) Wrong length for pv column.Expected 2 
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 89, in test_check_column_length
+    cert_check_length[i]
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1257, in assertGreaterEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: 2 not greater than or equal to 6
+07-05-2020 17:38:10 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_length) Found wrong column lengths for pv columns
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 101, in test_check_column_length
+    self.assertTrue(len(invalid_column_list) == 0)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 705, in assertTrue
+    raise self.failureException(msg)
+AssertionError: False is not true
+07-05-2020 17:38:10 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : False,
+4 : True,
+5 : True,
+6 : True
+07-05-2020 17:38:10 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Certificate 7 column number
+07-05-2020 17:38:10 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+0 : object,
+1 : object,
+2 : object,
+3 : object,
+4 : object,
+5 : object,
+6 : object
+07-05-2020 17:38:10 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_types) Wrong column types:
+0 : object,
+1 : object,
+2 : object,
+3 : object,
+4 : object,
+5 : object,
+6 : object
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 61, in test_check_column_types
+    self.assertEqual(expected_column_types, cert_column_types)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 852, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1058, in assertListEqual
+    self.assertSequenceEqual(list1, list2, msg, seq_type=list)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1040, in assertSequenceEqual
+    self.fail(msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: Lists differ: [dtyp[20 chars]dtype('O'), dtype('int64'), dtype('O'), dtype('O'), dtype('O')] != [dtyp[20 chars]dtype('O'), dtype('O'), dtype('O'), dtype('O'), dtype('O')]
+
+First differing element 3:
+dtype('int64')
+dtype('O')
+
+  [dtype('O'),
+   dtype('O'),
+   dtype('O'),
+-  dtype('int64'),
+?         ^^^^^
+
++  dtype('O'),
+?         ^
+
+   dtype('O'),
+   dtype('O'),
+   dtype('O')]
+07-05-2020 17:38:10 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Certificate xlsx file extension

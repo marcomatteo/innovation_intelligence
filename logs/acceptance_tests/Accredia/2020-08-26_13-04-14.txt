@@ -1,0 +1,217 @@
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Certificate column constraints... 
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Found duplicates for column_constraints
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) 
+
+634       True
+990       True
+1051      True
+1205      True
+1405      True
+          ... 
+158984    True
+158987    True
+158995    True
+159031    True
+159043    True
+Length: 5531, dtype: bool
+
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 11,
+1 : 6,
+2 : 29,
+3 : 3,
+4 : 2,
+
+
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : False,
+4 : False,
+
+
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Check {'column_number': 5}
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+{,
+",
+0,
+",
+:,
+ ,
+",
+f,
+i,
+s,
+c,
+a,
+l,
+c,
+o,
+d,
+e,
+ ,
+:,
+ ,
+o,
+b,
+j,
+e,
+c,
+t,
+\,
+n,
+",
+,,
+ ,
+",
+1,
+",
+:,
+ ,
+",
+a,
+n,
+n,
+o,
+m,
+e,
+s,
+e,
+ ,
+:,
+ ,
+o,
+b,
+j,
+e,
+c,
+t,
+\,
+n,
+",
+,,
+ ,
+",
+2,
+",
+:,
+ ,
+",
+r,
+e,
+g,
+u,
+l,
+a,
+t,
+i,
+o,
+n,
+ ,
+:,
+ ,
+o,
+b,
+j,
+e,
+c,
+t,
+\,
+n,
+",
+,,
+ ,
+",
+3,
+",
+:,
+ ,
+",
+i,
+d,
+_,
+i,
+s,
+t,
+a,
+t,
+_,
+p,
+r,
+o,
+v,
+i,
+n,
+c,
+e,
+ ,
+:,
+ ,
+i,
+n,
+t,
+6,
+4,
+\,
+n,
+",
+,,
+ ,
+",
+4,
+",
+:,
+ ,
+",
+i,
+s,
+t,
+a,
+t,
+_,
+p,
+r,
+o,
+v,
+i,
+n,
+c,
+e,
+_,
+p,
+r,
+c,
+o,
+d,
+e,
+ ,
+:,
+ ,
+o,
+b,
+j,
+e,
+c,
+t,
+\,
+n,
+",
+}
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Check {'file_extension': csv}
+26-08-2020 13:04:15 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

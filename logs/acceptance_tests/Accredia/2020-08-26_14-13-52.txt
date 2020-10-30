@@ -1,0 +1,27 @@
+26-08-2020 14:13:54 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Test column constraints
+26-08-2020 14:13:54 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test columns max length
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"fiscalcode": "19", "annomese": "6", "regulation": "50", "id_istat_province": "None", "istat_province_prcode": "2"}
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test columns nullable condition
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"fiscalcode": "False", "annomese": "True", "regulation": "True", "id_istat_province": "False", "istat_province_prcode": "True"}
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test column number
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Check {'column_number': 5}
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test column types
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"fiscalcode": "object", "annomese": "object", "regulation": "object", "id_istat_province": "int64", "istat_province_prcode": "object"}
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test file type
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Check {'file_extension': csv}
+26-08-2020 14:13:55 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

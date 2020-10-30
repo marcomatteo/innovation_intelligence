@@ -1,0 +1,41 @@
+22-07-2020 17:04:34 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_constraints) Certificate column constraints... 
+22-07-2020 17:04:34 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_constraints) Test OK
+
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 11,
+1 : 2,
+2 : 10,
+3 : 5,
+
+
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : False,
+
+
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Certificate 4 column number
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+0 : object,
+1 : int64,
+2 : datetime64[ns],
+3 : object,
+
+
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Certificate csv file extension
+22-07-2020 17:04:36 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

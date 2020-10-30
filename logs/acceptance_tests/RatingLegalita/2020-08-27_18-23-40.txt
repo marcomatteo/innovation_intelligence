@@ -1,0 +1,44 @@
+27-08-2020 18:23:43 DEBUG __main__ (setUpClass) Column constraints:
+	Columns(nome='Procedimento', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='Codice fiscale', tipologia=dtype('O'), lunghezza=11, nullable=True, pk=False),
+	Columns(nome='Sede Legale', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Società', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Data Decisione', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Esito', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='Rating', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='Scadenza  Revoca Annullamento Sospensione', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False)
+
+27-08-2020 18:23:43 DEBUG __main__ (setUpClass) Column number constrain: 8
+27-08-2020 18:23:43 DEBUG __main__ (setUpClass) File type extension: xlsx
+27-08-2020 18:23:43 DEBUG __main__ (setUpClass) Data Provider:
+DataProvider(file_sheet_name=0, inTest=False, file_path=data/RatingLegalita/, file_parser=Parser(file_path=data/RatingLegalita/27mar2020.xlsx, file_ext=xlsx), df_shape=(315, 8), column_types={'Procedimento': dtype('O'), 'Codice fiscale': dtype('O'), 'Sede Legale': dtype('O'), 'Società': dtype('O'), 'Data Decisione': dtype('<M8[ns]'), 'Esito': dtype('O'), 'Rating': dtype('O'), 'Scadenza  Revoca Annullamento Sospensione': dtype('O')})
+
+
+27-08-2020 18:23:43 DEBUG __main__ (setUpClass) Begin tests:
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Test column constraints
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Test OK
+
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test columns max length
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"Procedimento": "20", "Codice fiscale": "11", "Sede Legale": "None", "Societ\u00e0": "None", "Data Decisione": "None", "Esito": "50", "Rating": "50", "Scadenza  Revoca Annullamento Sospensione": "None"}
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test columns nullable condition
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"Procedimento": "True", "Codice fiscale": "True", "Sede Legale": "True", "Societ\u00e0": "True", "Data Decisione": "True", "Esito": "True", "Rating": "True", "Scadenza  Revoca Annullamento Sospensione": "True"}
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test column number
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Check {'column_number': 8}
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test column types
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"Procedimento": "object", "Codice fiscale": "object", "Sede Legale": "object", "Societ\u00e0": "object", "Data Decisione": "datetime64[ns]", "Esito": "object", "Rating": "object", "Scadenza  Revoca Annullamento Sospensione": "datetime64[ns]"}
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test file type
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Check {'file_extension': xlsx}
+27-08-2020 18:23:43 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

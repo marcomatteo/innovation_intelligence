@@ -1,0 +1,79 @@
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Certificate column constraints... 
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Found duplicates for column_constraints
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) 
+
+634       True
+990       True
+1051      True
+1205      True
+1405      True
+          ... 
+158984    True
+158987    True
+158995    True
+159031    True
+159043    True
+Length: 5531, dtype: bool
+
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 11,
+1 : 6,
+2 : 29,
+3 : 3,
+4 : 2,
+
+
+20-08-2020 12:21:14 ERROR tests.acceptance.acceptance_base_class (test_check_column_length) Wrong length for fiscalcode column.Expected 19 
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 96, in test_check_column_length
+    expected_column_max_length[i]
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1257, in assertGreaterEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: 11 not greater than or equal to 19
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+20-08-2020 12:21:14 ERROR tests.acceptance.acceptance_base_class (test_check_column_length) Wrong length for regulation column.Expected 50 
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 96, in test_check_column_length
+    expected_column_max_length[i]
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1257, in assertGreaterEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: 29 not greater than or equal to 50
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+20-08-2020 12:21:14 ERROR tests.acceptance.acceptance_base_class (test_check_column_length) Found wrong column lengths for fiscalcode, regulation columns
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 110, in test_check_column_length
+    self.assertTrue(len(invalid_column_list) == 0)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 705, in assertTrue
+    raise self.failureException(msg)
+AssertionError: False is not true
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : False,
+4 : False,
+
+
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Certificate 5 column number
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+0 : object,
+1 : object,
+2 : object,
+3 : int64,
+4 : object,
+
+
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Certificate csv file extension
+20-08-2020 12:21:14 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

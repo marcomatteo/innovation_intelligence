@@ -1,0 +1,40 @@
+27-10-2020 17:02:54 DEBUG Accredia (setUpClass) Column constraints:
+	Columns(nome='fiscalcode', tipologia=dtype('O'), lunghezza=19, nullable=False, pk=True),
+	Columns(nome='annomese', tipologia=dtype('O'), lunghezza=6, nullable=True, pk=False),
+	Columns(nome='regulation', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=True),
+	Columns(nome='id_istat_province', tipologia=dtype('int64'), lunghezza=None, nullable=False, pk=False),
+	Columns(nome='istat_province_prcode', tipologia=dtype('O'), lunghezza=2, nullable=True, pk=True)
+
+27-10-2020 17:02:54 DEBUG Accredia (setUpClass) Column number constrain: 5
+27-10-2020 17:02:54 DEBUG Accredia (setUpClass) File type extension: csv
+27-10-2020 17:02:54 DEBUG Accredia (setUpClass) Data Provider:
+DataProvider(file_parser_sep=|, inTest=False, file_path=data/Accredia/, file_parser=Parser(file_path=data/Accredia/Accredia_file_fonte.csv, file_ext=csv), df_shape=(12364, 5), column_types={'fiscalcode': dtype('O'), 'annomese': dtype('O'), 'regulation': dtype('O'), 'id_istat_province': dtype('O'), 'istat_province_prcode': dtype('O')})
+
+
+27-10-2020 17:02:54 DEBUG Accredia (setUpClass) Begin tests:
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_length) Test columns max length
+27-10-2020 17:02:54 DEBUG Accredia (log_debug_data) Check {"fiscalcode": "19", "annomese": "6", "regulation": "50", "id_istat_province": "None", "istat_province_prcode": "2"}
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_length) Subtest OK
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_length) Subtest OK
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_length) Subtest OK
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_length) Subtest OK
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_length) Test OK
+
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_nullables) Test columns nullable condition
+27-10-2020 17:02:54 DEBUG Accredia (log_debug_data) Check {"fiscalcode": "False", "annomese": "True", "regulation": "True", "id_istat_province": "False", "istat_province_prcode": "True"}
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_nullables) Subtest OK
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_nullables) Subtest OK
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_nullables) Test OK
+
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_number) Test column number
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_number) Check {'column_number': 5}
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_number) Test OK
+
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_types) Test column types
+27-10-2020 17:02:54 DEBUG Accredia (log_debug_data) Check {"fiscalcode": "object", "annomese": "object", "regulation": "object", "id_istat_province": "int64", "istat_province_prcode": "object"}
+27-10-2020 17:02:54 DEBUG Accredia (test_check_column_types) Test OK
+
+27-10-2020 17:02:54 DEBUG Accredia (test_check_file_extension) Test file type
+27-10-2020 17:02:54 DEBUG Accredia (test_check_file_extension) Check {'file_extension': csv}
+27-10-2020 17:02:54 DEBUG Accredia (test_check_file_extension) Test OK
+

@@ -1,0 +1,46 @@
+27-08-2020 18:07:41 DEBUG __main__ (setUpClass) Column constraints:
+	Columns(nome='c fiscale', tipologia=dtype('O'), lunghezza=11, nullable=False, pk=False),
+	Columns(nome='pv', tipologia=dtype('O'), lunghezza=6, nullable=True, pk=False),
+	Columns(nome='rea', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome='loc', tipologia=dtype('int64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='imp att', tipologia=dtype('O'), lunghezza=1, nullable=True, pk=False),
+	Columns(nome='ateco 2007', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome='descrizione ateco 2007', tipologia=dtype('O'), lunghezza=200, nullable=True, pk=False)
+
+27-08-2020 18:07:41 DEBUG __main__ (setUpClass) Column number constrain: 7
+27-08-2020 18:07:41 DEBUG __main__ (setUpClass) File type extension: xlsx
+27-08-2020 18:07:41 DEBUG __main__ (setUpClass) Data Provider:
+DataProvider(file_sheet_name=2, inTest=False, file_path=data/Infocamere/, file_parser=Parser(file_path=data/Infocamere/Infocamere2020.xlsx, file_ext=xlsx), df_shape=(96201, 7), column_types={'c fiscale': dtype('O'), 'pv': dtype('O'), 'rea': dtype('O'), 'loc': dtype('O'), 'imp att': dtype('O'), 'ateco 2007': dtype('O'), 'descrizione ateco 2007': dtype('O')})
+
+
+27-08-2020 18:07:41 DEBUG __main__ (setUpClass) Begin tests:
+27-08-2020 18:07:41 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Test column constraints
+27-08-2020 18:07:41 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Test OK
+
+27-08-2020 18:07:41 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test columns max length
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"c fiscale": "11", "pv": "6", "rea": "10", "loc": "None", "imp att": "1", "ateco 2007": "10", "descrizione ateco 2007": "200"}
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test columns nullable condition
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"c fiscale": "False", "pv": "True", "rea": "True", "loc": "True", "imp att": "True", "ateco 2007": "True", "descrizione ateco 2007": "True"}
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test column number
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Check {'column_number': 7}
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test column types
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"c fiscale": "object", "pv": "object", "rea": "object", "loc": "int64", "imp att": "object", "ateco 2007": "object", "descrizione ateco 2007": "object"}
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test file type
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Check {'file_extension': xlsx}
+27-08-2020 18:07:43 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

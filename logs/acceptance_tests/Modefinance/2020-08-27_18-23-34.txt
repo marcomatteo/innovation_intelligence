@@ -1,0 +1,41 @@
+27-08-2020 18:23:35 DEBUG __main__ (setUpClass) Column constraints:
+	Columns(nome='fiscal_code', tipologia=dtype('O'), lunghezza=19, nullable=False, pk=True),
+	Columns(nome='final_rank', tipologia=dtype('int64'), lunghezza=6, nullable=True, pk=False),
+	Columns(nome='evaluation_date', tipologia=dtype('<M8[ns]'), lunghezza=20, nullable=True, pk=True),
+	Columns(nome='is_consolidated', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False)
+
+27-08-2020 18:23:35 DEBUG __main__ (setUpClass) Column number constrain: 4
+27-08-2020 18:23:35 DEBUG __main__ (setUpClass) File type extension: csv
+27-08-2020 18:23:35 DEBUG __main__ (setUpClass) Data Provider:
+DataProvider(file_parser_sep=;, inTest=False, file_path=data/Modefinance/, file_parser=Parser(file_path=data/Modefinance/modefinance_09_04_2020.csv, file_ext=csv), df_shape=(79835, 4), column_types={'fiscal_code': dtype('O'), 'final_rank': dtype('O'), 'evaluation_date': dtype('O'), 'is_consolidated': dtype('O')})
+
+
+27-08-2020 18:23:35 DEBUG __main__ (setUpClass) Begin tests:
+27-08-2020 18:23:35 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Test column constraints
+27-08-2020 18:23:35 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Test OK
+
+27-08-2020 18:23:35 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test columns max length
+27-08-2020 18:23:35 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"fiscal_code": "19", "final_rank": "6", "evaluation_date": "20", "is_consolidated": "10"}
+27-08-2020 18:23:35 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:35 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:35 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:35 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:35 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+27-08-2020 18:23:35 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test columns nullable condition
+27-08-2020 18:23:36 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"fiscal_code": "False", "final_rank": "True", "evaluation_date": "True", "is_consolidated": "True"}
+27-08-2020 18:23:36 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+27-08-2020 18:23:36 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+27-08-2020 18:23:36 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test column number
+27-08-2020 18:23:36 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Check {'column_number': 4}
+27-08-2020 18:23:36 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+27-08-2020 18:23:36 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test column types
+27-08-2020 18:23:36 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"fiscal_code": "object", "final_rank": "int64", "evaluation_date": "datetime64[ns]", "is_consolidated": "object"}
+27-08-2020 18:23:36 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+27-08-2020 18:23:36 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test file type
+27-08-2020 18:23:36 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Check {'file_extension': csv}
+27-08-2020 18:23:36 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test OK
+
