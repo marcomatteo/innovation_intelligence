@@ -94,7 +94,7 @@ class AnagraficaInfocamere(Infocamere):
         La pre-elaborazione consiste nel controllare la presenza della colonna
         'Cessazione artigiana'. 
         """
-        last_column = self.df.columns[-1]
+        last_column = self.df.columns[-1] #TODO: da risolvere e far corrispondere
 
         if (last_column != 'pec') | ('Cessazione artigiana' in self.df.columns):
             logger.debug("Pre-elaborazione file di Infocamere...")
