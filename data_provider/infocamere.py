@@ -222,6 +222,16 @@ class BilanciInfocamere(Infocamere):
         self.column_constraints[1] = True
         self.column_constraints[3] = True
 
+    def drop_bs(self, year: int):
+        """
+        Drop the balance sheets with "Anno" == year
+
+        Args:
+            year (int): anno di bilancio da eliminare
+        """
+        #TODO: implementare filtro su righe di anni di bilancio 2019
+        pass
+
 
 class AtecoInfocamere(Infocamere):
 
