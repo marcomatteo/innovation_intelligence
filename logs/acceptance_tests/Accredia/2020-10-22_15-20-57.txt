@@ -1,0 +1,14 @@
+22-10-2020 15:20:59 DEBUG Accredia (setUpClass) Column constraints:
+	Columns(nome='fiscalcode', tipologia=dtype('O'), lunghezza=19, nullable=False, pk=True),
+	Columns(nome='annomese', tipologia=dtype('O'), lunghezza=6, nullable=True, pk=False),
+	Columns(nome='regulation', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=True),
+	Columns(nome='id_istat_province', tipologia=dtype('int64'), lunghezza=None, nullable=False, pk=False),
+	Columns(nome='istat_province_prcode', tipologia=dtype('O'), lunghezza=2, nullable=True, pk=True)
+
+22-10-2020 15:20:59 DEBUG Accredia (setUpClass) Column number constrain: 5
+22-10-2020 15:20:59 DEBUG Accredia (setUpClass) File type extension: csv
+22-10-2020 15:20:59 DEBUG Accredia (setUpClass) Data Provider:
+DataProvider(file_parser_sep=|, inTest=False, file_path=data/Accredia/, file_parser=Parser(file_path=data/Accredia/Accredia2020.csv, file_ext=csv), df_shape=(12364, 5), column_types={'fiscalcode': dtype('O'), 'annomese': dtype('O'), 'regulation': dtype('O'), 'id_istat_province': dtype('O'), 'istat_province_prcode': dtype('O')})
+
+
+22-10-2020 15:20:59 DEBUG Accredia (setUpClass) Begin tests:

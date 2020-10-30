@@ -1,0 +1,4 @@
+24-08-2020 17:09:05 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Certificate column constraints... 
+24-08-2020 17:09:05 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Certificate csv file extension
+24-08-2020 17:09:05 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

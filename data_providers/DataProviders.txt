@@ -1,0 +1,3 @@
+Every data provider has a class, for example class Accredia.
+
+Every data provider class inherit from the class DataProvider the full path for the source files.

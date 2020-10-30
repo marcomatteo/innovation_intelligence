@@ -1,0 +1,84 @@
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Certificate column constraints... 
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 7,
+1 : 11,
+2 : 35,
+3 : 84,
+4 : 19,
+5 : 22,
+6 : 4,
+7 : 19,
+
+
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : False,
+4 : False,
+5 : False,
+6 : True,
+7 : False,
+
+
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Certificate 8 column number
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+0 : object,
+1 : object,
+2 : object,
+3 : object,
+4 : datetime64[ns],
+5 : object,
+6 : object,
+7 : object,
+
+
+20-08-2020 12:13:22 ERROR tests.acceptance.acceptance_base_class (test_check_column_types) Wrong column types:
+0 : object,
+1 : object,
+2 : object,
+3 : object,
+4 : datetime64[ns],
+5 : object,
+6 : object,
+7 : object,
+
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 66, in test_check_column_types
+    self.assertEqual(expected_column_types, cert_column_types)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 852, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1058, in assertListEqual
+    self.assertSequenceEqual(list1, list2, msg, seq_type=list)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1040, in assertSequenceEqual
+    self.fail(msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: Lists differ: [dtyp[40 chars]'), dtype('<M8[ns]'), dtype('O'), dtype('O'), dtype('<M8[ns]')] != [dtyp[40 chars]'), dtype('<M8[ns]'), dtype('O'), dtype('O'), dtype('O')]
+
+First differing element 7:
+dtype('<M8[ns]')
+dtype('O')
+
+  [dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('<M8[ns]'),
+   dtype('O'),
+   dtype('O'),
+-  dtype('<M8[ns]')]
++  dtype('O')]
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Certificate xlsx file extension
+20-08-2020 12:13:22 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

@@ -1,0 +1,52 @@
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Certificate column constraints... 
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Test OK
+
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 7,
+1 : 11,
+2 : 35,
+3 : 84,
+4 : 19,
+5 : 22,
+6 : 4,
+7 : 19,
+
+
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : False,
+4 : False,
+5 : False,
+6 : True,
+7 : False,
+
+
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Certificate 8 column number
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+0 : object,
+1 : object,
+2 : object,
+3 : object,
+4 : datetime64[ns],
+5 : object,
+6 : object,
+7 : datetime64[ns],
+
+
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Certificate xlsx file extension
+20-08-2020 16:41:00 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

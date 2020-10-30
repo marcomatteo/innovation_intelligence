@@ -1,0 +1,54 @@
+27-08-2020 18:09:39 DEBUG __main__ (setUpClass) Column constraints:
+	Columns(nome='c fiscale', tipologia=dtype('O'), lunghezza=11, nullable=False, pk=True),
+	Columns(nome='cia', tipologia=dtype('O'), lunghezza=6, nullable=False, pk=True),
+	Columns(nome='rea', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome='anno', tipologia=dtype('int64'), lunghezza=None, nullable=False, pk=True),
+	Columns(nome='Totale attivo', tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Totale Immobilizzazioni immateriali', tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="Crediti esigibili entro l'esercizio successivo", tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Totale patrimonio netto', tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="Debiti esigibili entro l'esercizio successivo", tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Totale valore della produzione', tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Ricavi delle vendite', tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Totale Costi del Personale', tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Differenza tra valore e costi della produzione', tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Ammortamento Immobilizzazione Immateriali', tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Utile/perdita esercizio ultimi', tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='valore aggiunto', tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False)
+
+27-08-2020 18:09:39 DEBUG __main__ (setUpClass) Column number constrain: 16
+27-08-2020 18:09:39 DEBUG __main__ (setUpClass) File type extension: xlsx
+27-08-2020 18:09:39 DEBUG __main__ (setUpClass) Data Provider:
+DataProvider(file_sheet_name=1, inTest=False, file_path=data/Infocamere/, file_parser=Parser(file_path=data/Infocamere/Infocamere2020.xlsx, file_ext=xlsx), df_shape=(95652, 16), column_types={'c fiscale': dtype('O'), 'cia': dtype('O'), 'rea': dtype('O'), 'anno': dtype('O'), 'Totale attivo': dtype('O'), 'Totale Immobilizzazioni immateriali': dtype('O'), "Crediti esigibili entro l'esercizio successivo": dtype('O'), 'Totale patrimonio netto': dtype('O'), "Debiti esigibili entro l'esercizio successivo": dtype('O'), 'Totale valore della produzione': dtype('O'), 'Ricavi delle vendite': dtype('O'), 'Totale Costi del Personale': dtype('O'), 'Differenza tra valore e costi della produzione': dtype('O'), 'Ammortamento Immobilizzazione Immateriali': dtype('O'), 'Utile/perdita esercizio ultimi': dtype('O'), 'valore aggiunto': dtype('O')})
+
+
+27-08-2020 18:09:39 DEBUG __main__ (setUpClass) Begin tests:
+27-08-2020 18:09:39 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Test column constraints
+27-08-2020 18:09:39 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Test OK
+
+27-08-2020 18:09:39 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test columns max length
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"c fiscale": "11", "cia": "6", "rea": "10", "anno": "None", "Totale attivo": "None", "Totale Immobilizzazioni immateriali": "None", "Crediti esigibili entro l'esercizio successivo": "None", "Totale patrimonio netto": "None", "Debiti esigibili entro l'esercizio successivo": "None", "Totale valore della produzione": "None", "Ricavi delle vendite": "None", "Totale Costi del Personale": "None", "Differenza tra valore e costi della produzione": "None", "Ammortamento Immobilizzazione Immateriali": "None", "Utile/perdita esercizio ultimi": "None", "valore aggiunto": "None"}
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test columns nullable condition
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"c fiscale": "False", "cia": "False", "rea": "True", "anno": "False", "Totale attivo": "True", "Totale Immobilizzazioni immateriali": "True", "Crediti esigibili entro l'esercizio successivo": "True", "Totale patrimonio netto": "True", "Debiti esigibili entro l'esercizio successivo": "True", "Totale valore della produzione": "True", "Ricavi delle vendite": "True", "Totale Costi del Personale": "True", "Differenza tra valore e costi della produzione": "True", "Ammortamento Immobilizzazione Immateriali": "True", "Utile/perdita esercizio ultimi": "True", "valore aggiunto": "True"}
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test column number
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Check {'column_number': 16}
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+27-08-2020 18:09:44 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test column types
+27-08-2020 18:09:45 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"c fiscale": "object", "cia": "object", "rea": "object", "anno": "int64", "Totale attivo": "float64", "Totale Immobilizzazioni immateriali": "float64", "Crediti esigibili entro l'esercizio successivo": "float64", "Totale patrimonio netto": "float64", "Debiti esigibili entro l'esercizio successivo": "float64", "Totale valore della produzione": "float64", "Ricavi delle vendite": "float64", "Totale Costi del Personale": "float64", "Differenza tra valore e costi della produzione": "float64", "Ammortamento Immobilizzazione Immateriali": "float64", "Utile/perdita esercizio ultimi": "float64", "valore aggiunto": "float64"}
+27-08-2020 18:09:45 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+27-08-2020 18:09:45 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test file type
+27-08-2020 18:09:45 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Check {'file_extension': xlsx}
+27-08-2020 18:09:45 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

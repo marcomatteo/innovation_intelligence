@@ -1,0 +1,515 @@
+22-07-2020 15:44:13 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_constraints) Certificate column constraints... 
+22-07-2020 15:44:13 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_constraints) Test OK
+
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 4,
+1 : 173,
+2 : 10,
+3 : 13,
+4 : 15,
+5 : 800,
+6 : 7,
+7 : 16,
+8 : 300,
+9 : 1,
+10 : 30,
+11 : 2,
+12 : 2,
+13 : 2,
+14 : 6,
+15 : 21,
+16 : 65,
+17 : 65,
+18 : 2,
+
+
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : True,
+4 : True,
+5 : True,
+6 : False,
+7 : False,
+8 : False,
+9 : True,
+10 : True,
+11 : False,
+12 : False,
+13 : False,
+14 : False,
+15 : True,
+16 : True,
+17 : True,
+18 : False,
+
+
+22-07-2020 15:44:14 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Wrong setup for numero repertorio column.Expected nullable False not True 
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 139, in test_check_column_nullables
+    self.assertFalse(cert_check_nullables[num])
+  File "C:\Python\Python37\lib\unittest\case.py", line 699, in assertFalse
+    raise self.failureException(msg)
+AssertionError: True is not false
+22-07-2020 15:44:14 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Wrong setup for numero atto column.Expected nullable False not True 
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 139, in test_check_column_nullables
+    self.assertFalse(cert_check_nullables[num])
+  File "C:\Python\Python37\lib\unittest\case.py", line 699, in assertFalse
+    raise self.failureException(msg)
+AssertionError: True is not false
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+22-07-2020 15:44:14 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Found wrong column nullables for numero repertorio, numero atto columns
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 151, in test_check_column_nullables
+    self.assertTrue(len(invalid_column_list) == 0)
+  File "C:\Python\Python37\lib\unittest\case.py", line 705, in assertTrue
+    raise self.failureException(msg)
+AssertionError: False is not true
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Certificate 19 column number
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+0 : int64,
+1 : object,
+2 : datetime64[ns],
+3 : object,
+4 : object,
+5 : object,
+6 : object,
+7 : object,
+8 : object,
+9 : object,
+10 : object,
+11 : object,
+12 : object,
+13 : object,
+14 : object,
+15 : object,
+16 : object,
+17 : object,
+18 : object,
+
+
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Certificate xlsx file extension
+22-07-2020 15:44:14 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Test OK
+
+22-07-2020 15:44:14 DEBUG test_Infocamere_anagrafica (setUpClass) Inizio Test_AcceptanceInfocamereAnagrafica... 
+22-07-2020 15:44:14 DEBUG certificates.cert_Infocamere_anagrafica (__init__) Apertura Data Provider AnagraficaInfocamere... 
+22-07-2020 15:45:18 DEBUG test_Infocamere_anagrafica (test_acceptance_column_femminile) Check colonna Impresa Femminile
+22-07-2020 15:45:18 DEBUG test_Infocamere_anagrafica (test_acceptance_column_femminile) Values to check: 
+Esclusiva
+Forte
+Maggioritaria
+NO
+22-07-2020 15:45:18 DEBUG test_Infocamere_anagrafica (test_acceptance_column_giovanile) Check colonna Impresa Giovanile
+22-07-2020 15:45:19 DEBUG test_Infocamere_anagrafica (test_acceptance_column_giovanile) Values to check: 
+Esclusiva
+Forte
+Maggioritaria
+NO
+22-07-2020 15:45:19 DEBUG test_Infocamere_anagrafica (test_acceptance_column_innovativa) Check colonna PMI Innovativa
+22-07-2020 15:45:19 DEBUG test_Infocamere_anagrafica (test_acceptance_column_innovativa) Values to check: 
+NO
+SI
+22-07-2020 15:45:19 DEBUG test_Infocamere_anagrafica (test_acceptance_column_straniera) Check colonna Impresa Straniera
+22-07-2020 15:45:19 DEBUG test_Infocamere_anagrafica (test_acceptance_column_straniera) Values to check: 
+Esclusiva
+Forte
+Maggioritaria
+NO
+22-07-2020 15:45:19 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_constraints) Certificate column constraints... 
+22-07-2020 15:45:19 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_constraints) Test OK
+
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 11,
+1 : 6,
+2 : 20,
+3 : 7,
+4 : 6,
+5 : 9,
+6 : 9,
+7 : 2,
+8 : 50,
+9 : 20,
+10 : 19,
+11 : 19,
+12 : 19,
+13 : 19,
+14 : 19,
+15 : 19,
+16 : 19,
+17 : 19,
+18 : 19,
+19 : 200,
+20 : 50,
+21 : 5,
+22 : 5,
+23 : 35,
+24 : 25,
+25 : 30,
+26 : 4,
+27 : 2,
+28 : 5,
+29 : 11,
+30 : 15,
+31 : 14,
+32 : 200,
+33 : 23,
+34 : 15,
+35 : 50,
+36 : 38,
+37 : 38,
+38 : 27,
+39 : 0,
+40 : 2,
+41 : 2,
+42 : 2,
+43 : 2,
+44 : 13,
+45 : 13,
+46 : 13,
+47 : 64,
+
+
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : True,
+3 : False,
+4 : False,
+5 : True,
+6 : True,
+7 : False,
+8 : False,
+9 : False,
+10 : True,
+11 : True,
+12 : True,
+13 : True,
+14 : True,
+15 : True,
+16 : True,
+17 : True,
+18 : True,
+19 : False,
+20 : True,
+21 : True,
+22 : True,
+23 : True,
+24 : True,
+25 : True,
+26 : True,
+27 : True,
+28 : True,
+29 : True,
+30 : True,
+31 : True,
+32 : True,
+33 : True,
+34 : False,
+35 : True,
+36 : True,
+37 : True,
+38 : True,
+39 : True,
+40 : True,
+41 : True,
+42 : False,
+43 : False,
+44 : False,
+45 : False,
+46 : False,
+47 : True,
+
+
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Certificate 48 column number
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+0 : object,
+1 : object,
+2 : object,
+3 : object,
+4 : object,
+5 : object,
+6 : object,
+7 : object,
+8 : object,
+9 : object,
+10 : datetime64[ns],
+11 : datetime64[ns],
+12 : datetime64[ns],
+13 : datetime64[ns],
+14 : datetime64[ns],
+15 : datetime64[ns],
+16 : datetime64[ns],
+17 : datetime64[ns],
+18 : datetime64[ns],
+19 : object,
+20 : object,
+21 : object,
+22 : object,
+23 : object,
+24 : object,
+25 : object,
+26 : int64,
+27 : object,
+28 : int64,
+29 : object,
+30 : object,
+31 : float64,
+32 : object,
+33 : object,
+34 : object,
+35 : object,
+36 : object,
+37 : object,
+38 : object,
+39 : object,
+40 : object,
+41 : object,
+42 : object,
+43 : object,
+44 : object,
+45 : object,
+46 : object,
+47 : object,
+
+
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Certificate xlsx file extension
+22-07-2020 15:45:28 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Test OK
+
+22-07-2020 15:46:33 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_constraints) Certificate column constraints... 
+22-07-2020 15:46:33 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_constraints) Test OK
+
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 11,
+1 : 6,
+2 : 7,
+3 : 3,
+4 : 1,
+5 : 8,
+6 : 200,
+
+
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : False,
+4 : True,
+5 : True,
+6 : True,
+
+
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Certificate 7 column number
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+0 : object,
+1 : object,
+2 : object,
+3 : int64,
+4 : object,
+5 : object,
+6 : object,
+
+
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Certificate xlsx file extension
+22-07-2020 15:46:35 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Test OK
+
+22-07-2020 15:47:41 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_constraints) Certificate column constraints... 
+22-07-2020 15:47:41 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_constraints) Test OK
+
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 11,
+1 : 6,
+2 : 7,
+3 : 4,
+4 : 11,
+5 : 11,
+6 : 11,
+7 : 11,
+8 : 11,
+9 : 11,
+10 : 11,
+11 : 10,
+12 : 11,
+13 : 10,
+14 : 11,
+15 : 10,
+
+
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : False,
+4 : False,
+5 : False,
+6 : True,
+7 : False,
+8 : True,
+9 : False,
+10 : False,
+11 : False,
+12 : False,
+13 : False,
+14 : False,
+15 : False,
+
+
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Certificate 16 column number
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+0 : object,
+1 : object,
+2 : object,
+3 : int64,
+4 : float64,
+5 : float64,
+6 : float64,
+7 : float64,
+8 : float64,
+9 : float64,
+10 : float64,
+11 : float64,
+12 : float64,
+13 : float64,
+14 : float64,
+15 : float64,
+
+
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Certificate xlsx file extension
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Test OK
+
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_constraints) Certificate column constraints... 
+22-07-2020 15:47:47 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_constraints) Test OK
+
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 11,
+1 : 2,
+2 : 10,
+3 : 5,
+
+
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : False,
+
+
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Certificate 4 column number
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+0 : object,
+1 : int64,
+2 : datetime64[ns],
+3 : object,
+
+
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Certificate csv file extension
+22-07-2020 15:47:48 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

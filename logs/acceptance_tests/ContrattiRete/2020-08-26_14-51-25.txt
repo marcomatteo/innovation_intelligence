@@ -1,0 +1,91 @@
+26-08-2020 14:52:02 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) 
+Test column constraints
+26-08-2020 14:52:02 ERROR tests.acceptance.acceptance_base_class (test_check_column_constraints) 
+
+
+{"numero repertorio":{"1906":"FO-176969","1907":"FO-176969","1908":"FO-176969","2259":"VE-280060","2260":"VE-280060","2261":"VE-280060","2262":"VE-280060","2263":"VE-280060","2264":"VE-280060","2307":"15829","2308":"15829","2309":"15829","2310":"15829","2311":"15829","2312":"15829","2673":"VR-69197","3065":"PN-71475","3066":"PN-71475","3067":"PN-71475","3068":"PN-71475","3069":"PN-71475","3070":"PN-71475","3071":"UD-254947","3072":"UD-254947","3073":"UD-254947","3074":"UD-254947","3075":"UD-254947","3076":"UD-254947","3185":"15829","3186":"15829","3187":"15829","3188":"15829","3189":"15829","3190":"15829","3701":"70627","3702":"70627","3703":"70627","3704":"70627","3705":"70627","3706":"70627","3707":"70627"},"c.f.":{"1906":"00889390407","1907":"01892800432","1908":"04317470658","2259":"03068840275","2260":"04215690407","2261":"02008570398","2262":"03911140402","2263":"MRCGZN71A13G914Q","2264":"02728970308","2307":"05353151219","2308":"02847430424","2309":"01173150317","2310":"05945761210","2311":"08587121214","2312":"01859060939","2673":"00225220235","3065":"01366370938","3066":"03939810168","3067":"03429781200","3068":"01664090931","3069":"01348020304","3070":"01462230309","3071":"02360630301","3072":"00491260303","3073":"02310980301","3074":"02689940308","3075":"VRLLCU72B06L483G","3076":"ZMKTMK80A44Z219N","3185":"05353151219","3186":"02847430424","3187":"01173150317","3188":"05945761210","3189":"08587121214","3190":"01859060939","3701":"00916890247","3702":"01273640522","3703":"01497070415","3704":"01951701208","3705":"02107241206","3706":"02469721209","3707":"04022810370"}}
+
+26-08-2020 14:52:02 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Test columns max length
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) 
+Check {"progr.": "None", "denominazione contratto": "255", "data atto": "None", "numero repertorio": "50", "numero atto": "20", "oggetto": "8000", "n.rea": "10", "c.f.": "16", "denominazione impresa": "8000", "impresa di riferimento": "1", "comune": "50", "REG": "2", "PV": "2", "NG": "2", "codice ATECO 2007": "6", "settore attivita'": "50", "sezione attivita'": "8000", "attivita'": "8000", "SoggettoGiuridico": "2"}
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) 
+Test OK
+
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) 
+Test columns nullable condition
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) 
+Check {"progr.": "True", "denominazione contratto": "True", "data atto": "True", "numero repertorio": "False", "numero atto": "False", "oggetto": "True", "n.rea": "True", "c.f.": "False", "denominazione impresa": "True", "impresa di riferimento": "True", "comune": "True", "REG": "True", "PV": "True", "NG": "True", "codice ATECO 2007": "True", "settore attivita'": "True", "sezione attivita'": "True", "attivita'": "True", "SoggettoGiuridico": "True"}
+26-08-2020 14:52:03 ERROR tests.acceptance.acceptance_base_class (test_check_column_nullables) 
+True is not false
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 159, in test_check_column_nullables
+    self.assertFalse(cert_check_nullables[num])
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 699, in assertFalse
+    raise self.failureException(msg)
+AssertionError: True is not false
+26-08-2020 14:52:03 ERROR tests.acceptance.acceptance_base_class (test_check_column_nullables) 
+True is not false
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 159, in test_check_column_nullables
+    self.assertFalse(cert_check_nullables[num])
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 699, in assertFalse
+    raise self.failureException(msg)
+AssertionError: True is not false
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) 
+Subtest OK
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) 
+Test column number
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) 
+Check {'column_number': 19}
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) 
+Test OK
+
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) 
+Test column types
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) 
+Check {"progr.": "int64", "denominazione contratto": "object", "data atto": "datetime64[ns]", "numero repertorio": "object", "numero atto": "object", "oggetto": "object", "n.rea": "object", "c.f.": "object", "denominazione impresa": "object", "impresa di riferimento": "object", "comune": "object", "REG": "object", "PV": "object", "NG": "object", "codice ATECO 2007": "object", "settore attivita'": "object", "sezione attivita'": "object", "attivita'": "object", "SoggettoGiuridico": "object"}
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) 
+Test OK
+
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) 
+Test file type
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) 
+Check {'file_extension': xlsx}
+26-08-2020 14:52:03 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) 
+Test OK
+

@@ -1,0 +1,128 @@
+26-08-2020 10:30:02 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Certificate column constraints... 
+26-08-2020 10:30:03 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Test OK
+
+26-08-2020 10:30:10 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 11,
+1 : 6,
+2 : 7,
+3 : 4,
+4 : 11,
+5 : 11,
+6 : 11,
+7 : 11,
+8 : 11,
+9 : 11,
+10 : 11,
+11 : 10,
+12 : 11,
+13 : 10,
+14 : 11,
+15 : 10,
+
+
+26-08-2020 10:30:10 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+26-08-2020 10:30:10 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+26-08-2020 10:30:10 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+26-08-2020 10:30:10 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+26-08-2020 10:30:11 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : False,
+4 : False,
+5 : False,
+6 : True,
+7 : False,
+8 : True,
+9 : False,
+10 : False,
+11 : False,
+12 : False,
+13 : False,
+14 : False,
+15 : False,
+
+
+26-08-2020 10:30:11 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+26-08-2020 10:30:11 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+26-08-2020 10:30:11 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+26-08-2020 10:30:11 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test OK
+
+26-08-2020 10:30:11 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Certificate 16 column number
+26-08-2020 10:30:11 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+26-08-2020 10:30:11 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+0 : object,
+1 : object,
+2 : object,
+3 : int64,
+4 : float64,
+5 : float64,
+6 : float64,
+7 : float64,
+8 : float64,
+9 : float64,
+10 : float64,
+11 : float64,
+12 : float64,
+13 : float64,
+14 : float64,
+15 : float64,
+
+
+26-08-2020 10:30:11 ERROR tests.acceptance.acceptance_base_class (test_check_column_types) Wrong column types:
+0 : object,
+1 : object,
+2 : object,
+3 : int64,
+4 : float64,
+5 : float64,
+6 : float64,
+7 : float64,
+8 : float64,
+9 : float64,
+10 : float64,
+11 : float64,
+12 : float64,
+13 : float64,
+14 : float64,
+15 : float64,
+
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 66, in test_check_column_types
+    self.assertEqual(cert_column_types, expected_column_types)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 852, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1058, in assertListEqual
+    self.assertSequenceEqual(list1, list2, msg, seq_type=list)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1040, in assertSequenceEqual
+    self.fail(msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: Lists differ: [dtyp[22 chars]ype('O'), dtype('int64'), dtype('float64'), dt[190 chars]64')] != [dtyp[22 chars]ype('int64'), dtype('float64'), dtype('float64[196 chars]64')]
+
+First differing element 2:
+dtype('O')
+dtype('int64')
+
+  [dtype('O'),
+-  dtype('O'),
+   dtype('O'),
+   dtype('int64'),
+   dtype('float64'),
+   dtype('float64'),
+   dtype('float64'),
+   dtype('float64'),
+   dtype('float64'),
+   dtype('float64'),
+   dtype('float64'),
+   dtype('float64'),
+   dtype('float64'),
+   dtype('float64'),
+   dtype('float64'),
++  dtype('float64'),
+   dtype('float64')]
+26-08-2020 10:30:11 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Certificate xlsx file extension
+26-08-2020 10:30:11 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

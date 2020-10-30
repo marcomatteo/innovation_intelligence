@@ -1,5 +1,5 @@
 # Ignore everything
-*
+# *
 
 # all files that starts with . and _
 .*
@@ -25,3 +25,5 @@ _*
 /data
 
 app.py
+__pycache__
+.vscode/

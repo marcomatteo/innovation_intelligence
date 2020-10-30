@@ -1,0 +1,264 @@
+14-05-2020 11:47:26 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IHDR' 16 13
+14-05-2020 11:47:26 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'tEXt' 41 25
+14-05-2020 11:47:26 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'iTXt' 78 1031
+14-05-2020 11:47:26 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IDAT' 1121 13337
+14-05-2020 11:47:26 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IHDR' 16 13
+14-05-2020 11:47:26 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'tEXt' 41 25
+14-05-2020 11:47:26 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IDAT' 78 2534
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IHDR' 16 13
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'tEXt' 41 25
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'iTXt' 78 1031
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IDAT' 1121 13337
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IHDR' 16 13
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'tEXt' 41 25
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IDAT' 78 2534
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IHDR' 16 13
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'tEXt' 41 25
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'iTXt' 78 1031
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IDAT' 1121 13337
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IHDR' 16 13
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'tEXt' 41 25
+14-05-2020 11:47:53 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IDAT' 78 2534
+14-05-2020 11:48:30 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IHDR' 16 13
+14-05-2020 11:48:30 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'tEXt' 41 25
+14-05-2020 11:48:30 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'iTXt' 78 1031
+14-05-2020 11:48:30 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IDAT' 1121 13337
+14-05-2020 11:48:30 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IHDR' 16 13
+14-05-2020 11:48:30 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'tEXt' 41 25
+14-05-2020 11:48:30 DEBUG PIL.PngImagePlugin (call) 
+STREAM b'IDAT' 78 2534
+14-05-2020 11:48:30 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) 
+Certificate column lengths:
+0 : 5,
+1 : 4,
+2 : 173,
+3 : 10,
+4 : 13,
+5 : 15,
+6 : 800,
+7 : 7,
+8 : 16,
+9 : 300,
+10 : 1,
+11 : 30,
+12 : 2,
+13 : 2,
+14 : 2,
+15 : 6,
+16 : 21,
+17 : 65,
+18 : 65,
+19 : 2
+14-05-2020 11:48:30 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_length) 
+Wrong length for oggetto column.Expected 10 
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 89, in test_check_column_length
+    cert_check_length[i]
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1257, in assertGreaterEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: 10 not greater than or equal to 800
+14-05-2020 11:48:30 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_length) 
+Wrong length for denominazione impresa column.Expected 1 
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 89, in test_check_column_length
+    cert_check_length[i]
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1257, in assertGreaterEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: 1 not greater than or equal to 300
+14-05-2020 11:48:30 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_length) 
+Wrong length for comune column.Expected 2 
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 89, in test_check_column_length
+    cert_check_length[i]
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1257, in assertGreaterEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: 2 not greater than or equal to 30
+14-05-2020 11:48:30 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_length) 
+Wrong length for attivita' column.Expected 2 
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 89, in test_check_column_length
+    cert_check_length[i]
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1257, in assertGreaterEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: 2 not greater than or equal to 65
+14-05-2020 11:48:30 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) 
+Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : False,
+4 : True,
+5 : True,
+6 : True,
+7 : True,
+8 : True,
+9 : True,
+10 : True,
+11 : True,
+12 : True,
+13 : True,
+14 : True,
+15 : True,
+16 : True,
+17 : True,
+18 : True,
+19 : False
+14-05-2020 11:48:30 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_nullables) 
+Wrong setup for numero repertorio column.Expected nullable False not True 
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 128, in test_check_column_nullables
+    self.assertFalse(cert_check_nullables[num])
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 699, in assertFalse
+    raise self.failureException(msg)
+AssertionError: True is not false
+14-05-2020 11:48:30 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_nullables) 
+Wrong setup for n.rea column.Expected nullable False not True 
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 128, in test_check_column_nullables
+    self.assertFalse(cert_check_nullables[num])
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 699, in assertFalse
+    raise self.failureException(msg)
+AssertionError: True is not false
+14-05-2020 11:48:30 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_nullables) 
+Found wrong column nullables for numero repertorio, n.rea columns
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 138, in test_check_column_nullables
+    self.assertTrue(len(invalid_column_list) == 0)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 705, in assertTrue
+    raise self.failureException(msg)
+AssertionError: False is not true
+14-05-2020 11:48:30 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) 
+Certificate 20 column number
+14-05-2020 11:48:30 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_number) 
+Wrong column number: 20
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 41, in test_check_column_number
+    self.assertEqual(expected_column_number, cert_column_number)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 852, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 845, in _baseAssertEqual
+    raise self.failureException(msg)
+AssertionError: 19 != 20
+14-05-2020 11:48:30 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) 
+Certificate column types: 
+0 : int64,
+1 : int64,
+2 : object,
+3 : object,
+4 : object,
+5 : object,
+6 : object,
+7 : object,
+8 : object,
+9 : object,
+10 : object,
+11 : object,
+12 : object,
+13 : object,
+14 : object,
+15 : object,
+16 : object,
+17 : object,
+18 : object,
+19 : object
+14-05-2020 11:48:30 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_types) 
+Wrong column types:
+0 : int64,
+1 : int64,
+2 : object,
+3 : object,
+4 : object,
+5 : object,
+6 : object,
+7 : object,
+8 : object,
+9 : object,
+10 : object,
+11 : object,
+12 : object,
+13 : object,
+14 : object,
+15 : object,
+16 : object,
+17 : object,
+18 : object,
+19 : object
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 61, in test_check_column_types
+    self.assertEqual(expected_column_types, cert_column_types)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 852, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1058, in assertListEqual
+    self.assertSequenceEqual(list1, list2, msg, seq_type=list)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1040, in assertSequenceEqual
+    self.fail(msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: Lists differ: [dtyp[14 chars]ype('O'), dtype('<M8[ns]'), dtype('O'), dtype([168 chars]'O')] != [dtyp[14 chars]ype('int64'), dtype('O'), dtype('O'), dtype('O[178 chars]'O')]
+
+First differing element 1:
+dtype('O')
+dtype('int64')
+
+Second list contains 1 additional elements.
+First extra element 19:
+dtype('O')
+
+  [dtype('int64'),
++  dtype('int64'),
+   dtype('O'),
+-  dtype('<M8[ns]'),
++  dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O'),
+   dtype('O')]
+14-05-2020 11:48:30 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) 
+Certificate xlsx file extension

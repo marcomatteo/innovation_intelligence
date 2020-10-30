@@ -1,0 +1,257 @@
+27-08-2020 18:23:27 DEBUG __main__ (setUpClass) Column constraints:
+	Columns(nome='progr.', tipologia=dtype('int64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='denominazione contratto', tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='data atto', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='numero repertorio', tipologia=dtype('O'), lunghezza=50, nullable=False, pk=True),
+	Columns(nome='numero atto', tipologia=dtype('O'), lunghezza=20, nullable=False, pk=False),
+	Columns(nome='oggetto', tipologia=dtype('O'), lunghezza=8000, nullable=True, pk=False),
+	Columns(nome='n.rea', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome='c.f.', tipologia=dtype('O'), lunghezza=16, nullable=False, pk=True),
+	Columns(nome='denominazione impresa', tipologia=dtype('O'), lunghezza=8000, nullable=True, pk=False),
+	Columns(nome='impresa di riferimento', tipologia=dtype('O'), lunghezza=1, nullable=True, pk=False),
+	Columns(nome='comune', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='REG', tipologia=dtype('O'), lunghezza=2, nullable=True, pk=False),
+	Columns(nome='PV', tipologia=dtype('O'), lunghezza=2, nullable=True, pk=False),
+	Columns(nome='NG', tipologia=dtype('O'), lunghezza=2, nullable=True, pk=False),
+	Columns(nome='codice ATECO 2007', tipologia=dtype('O'), lunghezza=6, nullable=True, pk=False),
+	Columns(nome="settore attivita'", tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome="sezione attivita'", tipologia=dtype('O'), lunghezza=8000, nullable=True, pk=False),
+	Columns(nome="attivita'", tipologia=dtype('O'), lunghezza=8000, nullable=True, pk=False),
+	Columns(nome='SoggettoGiuridico', tipologia=dtype('O'), lunghezza=2, nullable=True, pk=False)
+
+27-08-2020 18:23:27 DEBUG __main__ (setUpClass) Column number constrain: 19
+27-08-2020 18:23:27 DEBUG __main__ (setUpClass) File type extension: xlsx
+27-08-2020 18:23:27 DEBUG __main__ (setUpClass) Data Provider:
+DataProvider(file_sheet_name=NuovoElenco, inTest=False, file_path=data/ContrattiRete/, file_parser=Parser(file_path=data/ContrattiRete/ContrattiReteSourceSample.xlsx, file_ext=xlsx), df_shape=(4499, 19), column_types={'progr.': dtype('O'), 'denominazione contratto': dtype('O'), 'data atto': dtype('O'), 'numero repertorio': dtype('O'), 'numero atto': dtype('O'), 'oggetto': dtype('O'), 'n.rea': dtype('O'), 'c.f.': dtype('O'), 'denominazione impresa': dtype('O'), 'impresa di riferimento': dtype('O'), 'comune': dtype('O'), 'REG': dtype('O'), 'PV': dtype('O'), 'NG': dtype('O'), 'codice ATECO 2007': dtype('O'), "settore attivita'": dtype('O'), "sezione attivita'": dtype('O'), "attivita'": dtype('O'), 'SoggettoGiuridico': dtype('O')})
+
+
+27-08-2020 18:23:27 DEBUG __main__ (setUpClass) Begin tests:
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_constraints) Test column constraints
+27-08-2020 18:23:27 ERROR tests.acceptance.acceptance_base_class (test_check_column_constraints) 
+
+{
+    "1906": {
+        "numero repertorio": "FO-176969",
+        "c.f.": "00889390407"
+    },
+    "1907": {
+        "numero repertorio": "FO-176969",
+        "c.f.": "01892800432"
+    },
+    "1908": {
+        "numero repertorio": "FO-176969",
+        "c.f.": "04317470658"
+    },
+    "2259": {
+        "numero repertorio": "VE-280060",
+        "c.f.": "03068840275"
+    },
+    "2260": {
+        "numero repertorio": "VE-280060",
+        "c.f.": "04215690407"
+    },
+    "2261": {
+        "numero repertorio": "VE-280060",
+        "c.f.": "02008570398"
+    },
+    "2262": {
+        "numero repertorio": "VE-280060",
+        "c.f.": "03911140402"
+    },
+    "2263": {
+        "numero repertorio": "VE-280060",
+        "c.f.": "MRCGZN71A13G914Q"
+    },
+    "2264": {
+        "numero repertorio": "VE-280060",
+        "c.f.": "02728970308"
+    },
+    "2307": {
+        "numero repertorio": "15829",
+        "c.f.": "05353151219"
+    },
+    "2308": {
+        "numero repertorio": "15829",
+        "c.f.": "02847430424"
+    },
+    "2309": {
+        "numero repertorio": "15829",
+        "c.f.": "01173150317"
+    },
+    "2310": {
+        "numero repertorio": "15829",
+        "c.f.": "05945761210"
+    },
+    "2311": {
+        "numero repertorio": "15829",
+        "c.f.": "08587121214"
+    },
+    "2312": {
+        "numero repertorio": "15829",
+        "c.f.": "01859060939"
+    },
+    "2673": {
+        "numero repertorio": "VR-69197",
+        "c.f.": "00225220235"
+    },
+    "3065": {
+        "numero repertorio": "PN-71475",
+        "c.f.": "01366370938"
+    },
+    "3066": {
+        "numero repertorio": "PN-71475",
+        "c.f.": "03939810168"
+    },
+    "3067": {
+        "numero repertorio": "PN-71475",
+        "c.f.": "03429781200"
+    },
+    "3068": {
+        "numero repertorio": "PN-71475",
+        "c.f.": "01664090931"
+    },
+    "3069": {
+        "numero repertorio": "PN-71475",
+        "c.f.": "01348020304"
+    },
+    "3070": {
+        "numero repertorio": "PN-71475",
+        "c.f.": "01462230309"
+    },
+    "3071": {
+        "numero repertorio": "UD-254947",
+        "c.f.": "02360630301"
+    },
+    "3072": {
+        "numero repertorio": "UD-254947",
+        "c.f.": "00491260303"
+    },
+    "3073": {
+        "numero repertorio": "UD-254947",
+        "c.f.": "02310980301"
+    },
+    "3074": {
+        "numero repertorio": "UD-254947",
+        "c.f.": "02689940308"
+    },
+    "3075": {
+        "numero repertorio": "UD-254947",
+        "c.f.": "VRLLCU72B06L483G"
+    },
+    "3076": {
+        "numero repertorio": "UD-254947",
+        "c.f.": "ZMKTMK80A44Z219N"
+    },
+    "3185": {
+        "numero repertorio": "15829",
+        "c.f.": "05353151219"
+    },
+    "3186": {
+        "numero repertorio": "15829",
+        "c.f.": "02847430424"
+    },
+    "3187": {
+        "numero repertorio": "15829",
+        "c.f.": "01173150317"
+    },
+    "3188": {
+        "numero repertorio": "15829",
+        "c.f.": "05945761210"
+    },
+    "3189": {
+        "numero repertorio": "15829",
+        "c.f.": "08587121214"
+    },
+    "3190": {
+        "numero repertorio": "15829",
+        "c.f.": "01859060939"
+    },
+    "3701": {
+        "numero repertorio": "70627",
+        "c.f.": "00916890247"
+    },
+    "3702": {
+        "numero repertorio": "70627",
+        "c.f.": "01273640522"
+    },
+    "3703": {
+        "numero repertorio": "70627",
+        "c.f.": "01497070415"
+    },
+    "3704": {
+        "numero repertorio": "70627",
+        "c.f.": "01951701208"
+    },
+    "3705": {
+        "numero repertorio": "70627",
+        "c.f.": "02107241206"
+    },
+    "3706": {
+        "numero repertorio": "70627",
+        "c.f.": "02469721209"
+    },
+    "3707": {
+        "numero repertorio": "70627",
+        "c.f.": "04022810370"
+    }
+}
+
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test columns max length
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"progr.": "None", "denominazione contratto": "255", "data atto": "None", "numero repertorio": "50", "numero atto": "20", "oggetto": "8000", "n.rea": "10", "c.f.": "16", "denominazione impresa": "8000", "impresa di riferimento": "1", "comune": "50", "REG": "2", "PV": "2", "NG": "2", "codice ATECO 2007": "6", "settore attivita'": "50", "sezione attivita'": "8000", "attivita'": "8000", "SoggettoGiuridico": "2"}
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Subtest OK
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_length) Test OK
+
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Test columns nullable condition
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"progr.": "True", "denominazione contratto": "True", "data atto": "True", "numero repertorio": "False", "numero atto": "False", "oggetto": "True", "n.rea": "True", "c.f.": "False", "denominazione impresa": "True", "impresa di riferimento": "True", "comune": "True", "REG": "True", "PV": "True", "NG": "True", "codice ATECO 2007": "True", "settore attivita'": "True", "sezione attivita'": "True", "attivita'": "True", "SoggettoGiuridico": "True"}
+27-08-2020 18:23:27 ERROR tests.acceptance.acceptance_base_class (test_check_column_nullables) True is not false
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 170, in test_check_column_nullables
+    self.assertFalse(cert_check_nullables[num])
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 699, in assertFalse
+    raise self.failureException(msg)
+AssertionError: True is not false
+27-08-2020 18:23:27 ERROR tests.acceptance.acceptance_base_class (test_check_column_nullables) True is not false
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 170, in test_check_column_nullables
+    self.assertFalse(cert_check_nullables[num])
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 699, in assertFalse
+    raise self.failureException(msg)
+AssertionError: True is not false
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_nullables) Subtest OK
+27-08-2020 18:23:27 ERROR tests.acceptance.acceptance_base_class (log_exeption_data) Check {"numero repertorio": "True", "numero atto": "True"}
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 184, in test_check_column_nullables
+    self.assertEqual(len(invalid_column_dict), 0)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 852, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 845, in _baseAssertEqual
+    raise self.failureException(msg)
+AssertionError: 2 != 0
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test column number
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Check {'column_number': 19}
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_number) Test OK
+
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test column types
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (log_debug_data) Check {"progr.": "int64", "denominazione contratto": "object", "data atto": "datetime64[ns]", "numero repertorio": "object", "numero atto": "object", "oggetto": "object", "n.rea": "object", "c.f.": "object", "denominazione impresa": "object", "impresa di riferimento": "object", "comune": "object", "REG": "object", "PV": "object", "NG": "object", "codice ATECO 2007": "object", "settore attivita'": "object", "sezione attivita'": "object", "attivita'": "object", "SoggettoGiuridico": "object"}
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_column_types) Test OK
+
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test file type
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Check {'file_extension': xlsx}
+27-08-2020 18:23:27 DEBUG tests.acceptance.acceptance_base_class (test_check_file_extension) Test OK
+

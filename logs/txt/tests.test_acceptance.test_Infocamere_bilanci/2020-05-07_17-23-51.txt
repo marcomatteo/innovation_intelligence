@@ -1,0 +1,136 @@
+07-05-2020 17:25:23 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_length) Certificate column lengths:
+0 : 11,
+1 : 6,
+2 : 7,
+3 : 4,
+4 : 11,
+5 : 11,
+6 : 11,
+7 : 11,
+8 : 11,
+9 : 11,
+10 : 11,
+11 : 10,
+12 : 11,
+13 : 10,
+14 : 11,
+15 : 10
+07-05-2020 17:25:23 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_length) Wrong length for cia column.Expected 2 
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 89, in test_check_column_length
+    cert_check_length[i]
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1257, in assertGreaterEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: 2 not greater than or equal to 6
+07-05-2020 17:25:23 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_length) Found wrong column lengths for cia columns
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 101, in test_check_column_length
+    self.assertTrue(len(invalid_column_list) == 0)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 705, in assertTrue
+    raise self.failureException(msg)
+AssertionError: False is not true
+07-05-2020 17:25:23 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_nullables) Certificate column nullables:
+0 : False,
+1 : False,
+2 : False,
+3 : False,
+4 : False,
+5 : False,
+6 : True,
+7 : False,
+8 : True,
+9 : False,
+10 : False,
+11 : False,
+12 : False,
+13 : False,
+14 : False,
+15 : False
+07-05-2020 17:25:23 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_number) Certificate 16 column number
+07-05-2020 17:25:23 DEBUG tests.test_acceptance.acceptance_base_class (test_check_column_types) Certificate column types: 
+0 : object,
+1 : object,
+2 : object,
+3 : object,
+4 : object,
+5 : object,
+6 : object,
+7 : object,
+8 : object,
+9 : object,
+10 : object,
+11 : object,
+12 : object,
+13 : object,
+14 : object,
+15 : object
+07-05-2020 17:25:23 ERROR tests.test_acceptance.acceptance_base_class (test_check_column_types) Wrong column types:
+0 : object,
+1 : object,
+2 : object,
+3 : object,
+4 : object,
+5 : object,
+6 : object,
+7 : object,
+8 : object,
+9 : object,
+10 : object,
+11 : object,
+12 : object,
+13 : object,
+14 : object,
+15 : object
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\test_acceptance\acceptance_base_class.py", line 61, in test_check_column_types
+    self.assertEqual(expected_column_types, cert_column_types)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 852, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1058, in assertListEqual
+    self.assertSequenceEqual(list1, list2, msg, seq_type=list)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1040, in assertSequenceEqual
+    self.fail(msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: Lists differ: [dtyp[34 chars]ype('int64'), dtype('float64'), dtype('float64[178 chars]64')] != [dtyp[34 chars]ype('O'), dtype('O'), dtype('O'), dtype('O'), [102 chars]'O')]
+
+First differing element 3:
+dtype('int64')
+dtype('O')
+
+  [dtype('O'),
+   dtype('O'),
+   dtype('O'),
+-  dtype('int64'),
+?         ^^^^^
+
++  dtype('O'),
+?         ^
+
+-  dtype('float64'),
+-  dtype('float64'),
+-  dtype('float64'),
+-  dtype('float64'),
+-  dtype('float64'),
+-  dtype('float64'),
+-  dtype('float64'),
+-  dtype('float64'),
+-  dtype('float64'),
+-  dtype('float64'),
+-  dtype('float64'),
+-  dtype('float64')]
++  dtype('O'),
++  dtype('O'),
++  dtype('O'),
++  dtype('O'),
++  dtype('O'),
++  dtype('O'),
++  dtype('O'),
++  dtype('O'),
++  dtype('O'),
++  dtype('O'),
++  dtype('O'),
++  dtype('O')]
+07-05-2020 17:25:23 DEBUG tests.test_acceptance.acceptance_base_class (test_check_file_extension) Certificate xlsx file extension
