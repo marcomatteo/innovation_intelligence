@@ -86,7 +86,8 @@ class AnagraficaInfocamere(Infocamere):
         self.column_constraints[1] = True
         self.column_constraints[4] = True
         
-        self.df = self.file_parser.open_file(sheet_name=self.sheet_name)
+        self.df = self.file_parser.open_file(
+            sheet_name=self.sheet_name, usecols=list(self.column_constraints.keys()))
 
     def check_file_is_preprocessed(self, cess_artigiana_col: str) -> bool:
         """
@@ -228,8 +229,13 @@ class BilanciInfocamere(Infocamere):
         Args:
             year (int): anno di bilancio da eliminare
         """
-        #TODO: implementare filtro su righe di anni di bilancio 2019
-        pass
+        cond = self.df.anno.isin([year for year in range(2010, year)])
+        self.df = self.df.loc[cond]
+        self.file_parser.write_new_sheet_into_file(
+            self.df, 
+            sheet_name=f"FRIULI dati storicizzati-{year}", 
+            datetime_format="DD/MM/YYYY")
+        return self.df
 
 
 class AtecoInfocamere(Infocamere):
