@@ -1,5 +1,6 @@
 from data_provider import DataProvider
 from file_parser import ParserXls
+# from utilities import create_logger
 
 import logging
 import pandas as pd
@@ -89,12 +90,10 @@ class AnagraficaInfocamere(Infocamere):
 
     def check_file_is_preprocessed(self, cess_artigiana_col: str) -> bool:
         """
-        Metodo per controllare se il file necessita di una pre-elaborazione.
-        La pre-elaborazione consiste nel controllare la presenza della colonna
-        'Cessazione artigiana'. 
+        Metodo per controllare se il file necessita di una pre-elaborazione. 
         """
 
-        if (cess_artigiana_col != 'pec') | (cess_artigiana_col in self.df.columns):
+        if (cess_artigiana_col in self.df.columns):
             logger.debug("Pre-elaborazione file di Infocamere...")
             self.preprocessing_anagrafica(cess_artigiana_column=cess_artigiana_col)
             self.save_new_anagrafica_into_file()

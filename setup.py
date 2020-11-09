@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
    name='innovation_intelligence',
@@ -6,13 +6,12 @@ setup(
    description='Modulo per test, controllo qualità di I2FVG',
    author='Marco Matteo Buzzulini',
    author_email='marco.matteo.buzzulini@areasciencepark.it',
-   packages=[
-        'file_parser',
-        'data_provider',
-        'idb'
-       ], 
-   install_requires=['pandas', 'numpy', 'sqlalchemy'],
-   scripts=[
-        'preprocessing_infocamere'
-        ]
+   packages=find_packages(),
+#    [
+#         'file_parser',
+#         'data_provider',
+#         'idb',
+#         'tests'
+#        ], 
+   install_requires=['pandas', 'numpy', 'sqlalchemy', 'xlrd', 'xlsxwriter', 'openpyxl'],
 )
