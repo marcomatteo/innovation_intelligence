@@ -63,7 +63,7 @@ def get_dataframes_from_file(parser: ParserXls) -> list:
     Return a list of dataframes for an Excel file
     '''
     df_list = []
-    for sheet_name in parser.get_sheet_names:
+    for sheet_name in parser.sheet_names:
         df_list.append(parser.open_file(sheet_name=sheet_name))
     
     return df_list

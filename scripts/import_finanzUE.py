@@ -18,7 +18,7 @@ PROJECTS_TBL_NAME = "DATA_FinanziamentiUE_Progetto"
 
 # %% Loading
 finanziamentiUE_parser = ParserXls(BASE_DIR + FILE_NAME)
-finanziamentiUE_parser.get_sheet_names
+finanziamentiUE_parser.sheet_names
 
 # %% Open organizations
 finanziamentiUE_organizations_df = finanziamentiUE_parser.open_file(
