@@ -86,8 +86,7 @@ class AnagraficaInfocamere(Infocamere):
         self.column_constraints[1] = True
         self.column_constraints[4] = True
         
-        self.df = self.file_parser.open_file(
-            sheet_name=self.sheet_name, usecols=list(self.column_constraints.keys()))
+        self.df = self.file_parser.open_file(sheet_name=self.sheet_name)
 
     def check_file_is_preprocessed(self, cess_artigiana_col: str) -> bool:
         """
