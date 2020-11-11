@@ -39,7 +39,7 @@ class BrevettiIta(DataProvider):
         Metodo che apre tutti i fogli del file excel e li ritorna in un unico DataFrame
         """
         df_to_concat = []
-        for sheet in self.file_parser.get_sheet_names:
+        for sheet in self.file_parser.sheet_names:
             df_temp = self.file_parser.open_file(sheet_name=sheet)
             #df_temp["Sheet"] = sheet
             df_to_concat.append(df_temp)

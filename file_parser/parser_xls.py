@@ -1,7 +1,7 @@
-import sys
-ROOT = r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence"
-if ROOT not in sys.path:
-    sys.path.append(ROOT)
+# import sys
+# ROOT = r"C:/Users/buzzulini/Documents/GitHub/I2FVG_scripts/innovation_intelligence"
+# if ROOT not in sys.path:
+#     sys.path.append(ROOT)
 
 import pandas as pd
 import os
@@ -20,9 +20,8 @@ class ParserXls(IParser):
             
         self.excel_file = pd.ExcelFile(self.file_path)
 
-    #TODO: rename in sheet_names
     @property
-    def get_sheet_names(self) -> list:
+    def sheet_names(self) -> list:
         return self.excel_file.sheet_names
 
     def open_file(self, *args, **kwargs) -> pd.DataFrame:
