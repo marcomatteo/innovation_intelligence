@@ -7,7 +7,7 @@ class AnagraficaBuilder(AcceptanceBuilder):
 
     def __init__(self):
         self.dp = AnagraficaInfocamere()
-        self.dp.df = self.dp.df.iloc[:,  list(self.column_constraints.keys())]
+        self.dp.df = self.dp.df.iloc[:,  list(self.dp.column_constraints.keys())]
         self.dp_file_extension = "xlsx"
         self.column_number = 48
         self.columns = [
