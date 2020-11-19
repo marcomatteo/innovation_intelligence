@@ -1,4 +1,3 @@
-import setupTest
 import sys
 from tests import TestAcceptanceBaseClass
 from utilities import create_logger

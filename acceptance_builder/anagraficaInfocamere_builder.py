@@ -58,5 +58,5 @@ class AnagraficaBuilder(AcceptanceBuilder):
             AcceptanceBuilder.Columns(nome='Impr Femminile', tipologia= np.dtype('O'), lunghezza=20, nullable=True, pk=False),
             AcceptanceBuilder.Columns(nome='Impr Giovane', tipologia= np.dtype('O'), lunghezza=20, nullable=True, pk=False),
             AcceptanceBuilder.Columns(nome='Impr Straniera', tipologia= np.dtype('O'), lunghezza=20, nullable=True, pk=False),
-            AcceptanceBuilder.Columns(nome='pec', tipologia= np.dtype('O'), lunghezza=70, nullable=True, pk=False)
+            AcceptanceBuilder.Columns(nome='pec', tipologia= np.dtype('O'), lunghezza=255, nullable=True, pk=False)
         ]
