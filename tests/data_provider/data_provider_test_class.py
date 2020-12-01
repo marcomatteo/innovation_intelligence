@@ -1,5 +1,6 @@
 from unittest.case import skip
 from data_provider import DataProvider
+from file_parser import IParser
 
 import unittest
 import pandas as pd
@@ -8,15 +9,15 @@ class TestDataProviderBaseClass(unittest.TestCase):
 
     maxDiff = None
 
-    dp = NotImplemented
-    columns = NotImplemented
-    file_path = NotImplemented
-    first_row = NotImplemented
-    file_parser = NotImplemented
-    column_types = NotImplemented
-    column_constraints = NotImplemented
-    file_parser_separator = NotImplemented
-    file_parser_sheet_name = NotImplemented
+    dp = NotImplemented # type: DataProvider
+    columns = NotImplemented    # type: list[str]
+    file_path = NotImplemented  # type: str
+    first_row = NotImplemented  # type: list
+    file_parser = NotImplemented    # type: IParser
+    column_types = NotImplemented   # type: dict
+    column_constraints = NotImplemented # type: dict
+    file_parser_separator = NotImplemented  # type: str
+    file_parser_sheet_name = NotImplemented # type: str
 
     def test_matching_columns_names(self):
         if ((not self.columns is NotImplemented) and
@@ -56,6 +57,7 @@ class TestDataProviderBaseClass(unittest.TestCase):
             self.assertEqual(self.file_parser_separator,
                                 self.dp.file_parser_sep)
 
+    @skip
     def test_attributes_column_types(self):
         if ((not self.column_types is NotImplemented) and
             (not self.dp is NotImplemented)):

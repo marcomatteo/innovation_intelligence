@@ -7,13 +7,11 @@ import pandas as pd
 from collections import defaultdict
 from typing import List, Union
 
-
 class DataProviderMeta(type):
     def __call__(cls, *args, **kwargs):
         class_object = type.__call__(cls, *args, **kwargs)
         class_object.check_required_attributes()
         return class_object
-
 
 class DataProvider(metaclass=abc.ABCMeta):
 
