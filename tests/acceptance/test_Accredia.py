@@ -1,5 +1,5 @@
 import sys
-from tests.acceptance import TestAcceptanceBaseClass
+from tests import TestAcceptanceBaseClass
 from acceptance_builder import AccrediaBuilder
 from utilities import create_logger
 import unittest

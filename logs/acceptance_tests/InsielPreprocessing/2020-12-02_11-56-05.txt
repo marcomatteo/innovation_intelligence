@@ -1,0 +1,7 @@
+02-12-2020 11:56:05 DEBUG InsielPreprocessing (preprocessing_anagrafica) Pre-elaborazione file di Insiel...
+02-12-2020 11:56:05 DEBUG InsielPreprocessing (get_cessazione_artigiana_filter) Elaborazione colonne ['Cessazione artigiana', "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane", "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane"]
+02-12-2020 11:56:05 DEBUG InsielPreprocessing (get_cessazione_artigiana_filter) Elementi dalla colonna 'Cessazione artigiana' da modificare: 4217
+02-12-2020 11:56:05 DEBUG InsielPreprocessing (get_cessazione_artigiana_filter) Elementi dalla colonna 'N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane' da modificare: 4217
+02-12-2020 11:56:05 DEBUG InsielPreprocessing (get_cessazione_artigiana_filter) Elementi dalla colonna 'DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane' da modificare: 4217
+02-12-2020 11:56:05 DEBUG InsielPreprocessing (clean_column_cess_artigiana) Eliminazione della colonna Cessazione artigiana
+02-12-2020 11:56:05 DEBUG InsielPreprocessing (clean_column_cess_artigiana) Colonna Cessazione artigiana eliminata

@@ -1,10 +1,12 @@
-from collections import namedtuple
+from collections import defaultdict, namedtuple
 from os import dup
 from typing import List
 
 import json
 
 import pandas as pd
+import numpy as np
+
 from data_provider import DataProvider
 
 
@@ -95,10 +97,56 @@ class AcceptanceBuilder(metaclass=AcceptanceMeta):
             return self.dp.get_column_number()
 
     def check_column_types(self) -> list:
+        """
+        Metodo che ritorna la tipologia delle colonne convertite
+        da self.get_casted_dataframe()
+        """
         if ((not self.dp is NotImplemented) and
                 (not self.columns is NotImplemented)):
-            return self.dp.get_column_types()
+            # return self.dp.get_column_types()
+            return self.get_casted_dataframe().dtypes.tolist()
         pass
+
+    def get_casted_dataframe(self) -> pd.DataFrame:
+        """
+        Metodo che effettua la conversione del file fonte
+        secondo indicazione delle colonne per il Data Provider specifico
+        """
+        if ((not self.dp is NotImplemented) and
+                (not self.columns is NotImplemented)):
+
+            columns_casted_to_concat = defaultdict(pd.DataFrame)
+            col_types = [c.tipologia for c in self.columns]
+            for num, col_type in enumerate(col_types):
+
+                columns_casted_to_concat[num] = AcceptanceBuilder \
+                    .get_casted_column_for_type(self.dp.df.iloc[:, num], col_type)
+
+            return pd.concat(columns_casted_to_concat, axis=1)
+
+    @staticmethod
+    def get_casted_column_for_type(s: pd.Series, col_type: str) -> pd.DataFrame:
+        df = s.to_frame()
+        df_casted = None
+        if col_type == np.dtype('int64'):
+            try:
+                df_casted = df.fillna(0).astype('int64')
+            except:
+                df_casted = df
+        elif col_type == np.dtype('float64'):
+            try:
+                df_casted = df.astype('float64')
+            except:
+                df_casted = df
+        elif col_type == np.dtype('<M8[ns]'):
+            try:
+                df_casted = pd.to_datetime(s).to_frame()
+            except:
+                df_casted = df
+        else:
+            df_casted = df
+
+        return df_casted
 
     def check_column_length(self) -> list:
         if ((not self.dp is NotImplemented) and

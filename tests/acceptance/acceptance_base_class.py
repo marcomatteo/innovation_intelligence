@@ -19,10 +19,11 @@ class TestAcceptanceBaseClass(unittest.TestCase):
             cls.logger.debug("Begin Test:\n{}".format(" ".join(["-" for _ in range(30)])))
 
     def log_debug_data(self, data: Dict[str, str]):
-        data_to_log_str = self.cert.get_log_list_from_dict(data)
-        data_to_dump = loads(data_to_log_str)
-        data_to_log = dumps(data_to_dump, indent=4)
-        self.logger.debug("To check: \n{}\n".format(data_to_log))
+        if not self.cert is NotImplemented:
+            data_to_log_str = self.cert.get_log_list_from_dict(data)
+            data_to_dump = loads(data_to_log_str)
+            data_to_log = dumps(data_to_dump, indent=4)
+            self.logger.debug("Values: \n{}\n".format(data_to_log))
 
     def subtest(self, tocert: list, expected: list, func):
         def config(i):
@@ -39,33 +40,39 @@ class TestAcceptanceBaseClass(unittest.TestCase):
             
             return cond, params
         
-        failures = {}
+        if not self.cert is NotImplemented:
+            failures = {}
 
-        for i, col in enumerate(self.cert.dp.df.columns):
-            cond, params = config(i)
+            for i, col in enumerate(self.cert.dp.df.columns):
+                cond, params = config(i)
 
-            if cond:
-                with self.subTest(col=col):
-                    try:
-                        func(*params)
-                    except Exception as e:
-                        failures[col] = tocert[i]
-                        exception = 'Subtest col "{}" NOT OK, check value_counts()'.format(col)
-                        self.logger.exception(exception)
-                        raise e
+                if cond:
+                    with self.subTest(col=col):
+                        try:
+                            func(*params)
+                        except Exception as e:
+                            failures[col] = tocert[i]
+                            
+                            exception = 'Subtest col "{}" NOT OK, check value_counts()'.format(col)
+                            msg = "Subtest failed, check the column values."
+                            
+                            self.logger.exception(exception + "\n\n")
+                            self.logger.debug(msg + "\n\n")
+                            self.fail(msg)
 
-                    self.logger.debug('Subtest col "{}" OK'.format(col))
+                        self.logger.debug('Subtest col "{}" OK'.format(col))
 
-        return self.endtest(failures)
+            return self.endtest(failures)
 
     def endtest(self, failures: dict) -> None:
-        try:
-            self.assertEqual(len(failures), 0)
-        except Exception as e:
-            self.log_debug_data(failures)
-            raise e
+        if not self.cert is NotImplemented:
+            try:
+                self.assertEqual(len(failures), 0)
+            except Exception as e:
+                self.log_debug_data(failures)
+                self.fail("Test failed. Check the file.")
 
-        self.logger.debug("Test OK\n\n")
+            self.logger.debug("Test OK\n\n")
 
     def test_check_file_extension(self):
 
@@ -81,8 +88,11 @@ class TestAcceptanceBaseClass(unittest.TestCase):
             except Exception as e:
                 exception = "Wrong file extension: {}".format(
                     cert_file_extension)
-                self.logger.exception(exception)
-                raise e
+                
+                msg = "Wrong file extension. Check the file."
+                self.logger.exception("\n" + exception + "\n\n")
+                self.logger.debug(msg + "\n\n")
+                self.fail(msg)
             
             self.logger.debug("Test OK\n\n")
 
@@ -100,8 +110,11 @@ class TestAcceptanceBaseClass(unittest.TestCase):
             except Exception as e:
                 exception = "Wrong column number: {}".format(
                     cert_column_number)
-                self.logger.exception(exception)
-                raise e
+                
+                msg = "Wrong column number. Check the file."
+                self.logger.exception("\n" + exception + "\n\n")
+                self.logger.debug(msg + "\n\n")
+                self.fail(msg)
             
             self.logger.debug("Test OK\n\n")
 
@@ -112,9 +125,6 @@ class TestAcceptanceBaseClass(unittest.TestCase):
 
             expected_column_types = [col.tipologia for col in self.cert.columns]
             cert_column_types = self.cert.check_column_types()
-
-            data_to_log_dict = {col.nome: str(col.tipologia) for col in self.cert.columns}
-            self.log_debug_data(data_to_log_dict)
 
             self.subtest(
                 tocert=cert_column_types, 
@@ -129,9 +139,6 @@ class TestAcceptanceBaseClass(unittest.TestCase):
             expected_column_max_length = [col.lunghezza for col in self.cert.columns]
             cert_check_length = self.cert.check_column_length()
 
-            data_to_log_dict = {col.nome: str(col.lunghezza) for col in self.cert.columns}
-            self.log_debug_data(data_to_log_dict)
-
             self.subtest(
                 tocert=cert_check_length, expected=expected_column_max_length, 
                 func=self.assertLessEqual)
@@ -143,9 +150,6 @@ class TestAcceptanceBaseClass(unittest.TestCase):
 
             expected_column_nullables = [col.nullable for col in self.cert.columns]
             cert_check_nullables = self.cert.check_column_nullables()
-
-            data_to_log_dict = {col.nome: str(col.nullable) for col in self.cert.columns}
-            self.log_debug_data(data_to_log_dict)
             
             self.subtest(
                 tocert=cert_check_nullables, 
@@ -163,12 +167,14 @@ class TestAcceptanceBaseClass(unittest.TestCase):
             except Exception as e:
                 condition = duplicates == True
                 columns = [num for num, col in enumerate(self.cert.columns) if col.pk]
-                # TODO: risolvere errore qui dentro
+                
                 data_to_parse = self.cert.dp.df.loc[condition].iloc[:, columns].to_json(orient="index")
                 data_to_dump = loads(data_to_parse)
                 data_to_log = dumps(data_to_dump, indent=4)
 
-                self.logger.exception("\n\n{}\n".format(data_to_log))
-                raise e
+                msg = "Duplicates founded. Check the file."
+                self.logger.exception("\n{}\n\n".format(data_to_log))
+                self.logger.debug(msg + "\n\n")
+                self.fail(msg)
             
             self.logger.debug("Test OK\n\n")

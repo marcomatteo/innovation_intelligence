@@ -55,14 +55,13 @@ def create_logger(dp: str, path=None, verbose:bool=False):
     LOG_FILE_NAME = datetime.today().strftime("%Y-%m-%d_%H-%M-%S") + ".txt"   
     
     if path:
-        if (not isinstance(path, Path)) or (not isinstance(path, str)):
+        if (not isinstance(path, Path)) & (not isinstance(path, str)):
             raise ValueError("Path must be a pathlib.Path instance")
-        LOG_DIR = path / "logs" / dp
+        LOG_DIR = path
     else:
-        LOG_DIR = Path(os.path.dirname(__file__)).parents[1] / "logs" / "acceptance_tests"/ dp
-        # r"/../logs/acceptance_tests/{}/".format(dp)
+        LOG_DIR = Path(".") 
         
-    
+    LOG_DIR = LOG_DIR / "logs" / "acceptance_tests"/ dp
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     LOG_FILE = LOG_DIR / LOG_FILE_NAME
 

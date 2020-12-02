@@ -7,7 +7,7 @@ class AnagraficaBuilder(AcceptanceBuilder):
 
     def __init__(self):
         self.dp = AnagraficaInfocamere()
-        self.dp.df = self.dp.df.iloc[:,  list(self.dp.column_constraints.keys())]
+        # self.dp.df = self.dp.df.iloc[:,  list(self.dp.column_constraints.keys())]
         self.dp_file_extension = "xlsx"
         self.column_number = 48
         self.columns = [
@@ -58,5 +58,6 @@ class AnagraficaBuilder(AcceptanceBuilder):
             AcceptanceBuilder.Columns(nome='Impr Femminile', tipologia= np.dtype('O'), lunghezza=20, nullable=True, pk=False),
             AcceptanceBuilder.Columns(nome='Impr Giovane', tipologia= np.dtype('O'), lunghezza=20, nullable=True, pk=False),
             AcceptanceBuilder.Columns(nome='Impr Straniera', tipologia= np.dtype('O'), lunghezza=20, nullable=True, pk=False),
-            AcceptanceBuilder.Columns(nome='pec', tipologia= np.dtype('O'), lunghezza=255, nullable=True, pk=False)
+            AcceptanceBuilder.Columns(nome='pec', tipologia= np.dtype('O'), lunghezza=255, nullable=True, pk=False),
+            AcceptanceBuilder.Columns(nome='DT-COST - Data costituzione', tipologia = np.dtype('<M8[ns]'), lunghezza=999, nullable=True, pk=False)
         ]

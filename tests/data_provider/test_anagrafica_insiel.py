@@ -123,8 +123,3 @@ class Test_AnagraficaInsiel(TestDataProviderBaseClass):
             ,"SE - SEDE PRINCIPALE"
             ]
 
-    def test_check_artisan(self):
-        pass
-
-    def test_is_preprocessed(self):
-        pass

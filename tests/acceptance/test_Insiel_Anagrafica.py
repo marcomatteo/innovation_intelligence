@@ -4,13 +4,12 @@ from utilities import create_logger
 from acceptance_builder import AnagraficaInsielBuilder
 from pathlib import Path
 
-class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
+class Test_AnagraficaInsielAcceptance(TestAcceptanceBaseClass):
     LOG_DIR = None
 
     @classmethod
     def setUpClass(cls):
         cls.maxDiff = None
-        # cls.logger = logging.getLogger(__name__)
         verbose = False
         if cls.LOG_DIR:
             cls.LOG_DIR = Path(cls.LOG_DIR)
@@ -128,6 +127,6 @@ if __name__ == "__main__":
     from unittest import main
 
     if len(sys.argv) > 1:
-        Test_AnagraficaInfocamereAcceptance.LOG_DIR = sys.argv.pop()
+        Test_AnagraficaInsielAcceptance.LOG_DIR = sys.argv.pop()
 
     main(verbosity=2)

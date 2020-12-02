@@ -1,7 +1,7 @@
 __all__ = ['AcceptanceBuilder', 'AccrediaBuilder', 'ModefinanceBuilder',
             'RatingLegalitaBuilder', 'InfocamereBuilder', 'AnagraficaBuilder',
             'AtecoBuilder', 'BilanciBuilder', 'ContrattiReteBuilder',
-            'AnagraficaInsielBuilder']
+            'AnagraficaInsielBuilder', 'AtecoInsielBuilder']
             
 from .acceptance_builder import AcceptanceBuilder
 from .accredia_builder import AccrediaBuilder
@@ -13,3 +13,4 @@ from .atecoInfocamere_builder import AtecoBuilder
 from .bilanciInfocamere_builder import BilanciBuilder
 from .contrattirete_builder import ContrattiReteBuilder
 from .anagraficaInsiel_builder import AnagraficaInsielBuilder
+from .atecoInsiel_builder import AtecoInsielBuilder

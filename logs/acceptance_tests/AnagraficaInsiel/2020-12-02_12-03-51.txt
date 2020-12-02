@@ -1,0 +1,425 @@
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (setUpClass) Column constraints:
+	Columns(nome='c fiscale', tipologia=dtype('O'), lunghezza=11, nullable=False, pk=True),
+	Columns(nome='PRV - Provincia', tipologia=dtype('O'), lunghezza=6, nullable=False, pk=True),
+	Columns(nome='N-REG-IMP - Numero Registro Imprese', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='rea', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome="UL-SEDE - Unità Locale o sede dell'impresa", tipologia=dtype('O'), lunghezza=10, nullable=False, pk=True),
+	Columns(nome="N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane", tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome="SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del", tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome='NG - Natura Giuridica', tipologia=dtype('O'), lunghezza=2, nullable=True, pk=False),
+	Columns(nome='natura giuridica', tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='tipo impresa', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='DT-ISCR-RI - Data di iscrizione al Registro Imprese', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='DT-ISCR-RD - Data di iscrizione al Registro delle Ditte', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-APER-UL - Data di apertura dell'Unità Locale", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='cancellazione', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-INI-AT - Data di inizio attività dell'impresa", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='dt cessazione attività', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='fallimento', tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DT-LIQUID - Data liquidazione dell'impresa", tipologia=dtype('<M8[ns]'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="DENOMINAZIONE - Denominazione dell'impresa", tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='INDIRIZZO', tipologia=dtype('O'), lunghezza=100, nullable=True, pk=False),
+	Columns(nome='STRAD - Via', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='CAP', tipologia=dtype('O'), lunghezza=5, nullable=True, pk=False),
+	Columns(nome='COMUNE', tipologia=dtype('O'), lunghezza=100, nullable=True, pk=False),
+	Columns(nome='FRAZIONE', tipologia=dtype('O'), lunghezza=100, nullable=True, pk=False),
+	Columns(nome="ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del", tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='AA-ADD - Anno di dichiarazione degli addetti', tipologia=dtype('int64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='IND - Numero addetti indipendenti', tipologia=dtype('O'), lunghezza=10, nullable=True, pk=False),
+	Columns(nome='DIP - Numero addetti dipendenti', tipologia=dtype('int64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='PARTITA IVA', tipologia=dtype('O'), lunghezza=11, nullable=True, pk=False),
+	Columns(nome='TELEFONO', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome="CAPITALE - Capitale sociale dell'impresa", tipologia=dtype('float64'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome="ATTIVITA' - Descrizione dell'attività principale dell'impresa", tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome="VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa", tipologia=dtype('O'), lunghezza=30, nullable=True, pk=False),
+	Columns(nome='stato impresa/ul', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul1', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul2', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul3', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul4', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome='tipo sede/ul5', tipologia=dtype('O'), lunghezza=50, nullable=True, pk=False),
+	Columns(nome="Presenza di sedi secondarie all'estero", tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Impresa estera con unità locale in Friuli Venezia Giulia', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='sezione Impresa - Indicazione delle imprese che sono PMI', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='sezione Impresa - Indicazione delle imprese che sono start up', tipologia=dtype('O'), lunghezza=None, nullable=True, pk=False),
+	Columns(nome='Impr Femminile', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='Impr Giovane', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='Impr Straniera', tipologia=dtype('O'), lunghezza=20, nullable=True, pk=False),
+	Columns(nome='pec', tipologia=dtype('O'), lunghezza=255, nullable=True, pk=False),
+	Columns(nome='DT-COST - Data costituzione', tipologia=dtype('<M8[ns]'), lunghezza=999, nullable=True, pk=False),
+	Columns(nome='Tipo Localizzazione', tipologia=dtype('O'), lunghezza=999, nullable=True, pk=False)
+
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (setUpClass) Column number constraint: 50
+
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (setUpClass) File type extension: xlsx
+
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (setUpClass) Data Provider:
+DataProvider(
+	file_sheet_name=0,
+	inTest=False,
+	file_path=data/Insiel/,
+	file_parser=Parser(file_path=data/Insiel/Insiel.xlsx, file_ext=xlsx),
+	df_shape=(88259, 50))
+
+
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (setUpClass) Begin Test:
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_acceptance_column_femminile) Check colonna Impresa Femminile
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_acceptance_column_femminile) Valori da controllare: (NO, SI)
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_acceptance_column_femminile) Test OK
+
+
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_acceptance_column_giovanile) Check colonna Impresa Giovanile
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_acceptance_column_giovanile) Valori da controllare: (NO, SI)
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_acceptance_column_giovanile) Test OK
+
+
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_acceptance_column_innovativa) Check colonna PMI Innovativa
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_acceptance_column_innovativa) Valori da controllare: (NO, SI)
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_acceptance_column_innovativa) Test OK
+
+
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_acceptance_column_straniera) Check colonna Impresa Straniera
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_acceptance_column_straniera) Valori da controllare: (NO, SI)
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_acceptance_column_straniera) Test OK
+
+
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_check_column_constraints) Test column constraints
+02-12-2020 12:05:20 ERROR AnagraficaInsiel (test_check_column_constraints) 
+
+{
+    "25814": {
+        "c fiscale": "02707300303",
+        "PRV - Provincia": "UD",
+        "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "SEDE"
+    },
+    "31148": {
+        "c fiscale": "BNCRRT78B23H823B",
+        "PRV - Provincia": "UD",
+        "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "SEDE"
+    },
+    "33984": {
+        "c fiscale": "BRTMRT57T06H895L",
+        "PRV - Provincia": "UD",
+        "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "SEDE"
+    },
+    "35424": {
+        "c fiscale": "BTTLCU81B18G888F",
+        "PRV - Provincia": "PN",
+        "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "SEDE"
+    },
+    "36816": {
+        "c fiscale": "CFFMNL90S04L424J",
+        "PRV - Provincia": "UD",
+        "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "SEDE"
+    },
+    "67407": {
+        "c fiscale": "PLDGNR59B27H579X",
+        "PRV - Provincia": "RM",
+        "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "UL-1"
+    },
+    "68921": {
+        "c fiscale": "PPLLCU73A62E473N",
+        "PRV - Provincia": "UD",
+        "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "SEDE"
+    },
+    "70463": {
+        "c fiscale": "PSCMRZ62L10E098X",
+        "PRV - Provincia": "GO",
+        "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "SEDE"
+    },
+    "79124": {
+        "c fiscale": "SRRMSS75R09Z343R",
+        "PRV - Provincia": "GO",
+        "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "SEDE"
+    },
+    "84893": {
+        "c fiscale": "VRRLSN89L13G888H",
+        "PRV - Provincia": "PN",
+        "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "SEDE"
+    },
+    "85208": {
+        "c fiscale": "VSNRRT66P28E098O",
+        "PRV - Provincia": "GO",
+        "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "SEDE"
+    },
+    "86279": {
+        "c fiscale": "ZHAMNG69S61Z210N",
+        "PRV - Provincia": "UD",
+        "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "SEDE"
+    }
+}
+
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 172, in test_check_column_constraints
+    self.assertEqual(duplicates.sum(), 0)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 852, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 845, in _baseAssertEqual
+    raise self.failureException(msg)
+AssertionError: 12 != 0
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_check_column_constraints) Duplicates founded. Check the file.
+
+
+02-12-2020 12:05:20 DEBUG AnagraficaInsiel (test_check_column_length) Test columns max length
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (log_debug_data) Values: 
+{
+    "c fiscale": "11",
+    "PRV - Provincia": "6",
+    "N-REG-IMP - Numero Registro Imprese": "20",
+    "rea": "10",
+    "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "10",
+    "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": "20",
+    "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": "10",
+    "NG - Natura Giuridica": "2",
+    "natura giuridica": "255",
+    "tipo impresa": "50",
+    "DT-ISCR-RI - Data di iscrizione al Registro Imprese": "None",
+    "DT-ISCR-RD - Data di iscrizione al Registro delle Ditte": "None",
+    "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": "None",
+    "DT-APER-UL - Data di apertura dell'Unit\u00e0 Locale": "None",
+    "cancellazione": "None",
+    "DT-INI-AT - Data di inizio attivit\u00e0 dell'impresa": "None",
+    "dt cessazione attivit\u00e0": "None",
+    "fallimento": "None",
+    "DT-LIQUID - Data liquidazione dell'impresa": "None",
+    "DENOMINAZIONE - Denominazione dell'impresa": "255",
+    "INDIRIZZO": "100",
+    "STRAD - Via": "20",
+    "CAP": "5",
+    "COMUNE": "100",
+    "FRAZIONE": "100",
+    "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": "255",
+    "AA-ADD - Anno di dichiarazione degli addetti": "None",
+    "IND - Numero addetti indipendenti": "10",
+    "DIP - Numero addetti dipendenti": "None",
+    "PARTITA IVA": "11",
+    "TELEFONO": "20",
+    "CAPITALE - Capitale sociale dell'impresa": "None",
+    "ATTIVITA' - Descrizione dell'attivit\u00e0 principale dell'impresa": "255",
+    "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": "30",
+    "stato impresa/ul": "20",
+    "tipo sede/ul1": "50",
+    "tipo sede/ul2": "50",
+    "tipo sede/ul3": "50",
+    "tipo sede/ul4": "50",
+    "tipo sede/ul5": "50",
+    "Presenza di sedi secondarie all'estero": "None",
+    "Impresa estera con unit\u00e0 locale in Friuli Venezia Giulia": "None",
+    "sezione Impresa - Indicazione delle imprese che sono PMI": "None",
+    "sezione Impresa - Indicazione delle imprese che sono start up": "None",
+    "Impr Femminile": "20",
+    "Impr Giovane": "20",
+    "Impr Straniera": "20",
+    "pec": "255",
+    "DT-COST - Data costituzione": "999",
+    "Tipo Localizzazione": "999"
+}
+
+02-12-2020 12:05:36 ERROR AnagraficaInsiel (subtest) 
+Subtest col "c fiscale" NOT OK, check value_counts()
+
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 50, in subtest
+    func(*params)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1245, in assertLessEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: 16 not less than or equal to 11
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest failed, check the column values.
+
+
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "PRV - Provincia" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "N-REG-IMP - Numero Registro Imprese" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "rea" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "UL-SEDE - Unità Locale o sede dell'impresa" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "NG - Natura Giuridica" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "natura giuridica" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "tipo impresa" OK
+02-12-2020 12:05:36 ERROR AnagraficaInsiel (subtest) 
+Subtest col "DENOMINAZIONE - Denominazione dell'impresa" NOT OK, check value_counts()
+
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 50, in subtest
+    func(*params)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1245, in assertLessEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: 284 not less than or equal to 255
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest failed, check the column values.
+
+
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "INDIRIZZO" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "STRAD - Via" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "CAP" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "COMUNE" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "FRAZIONE" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "IND - Numero addetti indipendenti" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "PARTITA IVA" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "TELEFONO" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "ATTIVITA' - Descrizione dell'attività principale dell'impresa" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa" OK
+02-12-2020 12:05:36 ERROR AnagraficaInsiel (subtest) 
+Subtest col "stato impresa/ul" NOT OK, check value_counts()
+
+Traceback (most recent call last):
+  File "C:\Users\buzzulini\Documents\GitHub\I2FVG_scripts\innovation_intelligence\tests\acceptance\acceptance_base_class.py", line 50, in subtest
+    func(*params)
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 1245, in assertLessEqual
+    self.fail(self._formatMessage(msg, standardMsg))
+  File "C:\Users\buzzulini\.conda\envs\envWorking\lib\unittest\case.py", line 693, in fail
+    raise self.failureException(msg)
+AssertionError: 21 not less than or equal to 20
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest failed, check the column values.
+
+
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "tipo sede/ul1" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "tipo sede/ul2" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "tipo sede/ul3" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "tipo sede/ul4" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "tipo sede/ul5" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "Impr Femminile" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "Impr Giovane" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "Impr Straniera" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "pec" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "DT-COST - Data costituzione" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "Tipo Localizzazione" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (log_debug_data) Values: 
+{
+    "c fiscale": "16",
+    "DENOMINAZIONE - Denominazione dell'impresa": "284",
+    "stato impresa/ul": "21"
+}
+
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (test_check_column_nullables) Test columns nullable condition
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (log_debug_data) Values: 
+{
+    "c fiscale": "False",
+    "PRV - Provincia": "False",
+    "N-REG-IMP - Numero Registro Imprese": "True",
+    "rea": "True",
+    "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "False",
+    "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": "True",
+    "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": "True",
+    "NG - Natura Giuridica": "True",
+    "natura giuridica": "True",
+    "tipo impresa": "True",
+    "DT-ISCR-RI - Data di iscrizione al Registro Imprese": "True",
+    "DT-ISCR-RD - Data di iscrizione al Registro delle Ditte": "True",
+    "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": "True",
+    "DT-APER-UL - Data di apertura dell'Unit\u00e0 Locale": "True",
+    "cancellazione": "True",
+    "DT-INI-AT - Data di inizio attivit\u00e0 dell'impresa": "True",
+    "dt cessazione attivit\u00e0": "True",
+    "fallimento": "True",
+    "DT-LIQUID - Data liquidazione dell'impresa": "True",
+    "DENOMINAZIONE - Denominazione dell'impresa": "True",
+    "INDIRIZZO": "True",
+    "STRAD - Via": "True",
+    "CAP": "True",
+    "COMUNE": "True",
+    "FRAZIONE": "True",
+    "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": "True",
+    "AA-ADD - Anno di dichiarazione degli addetti": "True",
+    "IND - Numero addetti indipendenti": "True",
+    "DIP - Numero addetti dipendenti": "True",
+    "PARTITA IVA": "True",
+    "TELEFONO": "True",
+    "CAPITALE - Capitale sociale dell'impresa": "True",
+    "ATTIVITA' - Descrizione dell'attivit\u00e0 principale dell'impresa": "True",
+    "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": "True",
+    "stato impresa/ul": "True",
+    "tipo sede/ul1": "True",
+    "tipo sede/ul2": "True",
+    "tipo sede/ul3": "True",
+    "tipo sede/ul4": "True",
+    "tipo sede/ul5": "True",
+    "Presenza di sedi secondarie all'estero": "True",
+    "Impresa estera con unit\u00e0 locale in Friuli Venezia Giulia": "True",
+    "sezione Impresa - Indicazione delle imprese che sono PMI": "True",
+    "sezione Impresa - Indicazione delle imprese che sono start up": "True",
+    "Impr Femminile": "True",
+    "Impr Giovane": "True",
+    "Impr Straniera": "True",
+    "pec": "True",
+    "DT-COST - Data costituzione": "True",
+    "Tipo Localizzazione": "True"
+}
+
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "c fiscale" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "PRV - Provincia" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (subtest) Subtest col "UL-SEDE - Unità Locale o sede dell'impresa" OK
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (endtest) Test OK
+
+
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (test_check_column_number) Test column number
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (test_check_column_number) Check {"column_number": 50}
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (test_check_column_number) Test OK
+
+
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (test_check_column_types) Test column types
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (log_debug_data) Values: 
+{
+    "c fiscale": "object",
+    "PRV - Provincia": "object",
+    "N-REG-IMP - Numero Registro Imprese": "object",
+    "rea": "object",
+    "UL-SEDE - Unit\u00e0 Locale o sede dell'impresa": "object",
+    "N-ALBO-AA - Numero di iscrizione all'Albo Imprese Artigiane": "object",
+    "SEZ-REG-IMP - Sezione di iscrizione dell'impresa al Registro del": "object",
+    "NG - Natura Giuridica": "object",
+    "natura giuridica": "object",
+    "tipo impresa": "object",
+    "DT-ISCR-RI - Data di iscrizione al Registro Imprese": "datetime64[ns]",
+    "DT-ISCR-RD - Data di iscrizione al Registro delle Ditte": "datetime64[ns]",
+    "DT-ISCR-AA - Data di iscrizione all'Albo delle Imprese Artigiane": "datetime64[ns]",
+    "DT-APER-UL - Data di apertura dell'Unit\u00e0 Locale": "datetime64[ns]",
+    "cancellazione": "datetime64[ns]",
+    "DT-INI-AT - Data di inizio attivit\u00e0 dell'impresa": "datetime64[ns]",
+    "dt cessazione attivit\u00e0": "datetime64[ns]",
+    "fallimento": "datetime64[ns]",
+    "DT-LIQUID - Data liquidazione dell'impresa": "datetime64[ns]",
+    "DENOMINAZIONE - Denominazione dell'impresa": "object",
+    "INDIRIZZO": "object",
+    "STRAD - Via": "object",
+    "CAP": "object",
+    "COMUNE": "object",
+    "FRAZIONE": "object",
+    "ALTRE-INDICAZIONI - Altre indicazioni relative all'indirizz del": "object",
+    "AA-ADD - Anno di dichiarazione degli addetti": "int64",
+    "IND - Numero addetti indipendenti": "object",
+    "DIP - Numero addetti dipendenti": "int64",
+    "PARTITA IVA": "object",
+    "TELEFONO": "object",
+    "CAPITALE - Capitale sociale dell'impresa": "float64",
+    "ATTIVITA' - Descrizione dell'attivit\u00e0 principale dell'impresa": "object",
+    "VALUTA-CAPITALE - Valuta del capitale sociale dell'impresa": "object",
+    "stato impresa/ul": "object",
+    "tipo sede/ul1": "object",
+    "tipo sede/ul2": "object",
+    "tipo sede/ul3": "object",
+    "tipo sede/ul4": "object",
+    "tipo sede/ul5": "object",
+    "Presenza di sedi secondarie all'estero": "object",
+    "Impresa estera con unit\u00e0 locale in Friuli Venezia Giulia": "object",
+    "sezione Impresa - Indicazione delle imprese che sono PMI": "object",
+    "sezione Impresa - Indicazione delle imprese che sono start up": "object",
+    "Impr Femminile": "object",
+    "Impr Giovane": "object",
+    "Impr Straniera": "object",
+    "pec": "object",
+    "DT-COST - Data costituzione": "datetime64[ns]",
+    "Tipo Localizzazione": "object"
+}
+
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (test_check_file_extension) Test file type
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (test_check_file_extension) Check {"file_extension": "xlsx"}
+02-12-2020 12:05:36 DEBUG AnagraficaInsiel (test_check_file_extension) Test OK
+
+

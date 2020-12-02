@@ -1,4 +1,5 @@
 import abc
+from logging import warn
 from file_parser.parser_xls import ParserXls
 from file_parser.parser_csv import ParserCsv
 from file_parser.iparser import IParser
@@ -39,7 +40,8 @@ class DataProvider(metaclass=abc.ABCMeta):
             (not self.file_path is NotImplemented) &
             (not self.file_parser is NotImplemented) &
             (not self.df is NotImplemented) &
-            (not self.column_types is NotImplemented)):
+            True # (not self.column_types is NotImplemented)
+            ):
             
             if self.file_parser.file_ext == 'csv':
                 infos.append('file_parser_sep={}'.format(self.file_parser_sep))
@@ -52,7 +54,7 @@ class DataProvider(metaclass=abc.ABCMeta):
                 self.file_parser))
             infos.append('df_shape={}'.format(self.df.shape))
 
-            infos.append('column_types={}'.format(self.df.dtypes.to_dict()))
+            # infos.append('column_types={}'.format(self.df.dtypes.to_dict()))
     
         return "DataProvider(\n\t{})".format(",\n\t".join(infos))
         
@@ -80,13 +82,6 @@ class DataProvider(metaclass=abc.ABCMeta):
             raise NotImplementedError("Subclass must define self.df attribute. \n"
                                       + "This attribute should define the DataProvider pandas.DataFrame.")
 
-        if self.column_types is NotImplemented:
-            raise NotImplementedError("Subclass must define self.column_types attribute. \n"
-                                      + "This attribute should define the DataProvider column types for the certificate class.")
-
-        # if self.column_constraints is NotImplemented:
-        #     raise NotImplementedError("Subclass must define self.column_constraints attribute. \n"
-        #                               + "This attribute should define the DataProvider column constraints for the certificate class.")
 
     def filter_fiscalcodes_dataframe(self, cf_column: Union[int, str], inplace=False) -> Union[None, pd.DataFrame]:
         """
@@ -277,6 +272,7 @@ class DataProvider(metaclass=abc.ABCMeta):
         Metodo che ritorna i duplicati (se presenti) nelle colonne indicate
         dal dizionario in self.column_constraints
         """
+        warn("Method deprecated, use AcceptanceBuilder get_duplicates")
         if ((not self.df is NotImplemented) and
                 (not self.column_constraints is NotImplemented)):
 

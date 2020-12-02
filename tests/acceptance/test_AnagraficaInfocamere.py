@@ -9,7 +9,6 @@ class Test_AnagraficaInfocamereAcceptance(TestAcceptanceBaseClass):
     @classmethod
     def setUpClass(cls):
         cls.maxDiff = None
-        # cls.logger = logging.getLogger(__name__)
         cls.logger = create_logger("AnagraficaInfocamere", cls.LOG_DIR)
         cls.cert = AnagraficaBuilder()
         super().setUpClass()

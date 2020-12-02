@@ -235,7 +235,29 @@ class AtecoInsiel(Insiel):
     def __init__(self, inTest=False):
         super().__init__(inTest=inTest)
         self.sheet_name = 1
-        self.df = self.file_parser.open_file(
-            sheet_name=self.sheet_name, skiprows=2)
 
+        if self.is_preprocessed():
+            self.df = self.file_parser.open_file(sheet_name=self.sheet_name)
+        else:
+            self.df = self.file_parser.open_file(
+                sheet_name=self.sheet_name, skiprows=2)
+
+    def is_preprocessed(self) -> bool:
+        tmp_df = self.file_parser.open_file(
+            sheet_name=self.sheet_name, skiprows=2, nrows=100)
+
+        return False if 'c fiscale' in tmp_df.columns else True
+
+    def clean_nan(self, inplace:bool=False):
+        return self.df.dropna(axis=0, how='any', inplace=inplace)
+
+    def save_new_sheet(self):
+        """
+        Metodo per salvare il nuovo file ateco aggiornato in un nuovo
+        foglio del file fonte
+        """
+        new_sheet = "nFRIULI codici attivita"
+
+        self.file_parser.write_new_sheet_into_file(
+            self.df, sheet_name=new_sheet, datetime_format="DD/MM/YYYY")
                           
