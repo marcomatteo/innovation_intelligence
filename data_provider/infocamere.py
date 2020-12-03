@@ -315,7 +315,7 @@ class BilanciInfocamere(Infocamere):
         self.column_constraints[1] = True
         self.column_constraints[3] = True
 
-    def drop_bs(self, year: int):
+    def drop_bs(self, year: int, inplace:bool=False):
         """
         Drop the balance sheets with "Anno" == year
 
@@ -323,13 +323,16 @@ class BilanciInfocamere(Infocamere):
             year (int): anno di bilancio da eliminare
         """
         cond = self.df.anno.isin([year for year in range(2010, year)])
-        self.df = self.df.loc[cond]
+        df = self.df.loc[cond]
+        if not inplace:
+            return df
+        self.df = df
+    
+    def save(self):
         self.file_parser.write_new_sheet_into_file(
             self.df, 
-            sheet_name=f"FRIULI dati storicizzati-{year}", 
+            sheet_name=f"FRIULI dati storicizzati-mod", 
             datetime_format="DD/MM/YYYY")
-        return self.df
-
 
 class AtecoInfocamere(Infocamere):
 

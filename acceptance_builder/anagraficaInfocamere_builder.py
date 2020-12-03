@@ -9,7 +9,7 @@ class AnagraficaBuilder(AcceptanceBuilder):
         self.dp = AnagraficaInfocamere()
         # self.dp.df = self.dp.df.iloc[:,  list(self.dp.column_constraints.keys())]
         self.dp_file_extension = "xlsx"
-        self.column_number = 48
+        self.column_number = 49
         self.columns = [
             AcceptanceBuilder.Columns(nome='c fiscale', tipologia= np.dtype('O'), lunghezza=11, nullable=False, pk=True),
             AcceptanceBuilder.Columns(nome='PRV - Provincia', tipologia= np.dtype('O'), lunghezza=6, nullable=False, pk=True),

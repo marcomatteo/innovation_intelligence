@@ -112,7 +112,10 @@ class AnagraficaInsiel(Insiel):
 
         self.preprocessing_anagrafica(cess_artigiana_column=cess_artigiana_col)
         if save:
+            self.logger.debug(
+                "Salvataggio dell'anagrafica aggiornata nel foglio 'nFRIULI Anagrafica'")
             self.save_new_anagrafica_into_file()
+            self.logger.debug("Salvataggio completato")
 
     def preprocessing_anagrafica(self, cess_artigiana_column):
         """
@@ -198,13 +201,10 @@ class AnagraficaInsiel(Insiel):
         foglio del file fonte
         """
         new_sheet = "nFRIULI Anagrafica"
-        self.logger.debug(
-            "Salvataggio dell'anagrafica aggiornata nel foglio '{}'".format(new_sheet))
 
         self.file_parser.write_new_sheet_into_file(
-            self.df, sheet_name=new_sheet, datetime_format="DD/MM/YYYY")
-        
-        self.logger.debug("Salvataggio completato")
+            self.df, sheet_name=new_sheet, datetime_format="DD/MM/YYYY")   
+            
 
 
 class BilanciInsiel(Insiel):

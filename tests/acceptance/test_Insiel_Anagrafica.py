@@ -10,11 +10,7 @@ class Test_AnagraficaInsielAcceptance(TestAcceptanceBaseClass):
     @classmethod
     def setUpClass(cls):
         cls.maxDiff = None
-        verbose = False
-        if cls.LOG_DIR:
-            cls.LOG_DIR = Path(cls.LOG_DIR)
-            verbose = True
-        cls.logger = create_logger("AnagraficaInsiel", cls.LOG_DIR, verbose=verbose)
+        cls.logger = create_logger("AnagraficaInsiel", cls.LOG_DIR)
         cls.cert = AnagraficaInsielBuilder()
         super().setUpClass()
 
