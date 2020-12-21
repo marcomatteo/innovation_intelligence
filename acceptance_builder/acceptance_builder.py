@@ -140,7 +140,7 @@ class AcceptanceBuilder(metaclass=AcceptanceMeta):
                 df_casted = df
         elif col_type == np.dtype('<M8[ns]'):
             try:
-                df_casted = pd.to_datetime(s, unit="D").to_frame()
+                df_casted = pd.to_datetime(s).to_frame()
             except:
                 df_casted = df
         else:
