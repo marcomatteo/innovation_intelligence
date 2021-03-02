@@ -18,7 +18,7 @@ class ContrattiRete(DataProvider):
         self.sheet_name = "NuovoElenco"
         self.file_path = self.root_path + r"ContrattiRete/"
         self.file_parser = ParserXls(
-            self.file_path + "ContrattiReteSourceSample.xlsx")
+            self.file_path + "ContrattiRete.xlsx")
 
         self.column_types = {
             0: 'int',
@@ -156,7 +156,7 @@ class ContrattiRete(DataProvider):
         Arguments:
             cf_column {int} -- Numero della colonna del C.F.
         """
-        selected_dataframe = self.get_filtred_fiscal_codes_dataframe(
+        selected_dataframe = self.filter_fiscalcodes_dataframe(
             cf_column=7)
 
         selection_filter = self.get_contratti_filter(selected_dataframe)
