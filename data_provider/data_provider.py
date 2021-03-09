@@ -135,7 +135,7 @@ class DataProvider(metaclass=abc.ABCMeta):
         except Exception:
             raise ImportError("Can't import Anagrafica module")
 
-        return Anagrafica().get_fiscalcode_list()
+        return Anagrafica(inTest=self.inTest).get_fiscalcode_list()
 
     def get_column_number(self) -> int:
         """
